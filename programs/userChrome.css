@@ -1,0 +1,49 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+/* These are root variables that may affect tabs */
+:root {
+    /* This sets the minimum height for the tab */
+    /* --tab-min-height: 24px !important; */
+    /* Makes the tabs square */
+    --tab-border-radius: 0px !important;
+    /* This sets horizontal padding... you may want to use 1px instead */
+    /* --inline-tab-padding: 0px !important; */
+}
+/* This targets all tabs, all it does is to remove any padding and
+minimum height restrictions. Note that tabs will still be sized in
+their contents - like the close button icon and the tab title */
+.tabbrowser-tab {
+    min-height: 0px !important;
+    padding: 0px !important;
+    padding-top: 2px !important;
+}
+/* Tabs have a separate "background" element and this is where the
+pill-like shadow is set. THis just removes those. The margin stuff
+is just for adjusting the backgrounds so they overlap to avoid
+double edges */
+.tab-background {
+    border-radius: 0px 0px 0px 0px !important;
+    box-shadow: 0px 0px !important;
+    margin-block: 0px !important;
+    border-bottom: 0px !important;
+}
+/* A separate style for when a tab is selected either by itself
+(selected=true) or as part of a multiselection (ctrl+clicking tabs) */
+.tabbrowser-tab[selected="true"] .tab-background, .tabbrowser-tab[multiselected="true"] .tab-background {
+    outline: none !important;
+    border: 1px solid var(--lwt-tab-line-color, var(--lwt-tabs-border-color, currentColor)) !important;
+    border-bottom: 0px !important;
+}
+
+.tab-secondary-label {
+    visibility: hidden !important;
+    font-size: 0% !important;
+}
+
+#nav-bar {
+    box-shadow: none !important;
+}
+
+#TabsToolbar {
+    box-shadow: inset 0 -1px 0 0 var(--lwt-tab-line-color, var(--lwt-tabs-border-color, currentColor)) !important;
+}
+
