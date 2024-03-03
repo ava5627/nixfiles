@@ -70,7 +70,7 @@ with lib.my;
         };
         displayManager.sddm = {
             enable = true;
-            theme = "sugar-candy";
+            theme = "${pkgs.my.sugar-candy}";
         };
         windowManager.qtile = {
             enable = true;
@@ -157,8 +157,6 @@ with lib.my;
         # qt
         libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
         libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
-
-        my.sddm-theme # sddm theme
 
         # shell scripts
         (writeShellScriptBin "powermenu" (builtins.readFile ./bin/rofi/powermenu))
