@@ -19,7 +19,5 @@ pkgs.stdenv.mkDerivation {
         cp -r * $out
         cp -r ${image} $out/Background.jpg
         cat theme.conf | sed "s|Background=.*|background=\"Background.jpg\"|g" > $out/theme.conf
-        cat $out/theme.conf | sed "s|ScreenWidth=.*|ScreenWidth=1920|g" > $out/theme.conf
-        cat $out/theme.conf | sed "s|ScreenHeight=.*|ScreenHeight=1080|g" > $out/theme.conf
     '';
 }
