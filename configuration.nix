@@ -23,10 +23,6 @@
     };
 
     # Bootloader.
-    boot.loader.grub = {
-        enable = true;
-        device = "/dev/sda";
-    };
     boot.loader.efi.canTouchEfiVariables = true;
 
 
