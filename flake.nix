@@ -6,6 +6,8 @@
         home-manager.url = "github:nix-community/home-manager";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
         nix-gc-env.url = "github:Julow/nix-gc-env";
+
+        nixos-hardware.url = "github:NixOS/nixos-hardware";
     };
 
     outputs = inputs@{ self, nixpkgs, ... }:
@@ -23,15 +25,9 @@
     {
         lib = lib.my;
 
-        # overlay = final: prev: {
-        #     my = self.packages."${system}";
-        # };
-
         nixosConfigurations =
             mapHosts ./hosts { inherit system; };
 
-        # packages."${system}" =
-        #     mapModules ./packages (p: pkgs.callPackage p {});
     };
 }
 
