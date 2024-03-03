@@ -23,6 +23,15 @@
                     home-manager.nixosModules.home-manager
                 ];
             };
+            avamsi = nixpkgs.lib.nixosSystem {
+                inherit system;
+                specialArgs = inputs;
+                modules = [
+                    ./hosts/avamsi/hardware-configuration.nix
+                    ./configuration.nix
+                    home-manager.nixosModules.home-manager
+                ];
+            };
         };
     };
 }
