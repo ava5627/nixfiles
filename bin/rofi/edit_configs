@@ -36,7 +36,7 @@ done
 # remove last newline
 cfg=${cfg::-2}
 
-theme="$HOME/.config/rofi/styles/launcher/tokyothin"
+theme="themes/thin.rasi"
 choice=$(echo -e $cfg | rofi -theme "$theme" -dmenu -p 'Edit config:')
 
 if [ "$choice" ]; then

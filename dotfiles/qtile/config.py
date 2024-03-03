@@ -44,8 +44,12 @@ hostname = os.uname().nodename
 laptop = "MSI" in hostname
 
 # TODO: swap other themes to json
-theme = os.path.expanduser("~") + "/.config/qtile/themes/tokyonight.json"
-with open(theme) as theme_file:
+theme = "colors"
+theme_path = os.path.expanduser("~") + "/.config/qtile/themes" + f"/{theme}.json"
+if not os.path.exists(theme_path):
+    theme = "debug"
+    theme_path = os.path.expanduser("~") + "/.config/qtile/themes" + f"/{theme}.json"
+with open(theme_path) as theme_file:
     colors = json.load(theme_file)
 
 powerline_colors = [[colors[7], colors[8]], [colors[9], colors[10]]]

@@ -20,4 +20,4 @@ configuration {
 
 }
 // @theme "styles/launcher/style_8.rasi"
-@theme "styles/launcher/tokyo.rasi"
+@theme "default.rasi"

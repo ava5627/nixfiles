@@ -1,4 +1,4 @@
-{ pkgs}:
+{ pkgs }:
 let
     background-url = "https://i.imgur.com/vIhhHau.jpeg";
     image = pkgs.fetchurl {

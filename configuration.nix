@@ -163,6 +163,14 @@
         libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
     ];
     environment.shells = with pkgs; [ fish ];
+    environment.sessionVariables = {
+        # Xdg directories
+        XDG_CONFIG_HOME = "$HOME/.config";
+        XDG_CACHE_HOME = "$HOME/.cache";
+        XDG_DATA_HOME = "$HOME/.local/share";
+        XDG_STATE_HOME = "$HOME/.local/state";
+    };
+
     environment.variables = {
         # Set the default editor
         EDITOR = "nvim";
@@ -189,13 +197,7 @@
         VIRTUAL_ENV_DISABLE_PROMPT="1";
         DOCKER_CONFIG="$XDG_CONFIG_HOME/docker";
         NODE_REPL_HISTORY_FILE="$XDG_DATA_HOME/node_repl_history";
-    };
-    environment.sessionVariables = {
-        # Xdg directories
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_CACHE_HOME = "$HOME/.cache";
-        XDG_DATA_HOME = "$HOME/.local/share";
-        XDG_STATE_HOME = "$HOME/.local/state";
+        XCOMPOSECACHE="$XDG_CACHE_HOME/X11/compose";
     };
 
     environment.etc."logid.cfg".source = ./dotfiles/logid.cfg;

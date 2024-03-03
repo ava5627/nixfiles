@@ -1,10 +1,12 @@
+@import ../colors.rasi;
+
 * {
-    background-color: #1a1b26;
-    text-color: #c0caf5;
+    background-color: @background;
+    text-color: @foreground;
     spacing: 5;
     width: 15%;
     // height: 50%;
-    border-color: #7aa2f7;
+    border-color: @accent;
 }
 
 configuration {
@@ -22,7 +24,6 @@ inputbar {
 listview {
     cycle: true;
     padding: 1% 0.5% 1% 0.75%;
-    background-color: #15161e;
     cycle: false;
     dynamic: true;
     fixed-height: false;

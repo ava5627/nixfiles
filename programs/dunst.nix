@@ -24,7 +24,6 @@
 				horizontal_padding = 6;
 				text_icon_padding = 0;
 				frame_width = 3;
-				frame_color = "#8EC07C";
 				vertical_alignment = "center";
 				show_age_threshold = -1;
 				ellipsize = "end";
@@ -38,7 +37,7 @@
 				max_icon_size = 80;
 				sticky_history = "yes";
 				history_length = 15;
-				dmenu = "${pkgs.rofi}/bin/rofi -dmenu -theme $HOME/.config/rofi/styles/dunst/style.rasi";
+				dmenu = "${pkgs.rofi}/bin/rofi -dmenu -theme styles/dunst.rasi";
 				browser = "xdg-open";
 				always_run_script = true;
 				title = "Dunst";
@@ -52,21 +51,12 @@
 				mouse_right_click = "close_all";
             };
             urgency_low = {
-                background = "#16161e";
-                foreground = "#c0caf5";
-                frame_color = "#c0caf5";
                 timeout = "10s";
             };
             urgency_normal = {
-                background = "#1a1b26";
-                frame_color = "#3d59a1";
-                foreground = "#7aa2f7";
                 timeout = "10s";
             };
             urgency_critical = {
-                background = "#292e42";
-                foreground = "#db4b4b";
-                frame_color = "#db4b4b";
                 timeout = "10s";
             };
         };

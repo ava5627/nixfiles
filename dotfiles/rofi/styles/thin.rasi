@@ -1,0 +1,9 @@
+@import "../default.rasi";
+* {
+    border-color: #bb9af7;
+}
+
+listview {
+    lines: 10;
+    columns: 1;
+}
