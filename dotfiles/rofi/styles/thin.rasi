@@ -1,6 +1,7 @@
-@import "../default.rasi";
+@import "../default.rasi"
 * {
-    border-color: #bb9af7;
+    border-color: @accent-alt;
+    width: 20%;
 }
 
 listview {

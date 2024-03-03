@@ -36,8 +36,7 @@ done
 # remove last newline
 cfg=${cfg::-2}
 
-theme="themes/thin.rasi"
-choice=$(echo -e $cfg | rofi -theme "$theme" -dmenu -p 'Edit config:')
+choice=$(echo -e $cfg | rofi -theme "styles/thin.rasi" -dmenu -p 'Edit config:')
 
 if [ "$choice" ]; then
     cfg=$(printf '%s\n' "${config_list["${choice}"]}")

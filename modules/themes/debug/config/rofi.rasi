@@ -4,4 +4,6 @@
     background:       #15161e;
     background-light: #1a1b26;
     text-color:       #c0caf5;
+    on:               #5BB462;
+    off:              #DE635E;
 }

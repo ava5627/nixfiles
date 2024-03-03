@@ -161,6 +161,10 @@
         # qt
         libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
         libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
+
+        # shell scripts
+        (pkgs.writeShellScriptBin "powermenu" (builtins.readFile ./bin/rofi/powermenu))
+        (pkgs.writeShellScriptBin "edit_configs" (builtins.readFile ./bin/rofi/edit_configs))
     ];
     environment.shells = with pkgs; [ fish ];
     environment.sessionVariables = {

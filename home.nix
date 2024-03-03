@@ -6,8 +6,6 @@
         ./programs
     ];
     modules.theme.active = "Tokyo Night";
-    # Home Manager needs a bit of information about you and the paths it should
-    # manage.
     home.username = "ava";
     home.homeDirectory = "/home/ava";
     gtk = {

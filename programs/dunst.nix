@@ -24,6 +24,13 @@
 				horizontal_padding = 6;
 				text_icon_padding = 0;
 				frame_width = 3;
+                separator_color = "frame";
+                sort = "no";
+                idle_threshold = 0;
+                font = "Noto Sans 11";
+                line_height = 3;
+                markup = "full";
+                format = "<b>%s</b>\n%b";
 				vertical_alignment = "center";
 				show_age_threshold = -1;
 				ellipsize = "end";

@@ -6,9 +6,49 @@ let
 in
 {
     config = mkIf (cfg.active == "Tokyo Night") {
+        modules.theme = {
+            colors = {
+                foreground = "#c0caf5";
+                background = "#15161e";
+                black = "#1a1b26";
+                white = "#f8f8f2";
+                blue = "#3d59a1";
+                gray = "#2f343f";
+                cyan = "#7aa2f7";
+                purple = "#9d7cd8";
+                red = "#f7768e";
+                orange = "#ff9e64";
+                yellow = "#e0af68";
+                green = "#9ece6a";
+                pink = "#bb9af7";
+            };
+            qtile = {
+                background = cfg.colors.background;
+                foreground = cfg.colors.white;
+                active = cfg.colors.blue;
+                inactive = cfg.colors.gray;
+                current-group-background = cfg.colors.blue;
+                other-screen-group-background = "#3b4261";
+                active-group-foreground = cfg.colors.cyan;
+                powerline-colors = {
+                    odd = cfg.colors.black;
+                    even = cfg.colors.cyan;
+                };
+            };
+            rofi = {
+                accent = cfg.colors.cyan;
+                accent-alt = cfg.colors.pink;
+                background = cfg.colors.background;
+                background-light = cfg.colors.black;
+                text-color = cfg.colors.foreground;
+            };
+            # fish = {
+            #     selection = "#33467c";
+            #     comment = "#565f89";
+            #     cyan = "#7dcfff";
+            # };
+        };
         xdg.configFile = {
-            "rofi/colors.rasi".source = ./config/rofi.rasi;
-            "qtile/themes/colors.json".source = ./config/qtile.json;
             "fish/conf.d/colors.fish".source = ./config/fish.fish;
         };
         gtk = {
@@ -33,13 +73,13 @@ in
             };
             urgency_low = {
                 background = "#16161e";
-                foreground = "#c0caf5";
-                frame_color = "#c0caf5";
+                foreground = cfg.colors.foreground;
+                frame_color = cfg.colors.foreground;
             };
             urgency_normal = {
-                background = "#1a1b26";
-                frame_color = "#3d59a1";
-                foreground = "#7aa2f7";
+                background = cfg.colors.black;
+                foreground = cfg.colors.cyan;
+                frame_color = cfg.colors.blue;
             };
             urgency_critical = {
                 background = "#292e42";

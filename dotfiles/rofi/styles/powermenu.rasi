@@ -7,19 +7,16 @@
  *
  */
 
-
 configuration {
     show-icons:                     false;
-	font:                      		"Comfortaa 14";
     disable-history:                false;
 	sidebar-mode: 					false;
 }
 
-@import "tokyo.rasi"
+@import "../colors.rasi"
 
 * {
     background-color:               @background;
-    text-color:                     @foreground;
 }
 
 window {
@@ -53,7 +50,6 @@ inputbar {
 	children: 						[ textbox-prompt-colon, prompt ];
     spacing:                        0px;
     background-color:               @background;
-    text-color:                     @foreground;
     expand:                         false;
     border:                  		0px;
     border-radius:                  0px;
@@ -81,7 +77,6 @@ mainbox {
 
 element {
     background-color:               @background-light;
-    text-color:                     @foreground;
     orientation:                    vertical;
     border-radius:                  0px;
 }
@@ -98,14 +93,12 @@ element-text {
 
 element normal.urgent,
 element alternate.urgent {
-    background-color:               @off;
     text-color:                     @background;
     border-radius:                  0px;
 }
 
 element normal.active,
 element alternate.active {
-    background-color:               @on;
     text-color:                     @background;
 }
 
@@ -118,11 +111,9 @@ element selected {
 }
 
 element selected.urgent {
-    background-color:               @on;
     text-color:                     @background;
 }
 
 element selected.active {
-    background-color:               @off;
     color:                          @background;
 }
