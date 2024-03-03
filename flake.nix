@@ -10,29 +10,15 @@
 
     outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
+        inherit (lib.my) mapHosts;
         system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.${system};
+        lib = nixpkgs.lib.extend (self: super: { my = import ./lib { inherit inputs pkgs; lib = self; }; });
     in
     {
-        nixosConfigurations = {
-            nixos = nixpkgs.lib.nixosSystem {
-                inherit system;
-                specialArgs = inputs;
-                modules = [
-                    ./hosts/virtualbox/hardware-configuration.nix
-                    ./configuration.nix
-                    home-manager.nixosModules.home-manager
-                ];
-            };
-            avamsi = nixpkgs.lib.nixosSystem {
-                inherit system;
-                specialArgs = inputs;
-                modules = [
-                    ./hosts/avamsi/hardware-configuration.nix
-                    ./configuration.nix
-                    home-manager.nixosModules.home-manager
-                ];
-            };
-        };
+        lib = lib.my;
+        nixosConfigurations =
+            mapHosts ./hosts { inherit system; };
     };
 }
 

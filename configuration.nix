@@ -2,13 +2,14 @@
 # your system.    Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, nix-gc-env, ... }:
+{ pkgs, inputs, ... }:
 
 {
     imports =
         [
+            inputs.home-manager.nixosModules.home-manager
+            inputs.nix-gc-env.nixosModules.default
             ./systemd.nix
-            nix-gc-env.nixosModules.default
         ];
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
