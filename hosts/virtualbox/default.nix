@@ -1,6 +1,6 @@
 { config, ...}:
 {
-    impots = [
+    imports = [
         ./hardware-configuration.nix
     ];
 

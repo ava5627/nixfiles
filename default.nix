@@ -2,15 +2,13 @@
 # your system.    Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, inputs, ... }:
-
+{ pkgs, inputs, lib, ... }:
+with lib.my;
 {
-    imports =
-        [
-            inputs.home-manager.nixosModules.home-manager
-            inputs.nix-gc-env.nixosModules.default
-            ./systemd.nix
-        ];
+    imports = [
+        inputs.home-manager.nixosModules.home-manager
+        inputs.nix-gc-env.nixosModules.default
+    ] ++ (mapModulesRec' (toString ./modules) import);
 
     nix.settings.experimental-features = [ "nix-command" "flakes" ];
     nix.gc = {
@@ -22,6 +20,11 @@
         automatic = true;
         dates = [ "weekly" ];
     };
+    nixpkgs.overlays = [
+        (final: prev: {
+            my = mapModules ./packages (p: pkgs.callPackage p {});
+         })
+    ];
 
     # Bootloader.
     boot.loader.efi.canTouchEfiVariables = true;
@@ -67,7 +70,7 @@
         };
         displayManager.sddm = {
             enable = true;
-            theme = "${import ./packages/sddm-theme.nix {inherit pkgs; }}";
+            theme = "sugar-candy";
         };
         windowManager.qtile = {
             enable = true;
@@ -155,9 +158,11 @@
         libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
         libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
 
+        my.sddm-theme # sddm theme
+
         # shell scripts
-        (pkgs.writeShellScriptBin "powermenu" (builtins.readFile ./bin/rofi/powermenu))
-        (pkgs.writeShellScriptBin "edit_configs" (builtins.readFile ./bin/rofi/edit_configs))
+        (writeShellScriptBin "powermenu" (builtins.readFile ./bin/rofi/powermenu))
+        (writeShellScriptBin "edit_configs" (builtins.readFile ./bin/rofi/edit_configs))
     ];
     environment.shells = with pkgs; [ fish ];
     environment.sessionVariables = {
@@ -249,5 +254,5 @@
 
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users.ava = import ./home.nix;
+    home-manager.users.ava = import ./home;
 }

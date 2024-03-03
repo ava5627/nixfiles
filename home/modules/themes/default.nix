@@ -5,10 +5,6 @@ let
     cfg = config.modules.theme;
 in
 {
-    imports = [
-        ./tokyonight
-        ./debug
-    ];
     options.modules.theme = with types; {
         active = mkOption {
             type = nullOr str;

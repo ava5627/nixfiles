@@ -3,14 +3,14 @@
 
 let
     inherit (lib) makeExtensible attrValues foldr;
-    inherit (modules) importModules;
+    inherit (modules) mapModules;
 
     modules = import ./modules.nix {
         inherit lib;
     };
 
     mylib = makeExtensible (self:
-        importModules ./.
+        mapModules ./.
             (file: import file { inherit self lib pkgs inputs; }));
 in
 mylib.extend

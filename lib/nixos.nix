@@ -1,4 +1,4 @@
-{ inputs, lib, pkgs, ... }:
+{ inputs, lib, ... }:
 with lib;
 with lib.my;
 {
@@ -8,7 +8,6 @@ with lib.my;
             specialArgs = { inherit lib inputs system; };
             modules = [
                 {
-                    nixpkgs.pkgs = pkgs;
                     networking.hostName = mkDefault (removeSuffix ".nix" (basename path));
                 }
                 (filterAttrs (n: v: !elem n [ "system" ]) attrs)
@@ -16,5 +15,5 @@ with lib.my;
                 (import path)
             ];
         };
-    mapHosts = dir: attrs: importModules dir (hostPath: mkHost hostPath attrs);
+    mapHosts = dir: attrs: mapModules dir (hostPath: mkHost hostPath attrs);
 }

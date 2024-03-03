@@ -1,14 +1,14 @@
-{ pkgs }:
+{ stdenv, fetchFromGitHub, fetchurl }:
 let
     background-url = "https://i.imgur.com/vIhhHau.jpeg";
-    image = pkgs.fetchurl {
+    image = fetchurl {
         url = background-url;
         sha256 = "wPxpbdO/LWECYJWUJ+GM+HXTxyj2uNEaZ9piXuoAJJk=";
     };
 in
-pkgs.stdenv.mkDerivation {
+stdenv.mkDerivation {
     name = "sugar-candy";
-    src = pkgs.fetchFromGitHub {
+    src = fetchFromGitHub {
         owner = "Kangie";
         repo = "sddm-sugar-candy";
         rev = "v1.6";
@@ -20,4 +20,8 @@ pkgs.stdenv.mkDerivation {
         cp -r ${image} $out/Background.jpg
         cat theme.conf | sed "s|Background=.*|background=\"Background.jpg\"|g" > $out/theme.conf
     '';
+    meta = {
+        description = "Sugar Candy theme for SDDM";
+        platforms = [ "x86_64-linux" ];
+    };
 }

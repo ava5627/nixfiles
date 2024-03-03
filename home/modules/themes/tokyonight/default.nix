@@ -57,7 +57,7 @@ in
                 name = "Tokyonight-Dark-BL";
             };
             iconTheme = {
-                package = pkgs.callPackage ../../../packages/tokyo-icons.nix {};
+                package = pkgs.my.tokyo-night-icons;
                 name = "Tokyonight-Ava";
             };
         };
