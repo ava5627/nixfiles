@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 with lib;
-let cfg = config.modules.harware.nvidia;
+let cfg = config.modules.hardware.nvidia;
 in {
-    options.modules.harware.nvidia = {
+    options.modules.hardware.nvidia = {
         enable = mkEnableOption "nvidia";
     };
 
