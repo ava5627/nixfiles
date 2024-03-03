@@ -8,7 +8,7 @@
         nix-gc-env.url = "github:Julow/nix-gc-env";
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, nur, ... }:
+    outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
         system = "x86_64-linux";
     in

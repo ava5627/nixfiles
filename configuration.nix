@@ -76,10 +76,6 @@
             ];
         };
     };
-    virtualisation.virtualbox.guest = {
-        enable = true;
-        x11 = true;
-    };
     virtualisation.docker.enable = true;
 
     services.picom.enable = true;
