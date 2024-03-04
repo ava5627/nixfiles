@@ -1,11 +1,7 @@
-{ config, pkgs, ...}:
+{ config, pkgs, lib, ...}:
+with lib.my;
 {
-    imports = [
-        ./kitty.nix
-        ./firefox.nix
-        ./zathura.nix
-        ./dunst.nix
-    ];
+    imports = (mapModulesRec' (toString ./.) import);
     programs = {
         btop = {
             enable = true;
@@ -25,8 +21,8 @@
         git = {
             enable = true;
             difftastic.enable = true;
-            userName = if pkgs.system == "x86_64-linux" then "ava5627" else "ava-harris";
-            userEmail = if pkgs.system == "x86_64-linux" then "avasharris1@gmail.com" else "ava-harris@bayer.com";
+            userName = "ava5627";
+            userEmail = "avasharris1@gmail.com";
         };
         gh.enable = true;
         neovim = {

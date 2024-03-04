@@ -19,7 +19,7 @@ in
                 odd = cfg.colors.blue;
             };
         };
-        xdg.configFile = {
+        home.xdg.configFile = {
             "rofi/colors.rasi".source = ./config/rofi.rasi;
             # "qtile/themes/colors.json".source = ./config/qtile.json;
             "fish/conf.d/colors.fish".source = ./config/fish.fish;

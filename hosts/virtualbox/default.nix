@@ -3,6 +3,8 @@
     imports = [
         ./hardware-configuration.nix
     ];
+    modules.theme.active = "Tokyo Night";
+    modules.desktop.qtile.enable = true;
 
     networking.hostName = "virtualbox";
     boot.loader.grub = {

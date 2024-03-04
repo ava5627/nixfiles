@@ -48,43 +48,45 @@ in
             #     cyan = "#7dcfff";
             # };
         };
-        xdg.configFile = {
-            "fish/conf.d/colors.fish".source = ./config/fish.fish;
-        };
-        gtk = {
-            theme = {
-                package = pkgs.tokyonight-gtk-theme-variants.themes.dark-bl;
-                name = "Tokyonight-Dark-BL";
+        home = {
+            xdg.configFile = {
+                "fish/conf.d/colors.fish".source = ./config/fish.fish;
             };
-            iconTheme = {
-                package = pkgs.my.tokyo-night-icons;
-                name = "Tokyonight-Ava";
+            gtk = {
+                theme = {
+                    package = pkgs.tokyonight-gtk-theme-variants.themes.dark-bl;
+                    name = "Tokyonight-Dark-BL";
+                };
+                iconTheme = {
+                    package = pkgs.my.tokyo-night-icons;
+                    name = "Tokyonight-Ava";
+                };
             };
-        };
-        programs.kitty = {
-            theme = "Tokyo Night";
-            settings = {
-                color16 = "#1a1b26";
+            programs.kitty = {
+                theme = "Tokyo Night";
+                settings = {
+                    color16 = "#1a1b26";
+                };
             };
-        };
-        services.dunst.settings = {
-            global = {
-				frame_color = "#8EC07C";
-            };
-            urgency_low = {
-                background = "#16161e";
-                foreground = cfg.colors.foreground;
-                frame_color = cfg.colors.foreground;
-            };
-            urgency_normal = {
-                background = cfg.colors.black;
-                foreground = cfg.colors.cyan;
-                frame_color = cfg.colors.blue;
-            };
-            urgency_critical = {
-                background = "#292e42";
-                foreground = "#db4b4b";
-                frame_color = "#db4b4b";
+            services.dunst.settings = {
+                global = {
+                    frame_color = "#8EC07C";
+                };
+                urgency_low = {
+                    background = "#16161e";
+                    foreground = cfg.colors.foreground;
+                    frame_color = cfg.colors.foreground;
+                };
+                urgency_normal = {
+                    background = cfg.colors.black;
+                    foreground = cfg.colors.cyan;
+                    frame_color = cfg.colors.blue;
+                };
+                urgency_critical = {
+                    background = "#292e42";
+                    foreground = "#db4b4b";
+                    frame_color = "#db4b4b";
+                };
             };
         };
     };

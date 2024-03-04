@@ -2,7 +2,7 @@
 # your system.    Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, inputs, lib, ... }:
+{ config, pkgs, inputs, lib, ... }:
 with lib.my;
 {
     imports = [
@@ -63,35 +63,10 @@ with lib.my;
 
     # Configure X11
     services.xserver = {
-        enable = true;
-        xkb = {
-            layout = "us";
-            variant = "";
-        };
-        displayManager.sddm = {
-            enable = true;
-            theme = "${pkgs.my.sugar-candy}";
-        };
-        windowManager.qtile = {
-            enable = true;
-            extraPackages = p: with p; [
-                xlib
-                pillow
-            ];
-        };
     };
     virtualisation.docker.enable = true;
 
-    services.picom.enable = true;
 
-    # Define a user account. Don't forget to set a password with ‘passwd’.
-    users.users.ava = {
-        shell = pkgs.fish;
-        isNormalUser = true;
-        description = "Ava";
-        extraGroups = [ "networkmanager" "wheel" "docker" ];
-        packages = [ ];
-    };
 
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
@@ -111,8 +86,6 @@ with lib.my;
         jq # json processor
         tldr # explain commands
         rofi # application launcher and menu
-        xcolor # color picker
-        xdotool # keyboard and mouse automation
         xdg-ninja # search for .files in home directory that can be moved
 
         # applications
@@ -121,9 +94,6 @@ with lib.my;
         logiops # logitech device manager
         morgen # calendar
         discord # chat
-        openrgb # RGB controller
-        blueberry # graphical bluetooth manager
-        qalculate-gtk # calculator
         pcmanfm # file manager
         pavucontrol # PulseAudio Volume Control
         gnome.file-roller # archive manager
@@ -136,7 +106,6 @@ with lib.my;
         # utilities
         unzip # zip file extractor
         wget # web requests
-        xclip # clipboard manager
         curl # web requests
         arandr # screen layout editor
         dua # disk usage analyzer
@@ -154,53 +123,10 @@ with lib.my;
         jdk17 # java 17
         jdk8 # java 8
 
-        # qt
-        libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
-        libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
-
-        # shell scripts
-        (writeShellScriptBin "powermenu" (builtins.readFile ./bin/rofi/powermenu))
-        (writeShellScriptBin "edit_configs" (builtins.readFile ./bin/rofi/edit_configs))
     ];
     environment.shells = with pkgs; [ fish ];
-    environment.sessionVariables = {
-        # Xdg directories
-        XDG_CONFIG_HOME = "$HOME/.config";
-        XDG_CACHE_HOME = "$HOME/.cache";
-        XDG_DATA_HOME = "$HOME/.local/share";
-        XDG_STATE_HOME = "$HOME/.local/state";
-    };
 
-    environment.variables = {
-        # Set the default editor
-        EDITOR = "nvim";
-
-        NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc";
-        CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv";
-        HISTFILE="$XDG_STATE_HOME/bash/history";
-        GNUPGHOME="$XDG_DATA_HOME/gnupg";
-        SCREENRC="$XDG_CONFIG_HOME/screen/screenrc";
-        GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
-        NUGET_PACKAGES="$XDG_CACHE_HOME/NuGetPackages";
-        KERAS_HOME="$XDG_STATE_HOME/keras";
-        WINEPREFIX="$XDG_DATA_HOME/wine";
-        XINITRC="$XDG_CONFIG_HOME/X11/xinitrc";
-        GOPATH="$XDG_CONFIG_HOME/go";
-        ANDROID_HOME="$XDG_DATA_HOME/android";
-        GRADLE_USER_HOME="$XDG_DATA_HOME/gradle";
-        MYSQL_HISTFILE="$XDG_DATA_HOME/mysql_history";
-        ZDOTDIR="$HOME/.config/zsh";
-        PARALLEL_HOME="$XDG_DATA_HOME/parallel";
-        RUSTUP_HOME="$XDG_DATA_HOME/rustup";
-        CARGO_HOME="$XDG_DATA_HOME/cargo";
-        WGETRC="$XDG_CONFIG_HOME/wgetrc";
-        VIRTUAL_ENV_DISABLE_PROMPT="1";
-        DOCKER_CONFIG="$XDG_CONFIG_HOME/docker";
-        NODE_REPL_HISTORY_FILE="$XDG_DATA_HOME/node_repl_history";
-        XCOMPOSECACHE="$XDG_CACHE_HOME/X11/compose";
-    };
-
-    environment.etc."logid.cfg".source = ./dotfiles/logid.cfg;
+    environment.etc."logid.cfg".source = "${config.dotfiles.config}/logid.cfg";
 
     fonts.packages = with pkgs; [
         noto-fonts
@@ -250,7 +176,4 @@ with lib.my;
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "23.11"; # Did you read the comment?
 
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-    home-manager.users.ava = import ./home;
 }

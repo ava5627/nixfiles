@@ -64,8 +64,8 @@ in
         };
     };
 
-    config = mkIf (config.modules.theme.active != null) {
-        xdg.configFile = {
+    config = mkIf (cfg.active != null) {
+        home.xdg.configFile = {
             "qtile/colors.json".text = builtins.toJSON cfg.qtile;
             "rofi/colors.rasi".text = ''
                 * {

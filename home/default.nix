@@ -1,14 +1,9 @@
-{ config, pkgs, lib, ... }:
-
-with lib.my;
+{ config, pkgs, dotfiles, ... }:
 {
     imports = [
         ./programs
-    ] ++ (mapModulesRec' (toString ./modules) import);
-    modules.theme.active = "Tokyo Night";
+    ];
 
-    home.username = "ava";
-    home.homeDirectory = "/home/ava";
     gtk = {
         enable = true;
         gtk2 = {
@@ -37,28 +32,24 @@ with lib.my;
         };
     };
     xdg.configFile = {
-        "neofetch/".source = ../dotfiles/neofetch;
-        "ranger".source = ../dotfiles/ranger;
-        "ideavim/ideavimrc".source = ../dotfiles/ideavimrc;
-        "ipython/profile_default/ipython_config.py".source = ../dotfiles/ipython_config.py;
+        "neofetch/".source = "${dotfiles.config}/neofetch";
+        "ranger".source = "${dotfiles.config}/ranger";
+        "ideavim/ideavimrc".source = "${dotfiles.config}/ideavimrc";
+        "ipython/profile_default/ipython_config.py".source = "${dotfiles.config}/ipython_config.py";
         "copyq/" = {
-            source = ../dotfiles/copyq;
+            source = "${dotfiles.config}/copyq";
             recursive = true;
         };
         "fish/" = {
-            source = ../dotfiles/fish;
+            source = "${dotfiles.config}/fish";
             recursive = true;
         };
         "nvim/" = {
-            source = ../dotfiles/nvim;
-            recursive = true;
-        };
-        "qtile/" = {
-            source = ../dotfiles/qtile;
+            source = "${dotfiles.config}/nvim";
             recursive = true;
         };
         "rofi" = {
-            source = ../dotfiles/rofi;
+            source = "${dotfiles.config}/rofi";
             recursive = true;
         };
     };

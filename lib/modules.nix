@@ -17,20 +17,6 @@ rec {
                 else nameValuePair "" null)
             (readDir dir);
 
-    mapModulesRec = dir: fn:
-        mapFilterAttrs
-            (n: v: v != null)
-            (name: value:
-                let path = "${toString dir}/${name}"; in
-                if value == "directory" && pathExists "${path}/default.nix"
-                then nameValuePair name (fn path)
-                else if value == "directory"
-                then nameValuePair name (mapModulesRec path fn)
-                else if value == "regular" && name != "default.nix"
-                then nameValuePair (removeSuffix ".nix" name) (fn path)
-                else nameValuePair "" null)
-            (readDir dir);
-
     mapModulesRec' = dir: fn:
         let
             dirs = mapAttrsToList
