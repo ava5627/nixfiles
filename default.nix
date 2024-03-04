@@ -85,7 +85,6 @@ with lib.my;
         stow # symlink manager
         jq # json processor
         tldr # explain commands
-        rofi # application launcher and menu
         xdg-ninja # search for .files in home directory that can be moved
 
         # applications
@@ -145,7 +144,6 @@ with lib.my;
         fish.enable = true;
 
         dconf.enable = true;
-        steam.enable = true;
 
         nix-ld.enable = true;
         nix-ld.libraries = [

@@ -14,8 +14,8 @@ with lib.my;
             homeModules = mkOpt path "${config.dotfiles.dir}/home/modules";
             themes = mkOpt path "${config.dotfiles.homeModules}/themes";
         };
-
-        home = mkOpt attrs {};
+        # dont use attrs here https://github.com/NixOS/nixpkgs/issues/85508
+        home = mkOpt (attrsOf anything) {};
     };
 
     config = {
@@ -44,9 +44,8 @@ with lib.my;
             dotfiles = config.dotfiles;
         };
         home-manager.users.${config.user.name} = (mkMerge [
-            config.home
             ../home
+            config.home
         ]);
-
     };
 }

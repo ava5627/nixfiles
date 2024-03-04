@@ -65,18 +65,17 @@ in
     };
 
     config = mkIf (cfg.active != null) {
-        home.xdg.configFile = {
-            "qtile/colors.json".text = builtins.toJSON cfg.qtile;
-            "rofi/colors.rasi".text = ''
-                * {
-                    background: ${cfg.rofi.background};
-                    background-light: ${cfg.rofi.background-light};
-                    text-color: ${cfg.rofi.text-color};
-                    accent: ${cfg.rofi.accent};
-                    accent-alt: ${cfg.rofi.accent-alt};
-                }
-            '';
-        };
+        home.xdg.configFile."qtile/colors.json".text = builtins.toJSON cfg.qtile;
+        home.xdg.configFile."rofi/colors.rasi".text = ''
+            /* ${cfg.active} */
+            * {
+                background: ${cfg.rofi.background};
+                background-light: ${cfg.rofi.background-light};
+                text-color: ${cfg.rofi.text-color};
+                accent: ${cfg.rofi.accent};
+                accent-alt: ${cfg.rofi.accent-alt};
+            }
+        '';
     };
 }
 

@@ -17,7 +17,6 @@ with lib.my;
             enable = true;
             extraPackages = with pkgs.bat-extras; [ batman ];
         };
-        feh.enable = true;
         git = {
             enable = true;
             difftastic.enable = true;
@@ -39,7 +38,6 @@ with lib.my;
         obs-studio.enable = true;
     };
     services = {
-        copyq.enable = true;
         flameshot = {
             enable = true;
             settings = {

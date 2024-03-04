@@ -15,6 +15,7 @@ with lib;
         };
 
         environment.systemPackages = with pkgs; [
+            rofi # application launcher and menu
             xdotool # keyboard and mouse automation
             xclip # clipboard manager
             blueberry # graphical bluetooth manager
@@ -26,5 +27,20 @@ with lib;
             (writeShellScriptBin "powermenu"    (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
             (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
         ];
+
+        home = {
+            services.copyq.enable = true;
+            programs.feh.enable = true;
+            xdg.configFile = {
+                "rofi" = {
+                    source = "${dotfiles.config}/rofi";
+                    recursive = true;
+                };
+                "copyq/" = {
+                    source = "${dotfiles.config}/copyq";
+                    recursive = true;
+                };
+            };
+        };
     };
 }
