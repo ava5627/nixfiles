@@ -1,6 +1,6 @@
 { pkgs, ...}:
 {
-    systemd.user.services =
+    systemd.services =
     {
         polkit-gnome-authentication-agent-1 = {
             description = "PolicyKit Authentication Agent";
