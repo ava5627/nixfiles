@@ -124,6 +124,7 @@ with lib.my;
 
     ];
     environment.shells = with pkgs; [ fish ];
+    environment.variables = { EDITOR = "nvim"; };
 
     environment.etc."logid.cfg".source = "${config.dotfiles.config}/logid.cfg";
 
