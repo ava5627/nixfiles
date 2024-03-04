@@ -8,7 +8,7 @@ with lib.my;
             specialArgs = { inherit lib inputs system; };
             modules = [
                 {
-                    networking.hostName = mkDefault (removeSuffix ".nix" (basename path));
+                    networking.hostName = mkDefault (removeSuffix ".nix" (baseNameOf path));
                 }
                 (filterAttrs (n: v: !elem n [ "system" ]) attrs)
                 ../.
