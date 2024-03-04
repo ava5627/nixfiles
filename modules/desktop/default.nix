@@ -33,11 +33,11 @@ with lib;
             programs.feh.enable = true;
             xdg.configFile = {
                 "rofi" = {
-                    source = "${dotfiles.config}/rofi";
+                    source = "${config.dotfiles.config}/rofi";
                     recursive = true;
                 };
                 "copyq/" = {
-                    source = "${dotfiles.config}/copyq";
+                    source = "${config.dotfiles.config}/copyq";
                     recursive = true;
                 };
             };

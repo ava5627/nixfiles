@@ -2,7 +2,6 @@
 {
     modules = {
         desktop = {
-            enable = true;
             qtile.enable = true;
             gaming.enable = true;
         };
