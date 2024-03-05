@@ -31,8 +31,8 @@ alias cla='clear; exec fish'
 
 
 # nix
-alias nrb='sudo nixos-rebuild switch --flake .'
-abbr -a nrbh 'sudo nixos-rebuild switch --flake .#'
+alias nr='sudo nixos-rebuild switch --flake .'
+abbr -a nrh 'sudo nixos-rebuild switch --flake .#'
 
 # ls
 alias ls='lb'
