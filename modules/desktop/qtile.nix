@@ -7,7 +7,7 @@ let
 in
 {
     options.modules.desktop.qtile = {
-        enable = mkEnableOption "qtile";
+        enable = mkBool true "qtile";
     };
 
     config = mkIf cfg.enable {

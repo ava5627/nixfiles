@@ -2,8 +2,8 @@
 {
     imports = [
         ./hardware-configuration.nix
-        ../default.nix
     ];
+    modules.theme.active = "Tokyo Night";
 
     boot.loader.grub = {
         enable = true;

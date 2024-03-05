@@ -22,9 +22,6 @@ function fish_user_key_bindings
     bind \cq kill-whole-line
 end
 
-# programs
-zoxide init fish --cmd cd | source
-
 # Quick aliases
 
 # clear
@@ -32,19 +29,10 @@ alias cls='clear'
 alias c='clear'
 alias cla='clear; exec fish'
 
-# pacman
-alias pacs='sudo pacman -Syu'
-alias pacq='pacman -Q'
-alias pacr='sudo pacman -Rns'
-alias pacss='pacman -Ss'
-alias pacsi='pacman -Si'
-alias pacqs='pacman -Qs'
-alias pacqi='pacman -Qi'
-alias pacar='sudo pacman -Rns (pacman -Qtdq)'
 
-# yay
-alias ys='yay -Sua'
-alias yss='yay -Ss'
+# nix
+alias nrb='sudo nixos-rebuild switch --flake .'
+abbr -a nrbh 'sudo nixos-rebuild switch --flake .#'
 
 # ls
 alias ls='lb'
@@ -64,7 +52,6 @@ alias qlog='clear && tail -f ~/.local/share/qtile/qtile.log'
 
 alias ranger='ranger --choosedir=/tmp/ranger_dir; set LASTDIR (cat /tmp/ranger_dir); cd $LASTDIR; rm /tmp/ranger_dir'
 
-
 # python
 alias vc='python -m venv .venv'
 alias va='source ./.venv/bin/activate.fish'
@@ -78,16 +65,18 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias cb='cd -'
 
-# Dotfiles
-alias gconfig='git --git-dir=$HOME/dotfiles/.git --work-tree=$HOME/dotfiles'
-
 alias man="batman"
 
-abbr -a gs 'git status'
-abbr -a gsb 'git status -sb'
+alias gs 'git status --short'
+alias gss 'git status'
 abbr -a ga 'git add'
+alias gad 'git add .'
 abbr -a gc 'git commit'
+abbr -a gca 'git commit --amend'
 abbr -a gcm 'git commit -m'
+abbr -a gcam 'git commit -am'
+alias gp 'git push'
+alias gpl 'git pull'
 
 # Startup
 neofetch

@@ -65,7 +65,7 @@ in
                 };
             };
             xdg.configFile = {
-                "fish/conf.d/colors.fish".source = ./config/fish.fish;
+                "fish/conf.d/colors.fish".source = mkIf config.modules.shell.fish.enable ./config/fish.fish;
                 "Kvantum/KvArcTokyoNight".source = "${pkgs.my.tokyo-night-theme}/share/Kvantum/KvArcTokyoNight";
                 "Kvantum/kvantum.kvconfig".text = "[General]\ntheme=KvArcTokyoNight\n";
             };

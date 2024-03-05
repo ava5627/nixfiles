@@ -1,5 +1,6 @@
 { config, lib, pkgs, ... }:
 with lib;
+with lib.my;
 {
     config = mkIf config.services.xserver.enable {
         services.xserver = {
@@ -18,7 +19,6 @@ with lib;
             rofi # application launcher and menu
             xdotool # keyboard and mouse automation
             xclip # clipboard manager
-            blueberry # graphical bluetooth manager
             qalculate-gtk # calculator
 
             libsForQt5.qt5.qtquickcontrols2 # required for sddm theme

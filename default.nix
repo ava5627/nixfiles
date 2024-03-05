@@ -124,7 +124,6 @@ with lib.my;
         jdk8 # java 8
 
     ];
-    environment.shells = with pkgs; [ fish ];
     environment.variables = {
         EDITOR = "nvim";
         MANPAGER = "sh -c 'col -bx | bat -l man -p'";
@@ -142,12 +141,10 @@ with lib.my;
         source-code-pro
     ];
 
-    users.defaultUserShell = pkgs.fish;
 
     sound.enable = true;
     programs = {
         nm-applet.enable = true;
-        fish.enable = true;
 
         dconf.enable = true;
 
