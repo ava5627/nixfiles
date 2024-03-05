@@ -93,6 +93,7 @@ with lib.my;
         logiops # logitech device manager
         morgen # calendar
         discord # chat
+        betterdiscordctl # betterdiscord manager
         pcmanfm # file manager
         pavucontrol # PulseAudio Volume Control
         gnome.file-roller # archive manager
@@ -124,7 +125,11 @@ with lib.my;
 
     ];
     environment.shells = with pkgs; [ fish ];
-    environment.variables = { EDITOR = "nvim"; };
+    environment.variables = {
+        EDITOR = "nvim";
+        MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+        MANROFFOPT = "-c";
+    };
 
     environment.etc."logid.cfg".source = "${config.dotfiles.config}/logid.cfg";
 

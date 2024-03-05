@@ -48,19 +48,26 @@ in
             #     cyan = "#7dcfff";
             # };
         };
+        qt = {
+            enable = true;
+            style = "kvantum";
+            platformTheme = "qt5ct";
+        };
         home = {
-            xdg.configFile = {
-                "fish/conf.d/colors.fish".source = ./config/fish.fish;
-            };
             gtk = {
                 theme = {
                     package = pkgs.tokyonight-gtk-theme-variants.themes.dark-bl;
                     name = "Tokyonight-Dark-BL";
                 };
                 iconTheme = {
-                    package = pkgs.my.tokyo-night-icons;
+                    package = pkgs.my.tokyo-night-theme;
                     name = "Tokyonight-Ava";
                 };
+            };
+            xdg.configFile = {
+                "fish/conf.d/colors.fish".source = ./config/fish.fish;
+                "Kvantum/KvArcTokyoNight".source = "${pkgs.my.tokyo-night-theme}/share/Kvantum/KvArcTokyoNight";
+                "Kvantum/kvantum.kvconfig".text = "[General]\ntheme=KvArcTokyoNight\n";
             };
             programs.kitty = {
                 theme = "Tokyo Night";
