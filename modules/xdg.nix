@@ -10,6 +10,10 @@
         };
 
         variables = {
+            EDITOR = "nvim";
+            MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+            MANROFFOPT = "-c";
+
             NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc";
             CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv";
             HISTFILE="$XDG_STATE_HOME/bash/history";

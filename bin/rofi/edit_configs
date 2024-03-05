@@ -1,18 +1,21 @@
 #!/usr/bin/env bash
 
+DOTDIR=$HOME/nixfiles
+CONFIGDIR=$DOTDIR/config
+
 declare -A config_list
-config_list[qtile]=~/.config/qtile
-config_list[kitty]=~/.config/kitty
-config_list[fish]=~/.config/fish
-config_list[nvim]=~/.config/nvim
-config_list[logid]=/etc/logid.cfg
-config_list[rofi]=~/.config/rofi
-config_list[ranger]=~/.config/ranger
-config_list[userChrome]=~/.config/userChrome.css
-config_list[zathura]=~/.config/zathura
-config_list[ideavim]=~/.config/ideavim/ideavimrc
-config_list[dunst]=~/.config/dunst/dunstrc
-config_list[nixos]=~/nixfiles
+config_list[qtile]=$CONFIGDIR/qtile
+config_list[kitty]=$CONFIGDIR/kitty
+config_list[fish]=$CONFIGDIR/fish
+config_list[nvim]=$CONFIGDIR/nvim
+config_list[logid]=$CONFIGDIR/logid
+config_list[rofi]=$CONFIGDIR/rofi
+config_list[ranger]=$CONFIGDIR/ranger
+config_list[userChrome]=$CONFIGDIR/userChrome.css
+config_list[zathura]=$CONFIGDIR/zathura
+config_list[ideavim]=$CONFIGDIR/ideavim/ideavimrc
+config_list[dunst]=$CONFIGDIR/dunst/dunstrc
+config_list[nixos]=$DOTDIR
 
 declare -A icons_list
 icons_list[qtile]=desktop
@@ -24,9 +27,9 @@ icons_list[rofi]=view-list-details
 icons_list[ranger]=folder
 icons_list[userChrome]=firefox
 icons_list[zathura]=zathura
-icons_list[ideavim]=~/.local/share/JetBrains/Toolbox/toolbox.svg
+icons_list[ideavim]=jetbrains-toolbox
 icons_list[dunst]=notification
-icons_list[nixos]=~/.config/rofi/icons/nixos-icon.svg
+icons_list[nixos]=nixos
 
 cfg=""
 for c in ${!config_list[@]}

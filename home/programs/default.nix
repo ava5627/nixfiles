@@ -17,11 +17,18 @@ with lib.my;
             enable = true;
             extraPackages = with pkgs.bat-extras; [ batman ];
         };
+        fzf.enable = true;
+        carapace.enable = true;
+        lazygit.enable = true;
+        navi.enable = true;
+        mise.enable = true;
+        # direnv.enable = true;
         git = {
             enable = true;
-            difftastic.enable = true;
             userName = "ava5627";
             userEmail = "avasharris1@gmail.com";
+            # difftastic.enable = true;
+            delta.enable = true;
         };
         gh.enable = true;
         neovim = {

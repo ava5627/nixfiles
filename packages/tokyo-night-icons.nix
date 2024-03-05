@@ -10,8 +10,8 @@ stdenv.mkDerivation {
     src = fetchFromGitHub {
         owner = "ava5627";
         repo = "TokyoNightIcons";
-        rev = "793b6939e07dc254a504c469205710f12231e05c";
-        sha256 = "91UAM+D4ZvW2iTwz+hGhG+nv1yzCOmyuSGRIqskIaFk=";
+        rev = "2ce608528f79501a79fcfcf97a397ada733143f8";
+        sha256 = "N77rSuEKe5tbMo28WJsnB98GUFS/VncAOiX3vPfCfW4=";
     };
 
     propagatedUserEnvPkgs = [
