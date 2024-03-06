@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 with lib;
 with lib.my;
 let cfg = config.modules.hardware.sound;
@@ -15,5 +15,9 @@ in
             pulse.enable = true;
             alsa.enable = true;
         };
+        environment.systemPackages = with pkgs; [
+            pavucontrol # PulseAudio Volume Control
+            qpwgraph # pipewire graph interface
+        ];
     };
 }

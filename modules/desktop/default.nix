@@ -20,6 +20,7 @@ with lib.my;
             xdotool # keyboard and mouse automation
             xclip # clipboard manager
             qalculate-gtk # calculator
+            arandr # screen layout editor
 
             libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
             libsForQt5.qt5.qtgraphicaleffects # required for sddm theme

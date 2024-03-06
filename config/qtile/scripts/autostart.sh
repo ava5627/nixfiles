@@ -9,7 +9,7 @@ feh --no-fehbg --bg-scale $HOME/Pictures/'Saved Pictures'/Wallpapers/camp_fire.j
 # discord &
 # steam -silent &
 # copyq &
-# kdeconnect-indicator &
+# systemctl restart --user kdeconnect-indicator &
 # morgen --hidden &
-# insync start &
+# insync start --no-daemon &
 # firefox &

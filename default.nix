@@ -58,15 +58,9 @@ with lib.my;
     networking.firewall.enable = false;
 
     services.avahi.enable = true;
-    hardware.bluetooth.enable = true;
     services.printing.enable = true;
 
-    # Configure X11
-    services.xserver = {
-    };
     virtualisation.docker.enable = true;
-
-
 
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
@@ -95,10 +89,8 @@ with lib.my;
         discord # chat
         betterdiscordctl # betterdiscord manager
         pcmanfm # file manager
-        pavucontrol # PulseAudio Volume Control
         gnome.file-roller # archive manager
         libsForQt5.okular # document viewer
-        qpwgraph # pipewire graph interface
         geeqie # image viewer
         gimp # image editor
         vlc # media player
@@ -107,13 +99,11 @@ with lib.my;
         unzip # zip file extractor
         wget # web requests
         curl # web requests
-        arandr # screen layout editor
         dua # disk usage analyzer
         ffmpeg # multimedia framework
         file # file type identification
         glow # terminal markdown viewer
         wine # windows compatibility layer
-
 
         # development
         rustup
