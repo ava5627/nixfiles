@@ -31,7 +31,7 @@ with lib.my;
         ];
 
         home = {
-            services.copyq.enable = true;
+            # services.copyq.enable = true;
             programs.feh.enable = true;
             xdg.configFile = {
                 "rofi" = {

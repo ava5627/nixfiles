@@ -23,4 +23,16 @@
             };
         };
     };
+    systemd.user.services = {
+        copyq = {
+            description = "CopyQ clipboard management daemon";
+            partOf = [ "graphical-session.target" ];
+            after = [ "graphical-session.target" ];
+            serviceConfig = {
+                ExecStart = "${pkgs.copyq}/bin/copyq";
+                Restart = "on-failure";
+            };
+            wantedBy = [ "graphical-session.target" ];
+        };
+    };
 }
