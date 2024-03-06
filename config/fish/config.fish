@@ -22,6 +22,10 @@ function fish_user_key_bindings
     bind \cq kill-whole-line
 end
 
+set __fish_git_prompt_showupstream verbose
+set __fish_git_prompt_showcolorhints 1
+set __fish_git_prompt_use_informative_chars 1
+set __fish_git_prompt_color_upstream red
 # Quick aliases
 
 # clear

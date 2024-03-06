@@ -10,7 +10,7 @@
         nixos-hardware.url = "github:NixOS/nixos-hardware";
     };
 
-    outputs = inputs@{ self, nixpkgs, ... }:
+    outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
         inherit (lib.my) mapHosts;
         system = "x86_64-linux";
