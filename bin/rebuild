@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+sudo -v # ask for sudo password up front
 set -e # stop on error
 
 pushd ~/nixfiles > /dev/null
