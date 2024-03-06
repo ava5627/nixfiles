@@ -27,6 +27,7 @@ with lib.my;
             # shell scripts
             (writeShellScriptBin "powermenu"    (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
             (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
+            (writeShellScriptBin "rebuild"      (builtins.readFile "${config.dotfiles.bin}/rebuild"))
         ];
 
         home = {

@@ -104,6 +104,7 @@ with lib.my;
         file # file type identification
         glow # terminal markdown viewer
         wine # windows compatibility layer
+        nvd # nix package version diff
 
         # development
         rustup

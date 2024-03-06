@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+set -e # stop on error
+
+pushd ~/nixfiles > /dev/null
+
+# check for untracked files
+UNTRACKED=$(git ls-files --others --exclude-standard)
+if [ -n "$UNTRACKED" ]; then
+    echo "Untracked files:"
+    echo "$UNTRACKED"
+    exit 1
+fi
+
+git -c core.pager=less diff -U0
+
+
+echo "Rebuilding NixOS"
+
+sudo nixos-rebuild switch --fast --flake . &> /tmp/nixos-rebuild.log || (cat /tmp/nixos-rebuild.log | grep --color error && false)
+
+CHANGED_PKGS=$(ls /nix/var/nix/profiles | tail -n 2 | awk '{print "/nix/var/nix/profiles/" $0}' - | xargs nvd --color always diff)
+# print the upgraded packages if there are any
+if ! echo $CHANGED_PKGS | rg "No version or selection state changes" &> /dev/null; then
+    printf "$CHANGED_PKGS" | tail -n +3 | head -n -1
+fi
+
+# system-<gen>-link
+CURRENT=$(ls /nix/var/nix/profiles | tail -n 1 | cut -d '-' -f 2)
+
+# if any arguments are passed, then use them as commit message with current prepended
+git commit -am "nixos: $CURRENT $*"
+
+popd > /dev/null
+dunstify "NixOS rebuilt" -i nixos

@@ -15,7 +15,21 @@ in {
                 enable = true;
                 userName = cfg.userName;
                 userEmail = cfg.userEmail;
-                delta.enable = true;
+                difftastic.enable = true;
+                delta = {
+                    enable = false;
+                    options = {
+                        syntax-theme = "Dracula";
+                        line-numbers = true;
+                        side-by-side = true;
+                        decorations = true;
+                        hyperlinks = true;
+                        syntax-highlighting = true;
+                        commit-decoration = true;
+                        conflictstyle = "diff3";
+                        navigate = true;
+                    };
+                };
                 aliases = {
                     olog = "log --oneline --decorate --graph";
                     dlog = "log -p --ext-diff";

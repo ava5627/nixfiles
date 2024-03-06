@@ -76,8 +76,13 @@ in
                 };
             };
             services.dunst.settings = {
-                global = {
+                global =
+                let
+                    icon_path = "${pkgs.my.tokyo-night-theme}/share/icons/Tokyonight-Ava/";
+                in
+                {
                     frame_color = "#8EC07C";
+                    icon_path = "${icon_path}/apps/64:${icon_path}/mimetypes/64:${icon_path}/status/64";
                 };
                 urgency_low = {
                     background = "#16161e";
