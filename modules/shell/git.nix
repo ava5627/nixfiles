@@ -15,9 +15,8 @@ in {
                 enable = true;
                 userName = cfg.userName;
                 userEmail = cfg.userEmail;
-                difftastic.enable = true;
                 delta = {
-                    enable = false;
+                    enable = true;
                     options = {
                         syntax-theme = "Dracula";
                         line-numbers = true;
@@ -28,6 +27,9 @@ in {
                         commit-decoration = true;
                         conflictstyle = "diff3";
                         navigate = true;
+                        file-style = "omit";
+                        hunk-header-decoration-style = "omit";
+                        hunk-header-style = "file line-number syntax";
                     };
                 };
                 aliases = {
