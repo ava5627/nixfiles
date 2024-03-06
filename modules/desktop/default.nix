@@ -21,6 +21,7 @@ with lib.my;
             xclip # clipboard manager
             qalculate-gtk # calculator
             arandr # screen layout editor
+            copyq # clipboard manager
 
             libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
             libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
@@ -31,7 +32,6 @@ with lib.my;
         ];
 
         home = {
-            # services.copyq.enable = true;
             programs.feh.enable = true;
             xdg.configFile = {
                 "rofi" = {
