@@ -12,7 +12,7 @@ if [ -n "$UNTRACKED" ]; then
     exit 1
 fi
 
-git diff -U0
+git -c delta.file-style="" -c delta.hunk-header-style="omit" -c delta.side-by-side=false diff -U0
 
 echo "Rebuilding NixOS"
 sudo nixos-rebuild switch --fast --flake . &> /tmp/nixos-rebuild.log || (cat /tmp/nixos-rebuild.log | grep --color error && false)
