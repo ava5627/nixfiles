@@ -27,7 +27,6 @@ in {
                         commit-decoration = true;
                         conflictstyle = "diff3";
                         navigate = true;
-                        file-style = "omit";
                         file-decoration-style = "omit";
                         hunk-header-decoration-style = "omit";
                         hunk-header-style = "file line-number syntax";
