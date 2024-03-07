@@ -82,10 +82,14 @@ def rebuild(method, **kwargs):
                     print(f"\rRebuilding NixOS configuration for {socket.gethostname()} {spin[i]}", end="")
                 i = (i + 1) % 4
                 sleep(0.1)
+            if process.returncode != 0:
+                raise subprocess.CalledProcessError(process.returncode, rebuild_command)
     except subprocess.CalledProcessError:
-        print("Rebuild failed")
+        print("\rRebuild failed\033[K")
         with open("/tmp/nixos-rebuild.log", "r") as log:
-            print(log.read())
+            subprocess.run("cat /tmp/nixos-rebuild.log | rg --color always -e 'error'", shell=True)
+        print("See /tmp/nixos-rebuild.log for more details")
+        exit(1)
 
 
 def update(flakes=None):
