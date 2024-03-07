@@ -47,7 +47,7 @@ def git_commit(message=None):
     if message:
         commit_message += f": {message}"
     subprocess.run(["git", "commit", "-am", commit_message])
-    print(f"NixOS generation {nix_generation} built")
+    print(commit_message)
 
 
 def rebuild(method, **kwargs):
@@ -104,7 +104,7 @@ def update(flakes=None):
 def diff():
     out = subprocess.run(
         "ls /nix/var/nix/profiles | "
-        "tail -n 5 | head -n 2 | "
+        "tail -n 2 | "
         "awk '{print \"/nix/var/nix/profiles/\" $0}' | "
         "xargs nvd --color always diff",
         capture_output=True,
