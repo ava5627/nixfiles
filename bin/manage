@@ -1,6 +1,7 @@
 #!/usr/bin/env nix-shell
 #! nix-shell -i python3 -p python3 python3Packages.argcomplete
 # PYTHON_ARGCOMPLETE_OK
+# vim: ft=python
 import socket
 import argcomplete
 import argparse
@@ -107,7 +108,7 @@ def main():
     rebuild_parser = argparse.ArgumentParser(add_help=False)
     hosts = os.listdir("./hosts")
     rebuild_parser.add_argument(
-        "--host", choices=hosts, help="The host to rebuild", required=socket.gethostname() in hosts
+        "--host", choices=hosts, help="The host to rebuild", required=(socket.gethostname() not in hosts)
     )
     rebuild_parser.add_argument("--fast", "-f", action="store_true", help="Skip building nix for quicker rebuilds")
     rebuild_parser.add_argument("--debug", "-d", action="store_true", help="Enable debug output")

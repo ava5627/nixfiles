@@ -105,6 +105,7 @@ with lib.my;
         glow # terminal markdown viewer
         wine # windows compatibility layer
         nvd # nix package version diff
+        python3Packages.python-lsp-server # python language server
 
         # development
         rustup
