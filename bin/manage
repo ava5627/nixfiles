@@ -161,7 +161,7 @@ def main():
     elif args.command == "test":
         subprocess.call(["sudo", "-v"])
         untracked_files()
-        rebuild("test")
+        rebuild("test", fast=True)
     elif args.command == "rollback":
         subprocess.call(["sudo", "-v"])
         rebuild("switch", rollback=True)
