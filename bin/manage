@@ -7,6 +7,7 @@ import argcomplete
 import argparse
 import os
 import subprocess
+from time import sleep
 
 
 def untracked_files():
@@ -29,7 +30,7 @@ def untracked_files():
 def git_diff():
     subprocess.run(
         "git "
-        "-c delta.side-by-side=true "
+        "-c delta.side-by-side=false "
         "-c delta.hunk-header-style=\"omit\" "
         "diff -U0",
         shell=True
@@ -53,10 +54,10 @@ def rebuild(method, **kwargs):
     subprocess.call(["sudo", "-v"])
     rebuild_command = ["sudo", "nixos-rebuild", method, "--flake"]
     if host := kwargs.get("host"):
-        print(f"Rebuilding NixOS configuration for {host}")
+        print(f"Rebuilding NixOS configuration for {host}", end="")
         rebuild_command.append(f".#{host}")
     else:
-        print("Rebuilding NixOS configuration")
+        print("Rebuilding NixOS configuration", end="")
         rebuild_command.append(".")
 
     if kwargs.get("fast"):
@@ -71,7 +72,16 @@ def rebuild(method, **kwargs):
         rebuild_command = rebuild_command[:2] + ["rollback"] + rebuild_command[2:]
     try:
         with open("/tmp/nixos-rebuild.log", "w") as log:
-            subprocess.run(rebuild_command, stdout=log, stderr=log)
+            process = subprocess.Popen(rebuild_command, stdout=log, stderr=log)
+            i = 0
+            while process.poll() is None:
+                spin = ["\\", "|", "/", "-"]
+                if kwargs.get("host"):
+                    print(f"\rRebuilding NixOS configuration for {host} {spin[i]}", end="")
+                else:
+                    print(f"\rRebuilding NixOS configuration for {socket.gethostname()} {spin[i]}", end="")
+                i = (i + 1) % 4
+                sleep(0.1)
     except subprocess.CalledProcessError:
         print("Rebuild failed")
         with open("/tmp/nixos-rebuild.log", "r") as log:
