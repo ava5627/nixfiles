@@ -30,6 +30,8 @@ set __fish_git_prompt_color_upstream red
 set __fish_git_prompt_showdirtystate 1
 set __fish_git_prompt_char_dirtystate '*'
 
+zoxide init fish --cmd cd | source
+
 # Quick aliases
 
 # clear
@@ -39,8 +41,7 @@ alias cla='clear; exec fish'
 
 
 # nix
-alias nr='sudo nixos-rebuild switch --flake .'
-abbr -a nrh 'sudo nixos-rebuild switch --flake .#'
+alias nt='sudo nixos-rebuild test --flake .'
 
 # ls
 alias ls='lb'
