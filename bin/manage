@@ -84,6 +84,8 @@ def rebuild(method, **kwargs):
                 sleep(0.1)
             if process.returncode != 0:
                 raise subprocess.CalledProcessError(process.returncode, rebuild_command)
+            else:
+                print("\rRebuild successful\033[K")
     except subprocess.CalledProcessError:
         print("\rRebuild failed\033[K")
         with open("/tmp/nixos-rebuild.log", "r") as log:
