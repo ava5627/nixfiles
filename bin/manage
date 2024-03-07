@@ -152,11 +152,13 @@ def main():
         diff()
         git_commit(message=args.message)
     elif args.command == "upgrade":
+        untracked_files()
         update(args.flakes)
         rebuild("switch", **vars(args))
     elif args.command == "update":
         update(args.flakes)
     elif args.command == "test":
+        untracked_files()
         rebuild("test")
     elif args.command == "rollback":
         rebuild("switch", rollback=True)
