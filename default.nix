@@ -106,6 +106,7 @@ with lib.my;
         wine # windows compatibility layer
         nvd # nix package version diff
         python3Packages.python-lsp-server # python language server
+        cached-nix-shell # nix shell caching
 
         # development
         rustup

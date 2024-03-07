@@ -1,4 +1,4 @@
-#!/usr/bin/env nix-shell
+#!/usr/bin/env cached-nix-shell
 #! nix-shell -i python3 -p python3 python3Packages.argcomplete
 # PYTHON_ARGCOMPLETE_OK
 # vim: ft=python
@@ -22,7 +22,7 @@ def untracked_files():
         if ".nix" in untracked:
             exit(1)
         else:
-            confirm = input("Continue? [y/N] ")
+            confirm = input("Continue? [y/N]: ")
             if confirm.lower() != "y":
                 exit(1)
 
@@ -51,7 +51,6 @@ def git_commit(message=None):
 
 
 def rebuild(method, **kwargs):
-    subprocess.call(["sudo", "-v"])
     rebuild_command = ["sudo", "nixos-rebuild", method, "--flake"]
     if host := kwargs.get("host"):
         print(f"Rebuilding NixOS configuration for {host}", end="")
@@ -143,27 +142,30 @@ def main():
         "diff", help="List packages that have changed between the current and previous system generations"
     )
 
-    argcomplete.autocomplete(parser)
+    ac = argcomplete.autocomplete(parser)
     args = parser.parse_args()
-    if args.command == "rebuild":
+    if args.command == "rebuild" or args.command is None:
+        subprocess.call(["sudo", "-v"])
         untracked_files()
         git_diff()
         rebuild("switch", **vars(args))
         diff()
-        git_commit(message=args.message)
+        git_commit(message=args.message if args.command else None)
     elif args.command == "upgrade":
+        subprocess.call(["sudo", "-v"])
         untracked_files()
         update(args.flakes)
         rebuild("switch", **vars(args))
     elif args.command == "update":
         update(args.flakes)
     elif args.command == "test":
+        subprocess.call(["sudo", "-v"])
         untracked_files()
         rebuild("test")
     elif args.command == "rollback":
+        subprocess.call(["sudo", "-v"])
         rebuild("switch", rollback=True)
     elif args.command == "diff":
-        git_diff()
         diff()
 
 

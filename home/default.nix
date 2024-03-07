@@ -40,6 +40,7 @@
             source = "${dotfiles.config}/nvim";
             recursive = true;
         };
+        "wgetrc".text = "hsts-file = /home/${config.home.username}/.cache/wget-hsts";
     };
 
     # This value determines the Home Manager release that your configuration is

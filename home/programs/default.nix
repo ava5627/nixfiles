@@ -31,6 +31,7 @@ with lib.my;
             vimAlias = true;
             vimdiffAlias = true;
             withNodeJs = true;
+            withPython3 = true;
         };
         mpv = {
             enable = true;
