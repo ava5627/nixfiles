@@ -132,7 +132,7 @@ def main():
     rebuild_parser.add_argument("--target-host", help="Where to deploy the build")
 
     rebuild_cmd_parser = subparsers.add_parser("rebuild", help="Rebuild the system", parents=[rebuild_parser])
-    rebuild_cmd_parser.add_argument("commit message", nargs="?", help="The commit message to go with the rebuild")
+    rebuild_cmd_parser.add_argument("message", nargs="?", help="The commit message to go with the rebuild", metavar="Commit message")
     subparsers.add_parser("upgrade", help="Update all flakes then rebuild", parents=[rebuild_parser])
 
     update_parser = subparsers.add_parser("update", help="Update flakes")
@@ -150,7 +150,7 @@ def main():
         git_diff()
         rebuild("switch", **vars(args))
         diff()
-        git_commit()
+        git_commit(message=args.message)
     elif args.command == "upgrade":
         update(args.flakes)
         rebuild("switch", **vars(args))
