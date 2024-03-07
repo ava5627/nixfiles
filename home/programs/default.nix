@@ -21,7 +21,10 @@ with lib.my;
         carapace.enable = true;
         navi.enable = true;
         mise.enable = true;
-        # direnv.enable = true;
+        direnv = {
+            enable = true;
+            nix-direnv.enable = true;
+        };
         neovim = {
             enable = true;
             defaultEditor = true;
