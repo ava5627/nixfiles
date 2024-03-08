@@ -7,5 +7,7 @@
     modules.hardware.nvidia.enable = true;
     boot.loader.systemd-boot.enable = true;
 
-    environment.etc."X11/xorg.conf".source = ./xorg.conf;
+    services.xserver.displayManager.sddm.setupScript = ''
+        xrandr --output DP-2 --left-of DP-4 --output DP-4 --primary --output DP-0 --right-of DP-4
+    '';
 }
