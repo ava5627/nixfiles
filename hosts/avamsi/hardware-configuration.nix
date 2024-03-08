@@ -11,7 +11,7 @@
 
     boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "sd_mod" ];
     boot.initrd.kernelModules = [ ];
-    boot.kernelParams = [ "acpi_osi=!" "acpi_osi='Windows 2009'" ];
+    boot.kernelParams = [ "acpi_osi=!" "acpi_osi='Windows\" \"2009'" ];
     boot.kernelModules = [ "kvm-intel" ];
     boot.extraModulePackages = [ ];
 
