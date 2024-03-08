@@ -26,11 +26,6 @@ in
             picom.enable = true;
         };
 
-        home.xdg.configFile."qtile" = {
-            source = "${configDir}/qtile";
-            recursive = true;
-        };
-
         environment.systemPackages = with pkgs; [
             xcolor # color picker
         ];
