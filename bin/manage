@@ -96,7 +96,13 @@ def update(flakes=None):
     command = ["nix", "flake", "update"]
     if flakes:
         command.extend(flakes)
-    subprocess.run(command)
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    spin = ["\\", "|", "/", "-"]
+    i = 0
+    while process.poll() is None:
+        print(f"\rUpdating flakes {spin[i]}", end="")
+        i = (i + 1) % 4
+        sleep(0.1)
 
 
 def diff():
