@@ -153,8 +153,10 @@ def main():
     elif args.command == "upgrade":
         subprocess.call(["sudo", "-v"])
         untracked_files()
-        update(args.flakes)
+        update()
         rebuild("switch", **vars(args))
+        git_commit(message="Update flakes")
+        diff()
     elif args.command == "update":
         update(args.flakes)
     elif args.command == "test":
