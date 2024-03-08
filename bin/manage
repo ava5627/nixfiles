@@ -68,8 +68,12 @@ def git_commit(message=None):
     commit_message = f"{hostname} NixOS {nix_generation}"
     if message:
         commit_message += f": {message}"
-    subprocess.run(["git", "commit", "-am", commit_message])
-    subprocess.run(["git", "push"])
+    commit_status = subprocess.run(["git", "commit", "-am", commit_message], capture_output=True)
+    if commit_status.returncode != 0:
+        print(commit_status.stderr.decode())
+    push_status = subprocess.run(["git", "push"], capture_output=True)
+    if push_status.returncode != 0:
+        print(push_status.stderr.decode())
     print(commit_message)
 
 
