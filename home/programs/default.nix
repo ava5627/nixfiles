@@ -8,6 +8,7 @@ with lib.my;
             settings = {
                 color_theme = "dracula";
                 theme_background = false;
+                vim_keys = true;
             };
         };
         lsd.enable = true;
