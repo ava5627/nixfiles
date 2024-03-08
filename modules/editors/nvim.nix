@@ -22,8 +22,8 @@ in {
             python3Packages.python-lsp-server # python language server
         ];
         system.userActivationScripts = {
-            neovim = ''
-                if [ ! -d $HOME/.config/nvim ]; then
+            neovim.text = ''
+                if [ ! -d $XDG_CONFIG_HOME/nvim ]; then
                     git clone ${cfg.configUrl} $XDG_CONFIG_HOME/nvim
                 fi
             '';
