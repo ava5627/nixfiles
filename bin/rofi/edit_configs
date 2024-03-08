@@ -4,10 +4,10 @@ DOTDIR=$HOME/nixfiles
 CONFIGDIR=$DOTDIR/config
 
 declare -A config_list
-config_list[qtile]=$CONFIGDIR/qtile
+config_list[qtile]=$XDG_CONFIG_HOME/qtile
 config_list[kitty]=$CONFIGDIR/kitty
 config_list[fish]=$CONFIGDIR/fish
-config_list[nvim]=$CONFIGDIR/nvim
+config_list[nvim]=$XDG_CONFIG_HOME/nvim
 config_list[logid]=$CONFIGDIR/logid
 config_list[rofi]=$CONFIGDIR/rofi
 config_list[ranger]=$CONFIGDIR/ranger

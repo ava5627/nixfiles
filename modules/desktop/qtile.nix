@@ -29,9 +29,8 @@ in
         ];
         system.userActivationScripts = {
             qtile.text = ''
-
                 if [ ! -d $XDG_CONFIG_HOME/qtile ]; then
-                    ${pkgs.git}/bin/git --run git clone ${cfg.configUrl} $XDG_CONFIG_HOME/qtile
+                    ${pkgs.git}/bin/git clone ${cfg.configUrl} $XDG_CONFIG_HOME/qtile
                 fi
             '';
         };
