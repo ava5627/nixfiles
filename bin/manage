@@ -151,6 +151,7 @@ def main():
         exit(1)
     parser = argparse.ArgumentParser(description='Manage NixOS configuration')
     subparsers = parser.add_subparsers(dest="command")
+    parser.add_argument("--no-commit", "-n", action="store_true", help="Don't commit the changes")
 
     rebuild_parser = argparse.ArgumentParser(add_help=False)
     hosts = os.listdir("./hosts")
@@ -181,7 +182,8 @@ def main():
         git_diff()
         rebuild("switch", **vars(args))
         diff()
-        git_commit(message=args.message if args.command else None)
+        if not args.no_commit:
+            git_commit(message=args.message if args.command else None)
     elif args.command == "upgrade":
         checks()
         update()

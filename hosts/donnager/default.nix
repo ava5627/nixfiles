@@ -5,9 +5,13 @@
     ];
     modules.theme.active = "Tokyo Night";
     modules.hardware.nvidia.enable = true;
+    hardware.nvidia.forceFullCompositionPipeline = true;
     boot.loader.systemd-boot.enable = true;
 
-    services.xserver.displayManager.sddm.setupScript = ''
-        xrandr --output DP-2 --left-of DP-4 --output DP-4 --primary --output DP-0 --right-of DP-4
-    '';
+    services.xserver.xrandrHeads = [
+        "DP-2"
+        { output = "DP-4"; primary = true; }
+        "DP-0"
+    ];
+
 }
