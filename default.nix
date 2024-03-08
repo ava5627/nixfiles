@@ -105,7 +105,6 @@ with lib.my;
         glow # terminal markdown viewer
         wine # windows compatibility layer
         nvd # nix package version diff
-        python3Packages.python-lsp-server # python language server
         cached-nix-shell # nix shell caching
 
         # development
@@ -118,7 +117,6 @@ with lib.my;
 
     ];
     environment.variables = {
-        EDITOR = "nvim";
         MANPAGER = "sh -c 'col -bx | bat -l man -p'";
         MANROFFOPT = "-c";
     };

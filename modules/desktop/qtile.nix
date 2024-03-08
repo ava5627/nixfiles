@@ -8,6 +8,7 @@ in
 {
     options.modules.desktop.qtile = {
         enable = mkBool true "qtile";
+        configUrl = mkOpt types.str "https://github.com/ava5627/qtile-config";
     };
 
     config = mkIf cfg.enable {
@@ -33,5 +34,12 @@ in
         environment.systemPackages = with pkgs; [
             xcolor # color picker
         ];
+        system.userActivationScripts = {
+            qtile= ''
+                if [ -d ~/.config/qtile ]; then
+                    git clone ${cfg.configUrl} $XDG_CONFIG_HOME/qtile
+                fi
+            '';
+        };
     };
 }

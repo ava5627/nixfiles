@@ -36,10 +36,6 @@
         "ranger".source = "${dotfiles.config}/ranger";
         "ideavim/ideavimrc".source = "${dotfiles.config}/ideavimrc";
         "ipython/profile_default/ipython_config.py".source = "${dotfiles.config}/ipython_config.py";
-        "nvim/" = {
-            source = "${dotfiles.config}/nvim";
-            recursive = true;
-        };
         "wgetrc".text = "hsts-file = /home/${config.home.username}/.cache/wget-hsts";
     };
 
