@@ -1,4 +1,4 @@
-{ options, config, lib, ... }:
+{ options, config, lib, username, ... }:
 
 with lib;
 with lib.my;
@@ -20,8 +20,7 @@ with lib.my;
 
     config = {
         user = let
-            user = builtins.getEnv "USER";
-            name = if elem user [ "" "root" ] then "ava" else user;
+            name = if elem username [ "" "root" ] then "ava" else username;
         in {
             inherit name;
             description = "The primary user account";

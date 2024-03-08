@@ -10,24 +10,17 @@
         nixos-hardware.url = "github:NixOS/nixos-hardware";
     };
 
-    outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+    outputs = inputs@{ nixpkgs, ... }:
     let
         inherit (lib.my) mapHosts;
         system = "x86_64-linux";
-        # mkPkgs = p: overlay: import p {
-        #     inherit system;
-        #     config.allowUnfree = true;
-        #     overlays = overlay;
-        # };
-        pkgs = nixpkgs.legacyPackages.${system};
-        lib = nixpkgs.lib.extend (self: super: { my = import ./lib { inherit inputs pkgs; lib = self; }; });
+        lib = nixpkgs.lib.extend (final: prev: { my = import ./lib { inherit inputs; lib = final; }; });
+        username = "ava";
     in
     {
-        lib = lib.my;
-
         nixosConfigurations =
-            mapHosts ./hosts { inherit system; };
-
+            mapHosts ./hosts { inherit system username; };
     };
 }
+
 
