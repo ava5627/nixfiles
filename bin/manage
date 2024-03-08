@@ -10,6 +10,11 @@ import subprocess
 from time import sleep
 
 
+def checks():
+    subprocess.run(["sudo", "-v"])
+    untracked_files()
+    unpulled_commits()
+
 def untracked_files():
     untracked = subprocess.run(
         "git ls-files --others --exclude-standard",
@@ -36,17 +41,35 @@ def git_diff():
         shell=True
     )
 
+def unpulled_commits():
+    subprocess.run(["git", "fetch"])
+    unpulled = subprocess.run(
+        "git log HEAD..origin/main",
+        capture_output=True,
+        shell=True
+    ).stdout.decode().strip()
+    if unpulled:
+        print("Unpulled commits:")
+        print(unpulled)
+        exit(1)
+
 
 def git_commit(message=None):
+    status = subprocess.run("git status --porcelain", capture_output=True, shell=True).stdout.decode().strip()
+    if not status:
+        return
     nix_generation = subprocess.run(
         "ls /nix/var/nix/profiles | tail -n 1 | cut -d- -f2",
         capture_output=True,
         shell=True
     ).stdout.decode().strip()
-    commit_message = f"NixOS {nix_generation}"
+    hostname = socket.gethostname()
+    hostname = hostname[0].upper() + hostname[1:]
+    commit_message = f"{hostname} NixOS {nix_generation}"
     if message:
         commit_message += f": {message}"
     subprocess.run(["git", "commit", "-am", commit_message])
+    subprocess.run(["git", "push"])
     print(commit_message)
 
 
@@ -87,8 +110,8 @@ def rebuild(method, **kwargs):
                 print("\rRebuild successful\033[K")
     except subprocess.CalledProcessError:
         print("\rRebuild failed\033[K")
-        with open("/tmp/nixos-rebuild.log") as log:
-            print(log.read())
+        print("See /tmp/nixos-rebuild.log for details")
+        subprocess.run(r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log", shell=True)
         exit(1)
 
 
@@ -150,15 +173,13 @@ def main():
     ac = argcomplete.autocomplete(parser)
     args = parser.parse_args()
     if args.command == "rebuild" or args.command is None:
-        subprocess.call(["sudo", "-v"])
-        untracked_files()
+        checks()
         git_diff()
         rebuild("switch", **vars(args))
         diff()
         git_commit(message=args.message if args.command else None)
     elif args.command == "upgrade":
-        subprocess.call(["sudo", "-v"])
-        untracked_files()
+        checks()
         update()
         rebuild("switch", **vars(args))
         git_commit(message="Update flakes")
@@ -166,7 +187,6 @@ def main():
     elif args.command == "update":
         update(args.flakes)
     elif args.command == "test":
-        subprocess.call(["sudo", "-v"])
         untracked_files()
         rebuild("test", fast=True)
     elif args.command == "rollback":

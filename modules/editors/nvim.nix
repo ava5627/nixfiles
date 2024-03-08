@@ -23,7 +23,8 @@ in {
         ];
         system.userActivationScripts = {
             neovim.text = ''
-                if [ ! -d $XDG_CONFIG_HOME/nvim ]; then
+                if [ ! -d $XDG_CONFIG_HOME/nvim/.git ]; then
+                    mkdir -p $XDG_CONFIG_HOME/nvim
                     ${pkgs.git}/bin/git  clone ${cfg.configUrl} $XDG_CONFIG_HOME/nvim
                 fi
             '';

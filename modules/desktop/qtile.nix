@@ -29,7 +29,9 @@ in
         ];
         system.userActivationScripts = {
             qtile.text = ''
-                if [ ! -d $XDG_CONFIG_HOME/qtile ]; then
+                if [ ! -d $XDG_CONFIG_HOME/qtile/.git ]; then
+                    mkdir -p $XDG_CONFIG_HOME/qtile
+                    rm $XDG_CONFIG_HOME/colors.json || true
                     ${pkgs.git}/bin/git clone ${cfg.configUrl} $XDG_CONFIG_HOME/qtile
                 fi
             '';
