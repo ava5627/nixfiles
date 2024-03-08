@@ -23,7 +23,7 @@ in {
         ];
         system.userActivationScripts = {
             neovim = ''
-                if [ -d $HOME/.config/nvim ]; then
+                if [ ! -d $HOME/.config/nvim ]; then
                     git clone ${cfg.configUrl} $XDG_CONFIG_HOME/nvim
                 fi
             '';

@@ -31,7 +31,7 @@ in
         ];
         system.userActivationScripts = {
             qtile= ''
-                if [ -d ~/.config/qtile ]; then
+                if [ ! -d $XDG_CONFIG_HOME/qtile ]; then
                     git clone ${cfg.configUrl} $XDG_CONFIG_HOME/qtile
                 fi
             '';
