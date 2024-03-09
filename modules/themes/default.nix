@@ -19,14 +19,14 @@ in {
       foreground = mkOpt str "#ffffff";
       black = mkOpt str "#000000";
       white = mkOpt str "#ffffff";
-      gray = mkOpt str "#bbbbbb";
+      gray = mkOpt str "#888888";
       red = mkOpt str "#ff0000";
-      orange = mkOpt str "#ff5f00";
-      yellow = mkOpt str "#d7ff00";
-      green = mkOpt str "#5fff00";
-      purple = mkOpt str "#af87ff";
+      orange = mkOpt str "#ff7f00";
+      yellow = mkOpt str "#ffff00";
+      green = mkOpt str "#00ff00";
+      purple = mkOpt str "#5f00ff";
       cyan = mkOpt str "#5fd7ff";
-      pink = mkOpt str "#ff87af";
+      pink = mkOpt str "#ff07af";
       blue = mkOpt str "#0000ff";
     };
 
