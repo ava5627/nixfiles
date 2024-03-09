@@ -117,6 +117,7 @@ with lib.my; {
     gcc
     jdk17 # java 17
     jdk8 # java 8
+    alejandra # nix formatter
   ];
   environment.variables = {
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
