@@ -146,9 +146,12 @@ def diff():
 
 
 def main():
-    if "flake.nix" not in os.listdir("."):
-        print("This script must be run from NixOS configuration directory")
-        exit(1)
+    if not os.path.exists("flake.nix"):
+        if not os.path.exists(os.path.expanduser("~/nixfiles/flake.nix")):
+            print("This script must be run from NixOS configuration directory")
+            exit(1)
+        else:
+            os.chdir(os.path.expanduser("~/nixfiles"))
     parser = argparse.ArgumentParser(description='Manage NixOS configuration')
     subparsers = parser.add_subparsers(dest="command")
     parser.add_argument("--no-commit", "-n", action="store_true", help="Don't commit the changes")
