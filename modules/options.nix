@@ -20,6 +20,8 @@ with lib.my; {
     };
     # dont use attrs here https://github.com/NixOS/nixpkgs/issues/85508
     home = mkOpt (attrsOf anything) {};
+
+    # autoStart = mkOpt (listOf str) [];
   };
 
   config = {
