@@ -10,7 +10,6 @@ with lib.my; let
 in {
   options.modules.hardware.sound = {
     enable = mkBool true "Sound";
-    lowLatency = mkBool false "Low latency";
   };
   config = mkIf cfg.enable {
     services.pipewire = {
@@ -18,7 +17,7 @@ in {
       wireplumber.enable = true;
       pulse.enable = true;
       alsa.enable = true;
-      extraConfig.pipewire."92-low-latency" = mkIf cfg.lowLatency {
+      extraConfig.pipewire."92-low-latency" = {
         context.properties = {
           default.clock.rate = 48000;
           default.clock.quantum = 32;
