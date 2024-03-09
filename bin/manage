@@ -59,7 +59,7 @@ def git_commit(message=None):
     if not status:
         return
     nix_generation = subprocess.run(
-        "ls /nix/var/nix/profiles | tail -n 1 | cut -d- -f2",
+        "ls -v1 /nix/var/nix/profiles | tail -n 1 | cut -d- -f2",
         capture_output=True,
         shell=True
     ).stdout.decode().strip()
@@ -134,7 +134,7 @@ def update(flakes=None):
 
 def diff():
     out = subprocess.run(
-        "ls /nix/var/nix/profiles | "
+        "ls -v1 /nix/var/nix/profiles | "
         "tail -n 2 | "
         "awk '{print \"/nix/var/nix/profiles/\" $0}' | "
         "xargs nvd --color always diff",
