@@ -12,7 +12,14 @@ in {
     enable = mkBool true "Bluetooth support";
   };
   config = mkIf cfg.enable {
-    hardware.bluetooth.enable = true;
+    hardware.bluetooth = {
+      enable = true;
+      settings = {
+        General = {
+          Enable = "Source,Sink,Media,Socket";
+        };
+      };
+    };
     environment.systemPackages = with pkgs; [
       blueberry # graphical bluetooth manager
     ];
