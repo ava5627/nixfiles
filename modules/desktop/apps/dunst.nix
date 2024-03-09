@@ -1,8 +1,26 @@
-{pkgs, ...}: {
-  services.dunst = {
-    enable = true;
-    settings = {
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+with lib;
+let
+  iniFormat = pkgs.formats.ini {};
+  theme_cfg = config.modules.theme.dunst;
+  iconTheme = config.home.gtk.iconTheme;
+  cfg = config.modules.desktop.dunst;
+in {
+  options.modules.desktop.dunst.enable = mkEnableOption "Dunst";
+  config = mkIf cfg.enable {
+    home.services.dunst = {
+      enable = true;
+    };
+    home.xdg.configFile."dunst/dunstrc".source = iniFormat.generate "dunstrc" {
       global = {
+        # icon_path = icon_path;
+        icon_theme = iconTheme.name;
+        enable_recursive_icon_lookup = true;
         monitor = 0;
         follow = "mouse";
         width = "(200, 600)";
@@ -29,7 +47,8 @@
         font = "Noto Sans 11";
         line_height = 3;
         markup = "full";
-        format = "<b>%s</b>\n%b";
+        format = "\"<b>%s</b>\\n%b\"";
+        alignment = "center";
         vertical_alignment = "center";
         show_age_threshold = -1;
         ellipsize = "end";
@@ -39,12 +58,12 @@
         show_indicators = "no";
         word_wrap = "yes";
         icon_position = "left";
-        min_icon_size = 20;
+        min_icon_size = 22;
         max_icon_size = 80;
         sticky_history = "yes";
         history_length = 15;
         dmenu = "${pkgs.rofi}/bin/rofi -dmenu -theme styles/dunst.rasi";
-        browser = "xdg-open";
+        browser = "${pkgs.firefox}/bin/firefox";
         always_run_script = true;
         title = "Dunst";
         class = "Dunst";
@@ -56,15 +75,21 @@
         mouse_middle_click = "context, close_current";
         mouse_right_click = "close_all";
       };
-      urgency_low = {
-        timeout = "10s";
-      };
-      urgency_normal = {
-        timeout = "10s";
-      };
-      urgency_critical = {
-        timeout = "10s";
-      };
+      urgency_critical =
+        {
+          timeout = "10s";
+        }
+        // theme_cfg.urgency_critical;
+      urgency_normal =
+        {
+          timeout = "10s";
+        }
+        // theme_cfg.urgency_normal;
+      urgency_low =
+        {
+          timeout = "10s";
+        }
+        // theme_cfg.urgency_low;
     };
   };
 }

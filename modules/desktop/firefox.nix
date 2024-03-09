@@ -5,16 +5,13 @@
   ...
 }:
 with lib;
-with lib.my; let
+let
   cfg = config.modules.desktop.firefox;
   cfg_profile = config.home.programs.firefox.profiles.${config.user.name};
   extension_name = "yaru_orange@ava.xpi";
   extension_path = ".mozilla/firefox/${cfg_profile.name}/extensions/${extension_name}";
 in {
-  options.modules.desktop.firefox = {
-    enable = mkBool true "firefox";
-  };
-
+  options.modules.desktop.firefox.enable = mkEnableOption "Firefox";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       firefox

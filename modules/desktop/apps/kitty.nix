@@ -8,9 +8,7 @@ with lib;
 with lib.my; let
   cfg = config.modules.desktop.kitty;
 in {
-  options.modules.desktop.kitty = {
-    enable = mkBool true "kitty";
-  };
+  options.modules.desktop.kitty.enable = mkEnableOption "Kitty";
 
   config = mkIf cfg.enable {
     home.programs.kitty = {

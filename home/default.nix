@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./programs
+    ./programs.nix
   ];
 
   gtk = {

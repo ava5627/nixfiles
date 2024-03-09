@@ -5,17 +5,17 @@ CONFIGDIR=$DOTDIR/config
 
 declare -A config_list
 config_list[qtile]=$XDG_CONFIG_HOME/qtile
-config_list[kitty]=$CONFIGDIR/kitty
-config_list[fish]=$CONFIGDIR/fish
 config_list[nvim]=$XDG_CONFIG_HOME/nvim
-config_list[logid]=$CONFIGDIR/logid
+config_list[fish]=$CONFIGDIR/fish
+config_list[logid]=$CONFIGDIR/logid.cfg
 config_list[rofi]=$CONFIGDIR/rofi
 config_list[ranger]=$CONFIGDIR/ranger
-config_list[userChrome]=$CONFIGDIR/userChrome.css
-config_list[zathura]=$CONFIGDIR/zathura
-config_list[ideavim]=$CONFIGDIR/ideavim/ideavimrc
-config_list[dunst]=$CONFIGDIR/dunst/dunstrc
+config_list[userChrome]=$CONFIGDIR/firefox/userChrome.css
+config_list[ideavim]=$CONFIGDIR/ideavimrc
 config_list[nixos]=$DOTDIR
+# config_list[kitty]=$CONFIGDIR/kitty
+# config_list[zathura]=$CONFIGDIR/zathura
+# config_list[dunst]=$CONFIGDIR/dunst/dunstrc
 
 declare -A icons_list
 icons_list[qtile]=desktop

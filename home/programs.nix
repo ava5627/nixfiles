@@ -4,7 +4,6 @@
   ...
 }:
 with lib.my; {
-  imports = mapModulesRec' (toString ./.) import;
   programs = {
     btop = {
       enable = true;

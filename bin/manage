@@ -117,7 +117,7 @@ def rebuild(method, **kwargs):
     except subprocess.CalledProcessError:
         print("\rRebuild failed\033[K")
         print("See /tmp/nixos-rebuild.log for details")
-        subprocess.run(r"rg --color always error\|source/\\w\+\.nix\*: /tmp/nixos-rebuild.log", shell=True)
+        subprocess.run(r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log", shell=True)
         exit(1)
 
 

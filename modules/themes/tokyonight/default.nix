@@ -44,11 +44,23 @@ in {
         background-light = cfg.colors.black;
         text-color = cfg.colors.foreground;
       };
-      # fish = {
-      #     selection = "#33467c";
-      #     comment = "#565f89";
-      #     cyan = "#7dcfff";
-      # };
+      dunst = {
+        urgency_low = {
+          background = "\"#16161e\"";
+          foreground = "\"${cfg.colors.foreground}\"";
+          frame_color = "\"${cfg.colors.foreground}\"";
+        };
+        urgency_normal = {
+          background = "\"${cfg.colors.black}\"";
+          foreground = "\"${cfg.colors.cyan}\"";
+          frame_color = "\"${cfg.colors.blue}\"";
+        };
+        urgency_critical = {
+          background = "\"#292e42\"";
+          foreground = "\"#f7768e\"";
+          frame_color = "\"#f7768e\"";
+        };
+      };
     };
     qt = {
       enable = true;
@@ -63,7 +75,7 @@ in {
         };
         iconTheme = {
           package = pkgs.my.tokyo-night-theme;
-          name = "Tokyonight-Ava";
+          name = "Tokyonight";
         };
       };
       xdg.configFile = {
@@ -75,29 +87,6 @@ in {
         theme = "Tokyo Night";
         settings = {
           color16 = "#1a1b26";
-        };
-      };
-      services.dunst.settings = {
-        global = let
-          icon_path = "${pkgs.my.tokyo-night-theme}/share/icons/Tokyonight-Ava/";
-        in {
-          frame_color = "#8EC07C";
-          icon_path = "${icon_path}/apps/64:${icon_path}/mimetypes/64:${icon_path}/status/64";
-        };
-        urgency_low = {
-          background = "#16161e";
-          foreground = cfg.colors.foreground;
-          frame_color = cfg.colors.foreground;
-        };
-        urgency_normal = {
-          background = cfg.colors.black;
-          foreground = cfg.colors.cyan;
-          frame_color = cfg.colors.blue;
-        };
-        urgency_critical = {
-          background = "#292e42";
-          foreground = "#db4b4b";
-          frame_color = "#db4b4b";
         };
       };
     };

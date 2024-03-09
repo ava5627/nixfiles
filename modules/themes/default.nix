@@ -37,20 +37,6 @@ in {
       background-light = mkOpt str cfg.colors.black;
       text-color = mkOpt str cfg.colors.foreground;
     };
-
-    # fish = {
-    #     foreground = mkOpt str cfg.colors.foreground;
-    #     selection = mkOpt str cfg.colors.cyan;
-    #     comment = mkOpt str cfg.colors.gray;
-    #     red = mkOpt str cfg.colors.red;
-    #     orange = mkOpt str cfg.colors.orange;
-    #     yellow = mkOpt str cfg.colors.yellow;
-    #     green = mkOpt str cfg.colors.green;
-    #     purple = mkOpt str cfg.colors.purple;
-    #     cyan = mkOpt str cfg.colors.cyan;
-    #     pink = mkOpt str cfg.colors.pink;
-    # };
-
     qtile = {
       background = mkOpt str cfg.colors.background;
       foreground = mkOpt str cfg.colors.white;
@@ -62,6 +48,24 @@ in {
       powerline-colors = {
         odd = mkOpt str cfg.colors.cyan;
         even = mkOpt str cfg.colors.black;
+      };
+    };
+
+    dunst = {
+      urgency_critical = {
+        background = mkOpt str "\"${cfg.colors.background}\"";
+        foreground = mkOpt str "\"${cfg.colors.foreground}\"";
+        frame_color = mkOpt str "\"${cfg.colors.foreground}\"";
+      };
+      urgency_normal = {
+        background = mkOpt str "\"${cfg.colors.background}\"";
+        foreground = mkOpt str "\"${cfg.colors.foreground}\"";
+        frame_color = mkOpt str "\"${cfg.colors.foreground}\"";
+      };
+      urgency_low = {
+        background = mkOpt str "\"${cfg.colors.background}\"";
+        foreground = mkOpt str "\"${cfg.colors.foreground}\"";
+        frame_color = mkOpt str "\"${cfg.colors.foreground}\"";
       };
     };
   };

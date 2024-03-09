@@ -4,9 +4,16 @@
   pkgs,
   ...
 }:
-with lib;
-with lib.my; {
+with lib; {
   config = mkIf config.services.xserver.enable {
+    modules.desktop = {
+      dunst.enable = true;
+      firefox.enable = true;
+      flameshot.enable = true;
+      gaming.enable = true;
+      kitty.enable = true;
+      zathura.enable = true;
+    };
     services.xserver = {
       displayManager.sddm = {
         enable = true;

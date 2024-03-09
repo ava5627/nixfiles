@@ -22,8 +22,8 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    mkdir -p $out/share/icons/Tokyonight-Ava/
-    cp -r icons/* $out/share/icons/Tokyonight-Ava/
+    mkdir -p $out/share/icons/Tokyonight/
+    cp -r icons/* $out/share/icons/Tokyonight/
     mkdir -p $out/share/Kvantum/
     cp -r KvArcTokyoNight $out/share/Kvantum/
     runHook postInstall
