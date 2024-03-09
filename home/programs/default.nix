@@ -64,5 +64,9 @@ with lib.my; {
   };
   services = {
     playerctld.enable = true;
+    kdeconnect = {
+      enable = true;
+      indicator = true;
+    };
   };
 }

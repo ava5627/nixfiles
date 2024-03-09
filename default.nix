@@ -137,7 +137,6 @@ with lib.my; {
   sound.enable = true;
   programs = {
     nm-applet.enable = true;
-    kdeconnect.enable = true;
 
     dconf.enable = true;
 
