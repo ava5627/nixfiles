@@ -2,7 +2,7 @@
 # your system.    Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, lib, ... }:
+{ pkgs, inputs, lib, ... }:
 with lib.my;
 {
     imports = [
@@ -119,9 +119,6 @@ with lib.my;
         MANPAGER = "sh -c 'col -bx | bat -l man -p'";
         MANROFFOPT = "-c";
     };
-
-    environment.etc."logid.cfg".source = "${config.dotfiles.config}/logid.cfg";
-
     fonts.packages = with pkgs; [
         noto-fonts
         noto-fonts-cjk

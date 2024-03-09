@@ -15,12 +15,5 @@
                 TimeoutStopSec = 10;
             };
         };
-        logid = {
-            description = "Logid";
-            serviceConfig = {
-                Type = "simple";
-                ExecStart = "${pkgs.logiops}/bin/logid";
-            };
-        };
     };
 }
