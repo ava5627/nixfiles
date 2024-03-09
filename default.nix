@@ -118,6 +118,7 @@ with lib.my; {
     jdk17 # java 17
     jdk8 # java 8
     alejandra # nix formatter
+    python3Packages.ipython # python repl
   ];
   environment.variables = {
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
