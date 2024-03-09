@@ -193,6 +193,7 @@ def main():
     elif args.command == "update":
         update(args.flakes)
     elif args.command == "test":
+        subprocess.run(["sudo", "-v"])
         untracked_files()
         rebuild("test", fast=True)
     elif args.command == "rollback":

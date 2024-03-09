@@ -39,10 +39,6 @@ alias cls='clear'
 alias c='clear'
 alias cla='clear; exec fish'
 
-
-# nix
-alias nt='sudo nixos-rebuild test --flake .'
-
 # ls
 alias ls='lb'
 alias ll='lb -l'
