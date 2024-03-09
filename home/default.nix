@@ -1,53 +1,57 @@
-{ config, pkgs, dotfiles, ... }:
 {
-    imports = [
-        ./programs
-    ];
+  config,
+  pkgs,
+  dotfiles,
+  ...
+}: {
+  imports = [
+    ./programs
+  ];
 
-    gtk = {
-        enable = true;
-        gtk2 = {
-            configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-        };
-        font = {
-            package = pkgs.noto-fonts;
-            name = "Noto Sans";
-            size = 11;
-        };
+  gtk = {
+    enable = true;
+    gtk2 = {
+      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     };
-
-    home.pointerCursor = {
-        name = "Bibata-Modern-Ice";
-        package = pkgs.bibata-cursors;
-        size = 0;
+    font = {
+      package = pkgs.noto-fonts;
+      name = "Noto Sans";
+      size = 11;
     };
+  };
 
-    qt.enable = true;
+  home.pointerCursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.bibata-cursors;
+    size = 0;
+  };
 
-    xdg = {
-        enable = true;
-        userDirs = {
-            enable = true;
-            createDirectories = true;
-        };
+  qt.enable = true;
+
+  xdg = {
+    enable = true;
+    userDirs = {
+      enable = true;
+      createDirectories = true;
     };
-    xdg.configFile = {
-        "neofetch/".source = "${dotfiles.config}/neofetch";
-        "ranger".source = "${dotfiles.config}/ranger";
-        "ideavim/ideavimrc".source = "${dotfiles.config}/ideavimrc";
-        "ipython/profile_default/ipython_config.py".source = "${dotfiles.config}/ipython_config.py";
-        "wgetrc".text = "hsts-file = /home/${config.home.username}/.cache/wget-hsts";
-    };
+  };
+  xdg.configFile = {
+    "neofetch/".source = "${dotfiles.config}/neofetch";
+    "ranger".source = "${dotfiles.config}/ranger";
+    "ideavim/ideavimrc".source = "${dotfiles.config}/ideavimrc";
+    "ipython/profile_default/ipython_config.py".source = "${dotfiles.config}/ipython_config.py";
+    "wgetrc".text = "hsts-file = /home/${config.home.username}/.cache/wget-hsts";
+  };
 
-    # This value determines the Home Manager release that your configuration is
-    # compatible with. This helps avoid breakage when a new Home Manager release
-    # introduces backwards incompatible changes.
-    #
-    # You should not change this value, even if you update Home Manager. If you do
-    # want to update the value, then make sure to first check the Home Manager
-    # release notes.
-    home.stateVersion = "23.11"; # Please read the comment before changing.
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
+  home.stateVersion = "23.11"; # Please read the comment before changing.
 
-    # Let Home Manager install and manage itself.
-    programs.home-manager.enable = true;
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
 }
