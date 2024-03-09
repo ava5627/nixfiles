@@ -83,6 +83,8 @@ with lib.my; {
     jq # json processor
     tldr # explain commands
     xdg-ninja # search for .files in home directory that can be moved
+    dua # disk usage analyzer
+    cached-nix-shell # nix shell caching
 
     # applications
     insync # google drive sync
@@ -102,13 +104,12 @@ with lib.my; {
     unzip # zip file extractor
     wget # web requests
     curl # web requests
-    dua # disk usage analyzer
     ffmpeg # multimedia framework
     file # file type identification
     glow # terminal markdown viewer
     wine # windows compatibility layer
     nvd # nix package version diff
-    cached-nix-shell # nix shell caching
+    playerctl # media player control
 
     # development
     rustup
