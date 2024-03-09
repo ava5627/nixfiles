@@ -81,6 +81,7 @@ abbr -a gca 'git commit --amend'
 abbr -a gcm 'git commit -m'
 abbr -a gcam 'git commit -am'
 alias gp 'git push'
+alias gf 'git push --force-with-lease'
 alias gpl 'git pull'
 
 # Startup
