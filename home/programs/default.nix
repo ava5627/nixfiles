@@ -43,8 +43,6 @@ with lib.my; {
       scripts = [pkgs.mpvScripts.mpris];
     };
     obs-studio.enable = true;
-  };
-  services = {
     flameshot = {
       enable = true;
       settings = {
@@ -63,10 +61,8 @@ with lib.my; {
         };
       };
     };
+  };
+  services = {
     playerctld.enable = true;
-    kdeconnect = {
-      enable = true;
-      indicator = true;
-    };
   };
 }
