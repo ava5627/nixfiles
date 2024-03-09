@@ -15,7 +15,7 @@ in {
         black = "#1a1b26";
         white = "#f8f8f2";
         blue = "#3d59a1";
-        gray = "#2f343f";
+        gray = "#292e42";
         cyan = "#7aa2f7";
         purple = "#9d7cd8";
         red = "#f7768e";
@@ -30,7 +30,7 @@ in {
         active = cfg.colors.blue;
         inactive = cfg.colors.gray;
         current-group-background = cfg.colors.blue;
-        other-screen-group-background = "#3b4261";
+        other-screen-group-background = cfg.colors.gray;
         active-group-foreground = cfg.colors.cyan;
         powerline-colors = {
           odd = cfg.colors.black;
