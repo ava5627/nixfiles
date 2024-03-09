@@ -43,24 +43,6 @@ with lib.my; {
       scripts = [pkgs.mpvScripts.mpris];
     };
     obs-studio.enable = true;
-    flameshot = {
-      enable = true;
-      settings = {
-        General = {
-          checkForUpdates = false;
-          contrastOpacity = 153;
-          contrastUiColor = "#4c566a";
-          disabledTrayIcon = true;
-          savePath = "${config.xdg.userDirs.pictures}/Screenshots";
-          savePathFixed = false;
-          showDesktopNotification = false;
-          showHelp = false;
-          showSidePanelButton = true;
-          showStartupLaunchMessage = false;
-          uiColor = "#3384d0";
-        };
-      };
-    };
   };
   services = {
     playerctld.enable = true;

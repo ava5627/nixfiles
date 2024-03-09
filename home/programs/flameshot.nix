@@ -1,36 +1,27 @@
 {
   config,
-  lib,
   pkgs,
   ...
-}:
-with lib;
-with lib.my; let
-  cfg = config.programs.flameshot;
+}: let
   iniFormat = pkgs.formats.ini {};
-  iniFile = iniFormat.generate "flameshot.ini" cfg.settings;
 in {
-  meta.maintainers = [maintainers.hamhut1066];
+  home.packages = [pkgs.flameshot];
 
-  options.programs.flameshot = {
-    enable = mkBool true "Flameshot";
-    settings = mkOption {
-      type = iniFormat.type;
-      default = {};
-      description = ''Configuration to use for Flameshot. See <https://github.com/flameshot-org/flameshot/blob/master/flameshot.example.ini> for available options. '';
-    };
-  };
-
-  config = mkIf cfg.enable {
-    assertions = [
-      (lib.hm.assertions.assertPlatform "services.flameshot" pkgs
-        lib.platforms.linux)
-    ];
-
-    home.packages = [pkgs.flameshot];
-
-    xdg.configFile = mkIf (cfg.settings != {}) {
-      "flameshot/flameshot.ini".source = iniFile;
+  xdg.configFile = {
+    "flameshot/flameshot.ini".source = iniFormat.generate "flameshot.ini" {
+      General = {
+        checkForUpdates = false;
+        contrastOpacity = 153;
+        contrastUiColor = "#4c566a";
+        disabledTrayIcon = true;
+        savePath = "${config.xdg.userDirs.pictures}/Screenshots";
+        savePathFixed = false;
+        showDesktopNotification = false;
+        showHelp = false;
+        showSidePanelButton = true;
+        showStartupLaunchMessage = false;
+        uiColor = "#3384d0";
+      };
     };
   };
 }

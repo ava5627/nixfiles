@@ -11,7 +11,9 @@ from time import sleep
 
 
 def checks():
-    subprocess.run(["sudo", "-v"])
+    sudo = subprocess.run(["sudo", "-v"])
+    if sudo.returncode != 0:
+        exit(1)
     untracked_files()
     unpulled_commits()
 
