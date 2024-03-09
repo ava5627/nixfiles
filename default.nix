@@ -89,7 +89,6 @@ with lib.my; {
     # applications
     insync # google drive sync
     solaar # logitech device manager
-    logiops # logitech device manager
     morgen # calendar
     discord # chat
     betterdiscordctl # betterdiscord manager
