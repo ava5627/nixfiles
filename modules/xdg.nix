@@ -36,6 +36,8 @@
   xdg.mime.defaultApplications = {
     # PDF -> firefox
     "application/pdf" = "firefox.desktop";
+    # zip -> file-roller or firefox
+    "application/zip" = ["file-roller.desktop" "firefox.desktop"];
     # folders -> pcmanfm
     "inode/directory" = "pcmanfm.desktop";
     # images -> geeqie, feh, or gimp
