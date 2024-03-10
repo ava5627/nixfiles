@@ -16,6 +16,7 @@ with lib.my; {
     ++ (mapModulesRec' (toString ./modules) import);
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.use-xdg-base-directories = true;
   nix.gc = {
     automatic = true;
     dates = "weekly";
