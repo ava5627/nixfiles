@@ -24,7 +24,8 @@ in {
     };
     environment.variables = {EDITOR = "nvim";};
     environment.systemPackages = with pkgs; [
-      python3Packages.python-lsp-server # python language server
+      # language servers
+      (python3.withPackages (ps: with ps; [python-lsp-server] ++ python-lsp-server.optional-dependencies.all))
     ];
     system.userActivationScripts = {
       neovim.text = ''

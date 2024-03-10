@@ -18,8 +18,14 @@ in {
       powerline-colors = [
         # even = cfg.colors.red;
         # odd = cfg.colors.blue;
-        { fg = cfg.colors.red; bg = cfg.colors.blue; }
-        { fg = cfg.colors.blue; bg = cfg.colors.red; }
+        {
+          fg = cfg.colors.red;
+          bg = cfg.colors.blue;
+        }
+        {
+          fg = cfg.colors.blue;
+          bg = cfg.colors.red;
+        }
       ];
     };
     home.xdg.configFile = {
