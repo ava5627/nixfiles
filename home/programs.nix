@@ -15,14 +15,19 @@ with lib.my; {
     };
     lsd.enable = true;
     ripgrep.enable = true;
-    zoxide.enable = true;
+    zoxide = {
+      enable = true;
+      options = ["--cmd cd"];
+    };
     bat = {
       enable = true;
       extraPackages = with pkgs.bat-extras; [batman];
     };
     fzf.enable = true;
     carapace.enable = true;
-    navi.enable = true;
+    navi = {
+      enable = true;
+    };
     direnv = {
       enable = true;
       nix-direnv.enable = true;
