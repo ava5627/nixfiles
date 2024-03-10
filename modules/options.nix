@@ -26,10 +26,7 @@ with lib.my; {
 
   config = {
     user = let
-      name =
-        if elem username ["" "root"]
-        then "ava"
-        else username;
+      name = username;
     in {
       inherit name;
       description = "The primary user account";
