@@ -65,12 +65,24 @@ in {
           gca = "git commit --amend";
           gdh = "git diff HEAD^";
         };
-        shellInit = builtins.readFile "${config.dotfiles.config}/fish/config.fish";
         interactiveShellInit =
           /*
           fish
           */
           ''
+            set fish_greeting
+            set fish_color_cwd magenta
+            set -g fish_prompt_pwd_dir_length 0
+            set __fish_git_prompt_showupstream informative
+            set __fish_git_prompt_char_upstream_prefix " "
+            set __fish_git_prompt_showcolorhints 1
+            set __fish_git_prompt_use_informative_chars 1
+            set __fish_git_prompt_color_upstream red
+            set __fish_git_prompt_showdirtystate 1
+            set __fish_git_prompt_char_dirtystate '*'
+            function fish_user_key_bindings
+              bind \cq kill-whole-line
+            end
             neofetch
           '';
         functions = {

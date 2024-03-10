@@ -24,7 +24,6 @@ with lib.my; {
       extraPackages = with pkgs.bat-extras; [batman];
     };
     fzf.enable = true;
-    carapace.enable = true;
     navi = {
       enable = true;
     };
