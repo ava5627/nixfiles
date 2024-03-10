@@ -8,7 +8,6 @@ with lib.my; {
     btop = {
       enable = true;
       settings = {
-        color_theme = "dracula";
         theme_background = false;
         vim_keys = true;
       };
@@ -30,14 +29,6 @@ with lib.my; {
     direnv = {
       enable = true;
       nix-direnv.enable = true;
-    };
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      withNodeJs = true;
-      withPython3 = true;
     };
     mpv = {
       enable = true;
