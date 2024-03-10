@@ -15,14 +15,14 @@ in {
       current-group-background = cfg.colors.yellow;
       other-screen-group-background = cfg.colors.pink;
       active-group-foreground = cfg.colors.cyan;
-      powerline-colors = {
-        even = cfg.colors.red;
-        odd = cfg.colors.blue;
-      };
+      powerline-colors = [
+        # even = cfg.colors.red;
+        # odd = cfg.colors.blue;
+        { fg = cfg.colors.red; bg = cfg.colors.blue; }
+        { fg = cfg.colors.blue; bg = cfg.colors.red; }
+      ];
     };
     home.xdg.configFile = {
-      "rofi/colors.rasi".source = ./config/rofi.rasi;
-      # "qtile/themes/colors.json".source = ./config/qtile.json;
       "fish/conf.d/colors.fish".source = ./config/fish.fish;
     };
   };
