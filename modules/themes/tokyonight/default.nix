@@ -32,10 +32,16 @@ in {
         current-group-background = cfg.colors.blue;
         other-screen-group-background = cfg.colors.gray;
         active-group-foreground = cfg.colors.cyan;
-        powerline-colors = {
-          odd = cfg.colors.black;
-          even = cfg.colors.cyan;
-        };
+        powerline-colors = [
+          {
+            fg = cfg.colors.black;
+            bg = cfg.colors.cyan;
+          }
+          {
+            fg = cfg.colors.cyan;
+            bg = cfg.colors.black;
+          }
+        ];
       };
       rofi = {
         accent = cfg.colors.cyan;

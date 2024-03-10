@@ -45,10 +45,16 @@ in {
       current-group-background = mkOpt str cfg.colors.blue;
       other-screen-group-background = mkOpt str cfg.colors.black;
       active-group-foreground = mkOpt str cfg.colors.cyan;
-      powerline-colors = {
-        odd = mkOpt str cfg.colors.cyan;
-        even = mkOpt str cfg.colors.black;
-      };
+      powerline-colors = mkOpt (listOf (attrsOf str)) [
+        {
+          fg = cfg.colors.black;
+          bg = cfg.colors.blue;
+        }
+        {
+          fg = cfg.colors.blue;
+          bg = cfg.colors.black;
+        }
+      ];
     };
 
     dunst = {
