@@ -24,6 +24,7 @@ in {
           c = "clear";
           cla = "clear; exec fish";
 
+          ls = "lb";
           ll = "lb -l";
           la = "lb -A";
           lla = "lb -lA";
@@ -68,7 +69,6 @@ in {
           fish
           */
           ''
-            alias ls="lb"
             neofetch
           '';
         functions = {
@@ -95,6 +95,7 @@ in {
           lb = {
             body = builtins.readFile "${config.dotfiles.config}/fish/functions/lb.fish";
             description = "ls on directory, bat on file";
+            wraps = "ls";
           };
         };
       };
