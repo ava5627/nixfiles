@@ -81,7 +81,7 @@ with lib.my; {
     fd # find replacement
     stow # symlink manager
     jq # json processor
-    tldr # explain commands
+    tlrc # explain commands
     xdg-ninja # search for .files in home directory that can be moved
     dua # disk usage analyzer
     cached-nix-shell # nix shell caching

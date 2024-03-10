@@ -23,7 +23,6 @@ with lib.my; {
     fzf.enable = true;
     carapace.enable = true;
     navi.enable = true;
-    mise.enable = true;
     direnv = {
       enable = true;
       nix-direnv.enable = true;
