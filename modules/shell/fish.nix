@@ -52,6 +52,7 @@ in {
           gs = "git status -s";
           gss = "git status";
           gad = "git add .";
+          gd = "git diff";
           gp = "git push";
           gpl = "git pull";
           gf = "git push --force-with-lease";
@@ -62,6 +63,7 @@ in {
           gcm = "git commit -m";
           gcam = "git commit -am";
           gca = "git commit --amend";
+          gdh = "git diff HEAD^";
         };
         shellInit = builtins.readFile "${config.dotfiles.config}/fish/config.fish";
         interactiveShellInit =
