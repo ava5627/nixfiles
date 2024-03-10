@@ -24,7 +24,6 @@ in {
           c = "clear";
           cla = "clear; exec fish";
 
-          ls = "lb";
           ll = "lb -l";
           la = "lb -A";
           lla = "lb -lA";
@@ -69,6 +68,7 @@ in {
           fish
           */
           ''
+            alias ls="lb"
             neofetch
           '';
         functions = {
