@@ -4,8 +4,7 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.modules.desktop.firefox;
   cfg_profile = config.home.programs.firefox.profiles.${config.user.name};
   extension_name = "yaru_orange@ava.xpi";

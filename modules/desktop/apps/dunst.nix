@@ -4,8 +4,7 @@
   lib,
   ...
 }:
-with lib;
-let
+with lib; let
   iniFormat = pkgs.formats.ini {};
   theme_cfg = config.modules.theme.dunst;
   iconTheme = config.home.gtk.iconTheme;
