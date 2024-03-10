@@ -41,6 +41,12 @@
     "ideavim/ideavimrc".source = "${dotfiles.config}/ideavimrc";
     "ipython/profile_default/ipython_config.py".source = "${dotfiles.config}/ipython_config.py";
     "wgetrc".text = "hsts-file = /home/${config.home.username}/.cache/wget-hsts";
+    "npm/npmrc".text = ''
+      prefix=$XDG_DATA_HOME/npm
+      cache=$XDG_CACHE_HOME/npm
+      init-module=$XDG_CONFIG_HOME/npm/npm-init.js
+      tmp=$XDG_RUNTIME_DIR/npm
+    '';
   };
 
   # This value determines the Home Manager release that your configuration is
