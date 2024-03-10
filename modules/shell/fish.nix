@@ -71,7 +71,6 @@ in {
           */
           ''
             set fish_greeting
-            set fish_color_cwd magenta
             set -g fish_prompt_pwd_dir_length 0
             set __fish_git_prompt_showupstream informative
             set __fish_git_prompt_char_upstream_prefix " "
