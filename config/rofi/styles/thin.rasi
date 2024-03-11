@@ -1,10 +1,10 @@
-@import "../default.rasi"
+@theme "custom"
 * {
     border-color: @accent-alt;
     width: 20%;
 }
 
 listview {
-    lines: 10;
+    lines: 9;
     columns: 1;
 }

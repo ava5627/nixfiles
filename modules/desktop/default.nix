@@ -13,6 +13,7 @@ with lib; {
       gaming.enable = true;
       kitty.enable = true;
       zathura.enable = true;
+      rofi.enable = true;
     };
     services.xserver = {
       displayManager.sddm = {
@@ -27,7 +28,6 @@ with lib; {
     };
 
     environment.systemPackages = with pkgs; [
-      rofi # application launcher and menu
       xdotool # keyboard and mouse automation
       xclip # clipboard manager
       qalculate-gtk # calculator
@@ -45,10 +45,6 @@ with lib; {
     home = {
       programs.feh.enable = true;
       xdg.configFile = {
-        "rofi" = {
-          source = "${config.dotfiles.config}/rofi";
-          recursive = true;
-        };
         "copyq/" = {
           source = "${config.dotfiles.config}/copyq";
           recursive = true;

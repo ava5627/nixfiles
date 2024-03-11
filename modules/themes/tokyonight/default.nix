@@ -6,6 +6,7 @@
 }:
 with lib; let
   cfg = config.modules.theme;
+  home = config.home-manager.users.${config.user.name};
 in {
   config = mkIf (cfg.active == "Tokyo Night") {
     modules.theme = {
@@ -89,6 +90,23 @@ in {
         "Kvantum/KvArcTokyoNight".source = "${pkgs.my.tokyo-night-theme}/share/Kvantum/KvArcTokyoNight";
         "Kvantum/kvantum.kvconfig".text = "[General]\ntheme=KvArcTokyoNight\n";
       };
+      programs.rofi.theme = let
+        inherit (home.lib.formats.rasi) mkLiteral;
+      in {
+        "*" = {
+          accent = mkLiteral cfg.rofi.accent;
+          accent-alt = mkLiteral cfg.rofi.accent-alt;
+          background = mkLiteral cfg.rofi.background;
+          background-light = mkLiteral cfg.rofi.background-light;
+          text-color = mkLiteral cfg.rofi.text-color;
+
+          background-color = mkLiteral cfg.rofi.background-light;
+          border-color = mkLiteral cfg.rofi.accent;
+        };
+        listview = {
+          background-color = mkLiteral cfg.rofi.background;
+        };
+      };
       programs.kitty = {
         theme = "Tokyo Night";
         settings = {
@@ -129,7 +147,7 @@ in {
         "index-active-fg" = "#1a1b26";
         "index-active-bg" = "#7aa2f7";
       };
-      programs.btop.color_theme = "dracula";
+      programs.btop.settings.color_theme = "dracula";
     };
   };
 }
