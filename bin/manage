@@ -17,6 +17,7 @@ def checks():
     untracked_files()
     unpulled_commits()
 
+
 def untracked_files():
     untracked = subprocess.run(
         "git ls-files --others --exclude-standard",
@@ -43,6 +44,7 @@ def git_diff():
         shell=True
     )
 
+
 def unpulled_commits():
     subprocess.run(["git", "fetch"])
     unpulled = subprocess.run(
@@ -57,7 +59,11 @@ def unpulled_commits():
 
 
 def git_commit(message=None):
-    status = subprocess.run("git status --porcelain", capture_output=True, shell=True).stdout.decode().strip()
+    status = subprocess.run(
+        "git status --porcelain",
+        capture_output=True,
+        shell=True
+    ).stdout.decode().strip()
     if not status:
         return
     nix_generation = subprocess.run(
@@ -70,7 +76,8 @@ def git_commit(message=None):
     commit_message = f"{hostname} NixOS {nix_generation}"
     if message:
         commit_message += f": {message}"
-    commit_status = subprocess.run(["git", "commit", "-am", commit_message], capture_output=True)
+    commit_status = subprocess.run(
+        ["git", "commit", "-am", commit_message], capture_output=True)
     if commit_status.returncode != 0:
         print(commit_status.stderr.decode())
     push_status = subprocess.run(["git", "push"], capture_output=True)
@@ -105,19 +112,23 @@ def rebuild(method, **kwargs):
             while process.poll() is None:
                 spin = ["\\", "|", "/", "-"]
                 if kwargs.get("host"):
-                    print(f"\rRebuilding NixOS configuration for {host} {spin[i]}", end="")
+                    print(
+                        f"\rRebuilding NixOS configuration for {host} {spin[i]}", end="")
                 else:
-                    print(f"\rRebuilding NixOS configuration for {socket.gethostname()} {spin[i]}", end="")
+                    print(
+                        f"\rRebuilding NixOS configuration for {socket.gethostname()} {spin[i]}", end="")
                 i = (i + 1) % 4
                 sleep(0.1)
             if process.returncode != 0:
-                raise subprocess.CalledProcessError(process.returncode, rebuild_command)
+                raise subprocess.CalledProcessError(
+                    process.returncode, rebuild_command)
             else:
                 print("\rRebuild successful\033[K")
     except subprocess.CalledProcessError:
         print("\rRebuild failed\033[K")
         print("See /tmp/nixos-rebuild.log for details")
-        subprocess.run(r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log", shell=True)
+        subprocess.run(
+            r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log", shell=True)
         exit(1)
 
 
@@ -125,7 +136,8 @@ def update(flakes=None):
     command = ["nix", "flake", "update"]
     if flakes:
         command.extend(flakes)
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    process = subprocess.Popen(
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     spin = ["\\", "|", "/", "-"]
     i = 0
     while process.poll() is None:
@@ -157,30 +169,45 @@ def main():
     parser = argparse.ArgumentParser(description='Manage NixOS configuration')
     subparsers = parser.add_subparsers(dest="command")
     parser.add_argument("--no-commit", "-n", action="store_true", help="Don't commit the changes")
-
     rebuild_parser = argparse.ArgumentParser(add_help=False)
     hosts = os.listdir("./hosts")
     rebuild_parser.add_argument(
-        "--host", choices=hosts, help="The host to rebuild", required=(socket.gethostname() not in hosts)
+        "--host", choices=hosts,
+        help="The host to rebuild", required=(socket.gethostname() not in hosts)
     )
-    rebuild_parser.add_argument("--fast", "-f", action="store_true", help="Skip building nix for quicker rebuilds")
-    rebuild_parser.add_argument("--debug", "-d", action="store_true", help="Enable debug output")
+    rebuild_parser.add_argument(
+        "--fast", "-f", action="store_true",
+        help="Skip building nix for quicker rebuilds"
+    )
+    rebuild_parser.add_argument(
+        "--debug", "-d", action="store_true", help="Enable debug output")
     rebuild_parser.add_argument("--build-host", help="The host to build on")
-    rebuild_parser.add_argument("--target-host", help="Where to deploy the build")
+    rebuild_parser.add_argument(
+        "--target-host", help="Where to deploy the build")
 
-    rebuild_cmd_parser = subparsers.add_parser("rebuild", help="Rebuild the system", parents=[rebuild_parser])
-    rebuild_cmd_parser.add_argument("message", nargs="?", help="The commit message to go with the rebuild", metavar="Commit message")
-    subparsers.add_parser("upgrade", help="Update all flakes then rebuild", parents=[rebuild_parser])
+    rebuild_cmd_parser = subparsers.add_parser(
+        "rebuild", help="Rebuild the system", parents=[rebuild_parser])
+    rebuild_cmd_parser.add_argument(
+        "message",
+        nargs="?",
+        help="The commit message to go with the rebuild",
+        metavar="Commit message"
+    )
+    subparsers.add_parser(
+        "upgrade", help="Update all flakes then rebuild", parents=[rebuild_parser])
 
     update_parser = subparsers.add_parser("update", help="Update flakes")
-    update_parser.add_argument("flakes", nargs="*", help="The flakes to update")
+    update_parser.add_argument(
+        "flakes", nargs="*", help="The flakes to update")
     subparsers.add_parser("test", help="Test the system")
     subparsers.add_parser("rollback", help="Rollback the system")
     subparsers.add_parser(
-        "diff", help="List packages that have changed between the current and previous system generations"
+        "diff",
+        help="List packages that have changed between"
+        " the current and previous system generations"
     )
 
-    ac = argcomplete.autocomplete(parser)
+    argcomplete.autocomplete(parser)
     args = parser.parse_args()
     if args.command == "rebuild" or args.command is None:
         checks()
