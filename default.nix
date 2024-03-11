@@ -128,6 +128,7 @@ with lib.my; {
   environment.variables = {
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
     MANROFFOPT = "-c";
+    PAGER = "bat";
   };
   fonts.packages = with pkgs; [
     noto-fonts
