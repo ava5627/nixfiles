@@ -21,7 +21,7 @@ with lib; {
           "https://github.com/Strencher/BetterDiscordStuff/raw/master/InvisibleTyping/InvisibleTyping.plugin.js"
         ];
         themes = [
-          "https://raw.githubusercontent.com/ava5627/nixfiles/main/modules/themes/tokyonight/config/discord-theme.css"
+          "https://raw.githubusercontent.com/ava5627/nixfiles/main/modules/themes/tokyonight/config/midnight.theme.css"
         ];
       };
     };
