@@ -97,7 +97,7 @@ def rebuild(method, **kwargs):
     if target_host := kwargs.get("target_host"):
         rebuild_command.extend(["--target-host", target_host])
     if kwargs.get("rollback"):
-        rebuild_command = rebuild_command[:2] + ["rollback"] + rebuild_command[2:]
+        rebuild_command = rebuild_command[:2] + ["--rollback"]
     try:
         with open("/tmp/nixos-rebuild.log", "w") as log:
             process = subprocess.Popen(rebuild_command, stdout=log, stderr=log)

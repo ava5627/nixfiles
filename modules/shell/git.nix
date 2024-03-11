@@ -19,6 +19,7 @@ in {
         enable = true;
         userName = cfg.userName;
         userEmail = cfg.userEmail;
+        ignores = [ ".ropeproject" ".envrc" ".direnv" ];
         delta = {
           enable = true;
           options = {
