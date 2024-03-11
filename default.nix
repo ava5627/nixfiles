@@ -65,6 +65,9 @@ with lib.my; {
   services.printing.enable = true;
 
   virtualisation.docker.enable = true;
+  virtualisation.docker.extraPackages = with pkgs; [
+    docker-compose
+  ];
 
   services.gnome.gnome-keyring.enable = true;
   security.polkit.enable = true;
