@@ -28,12 +28,16 @@ in {
       (python3.withPackages (ps: with ps; [python-lsp-server] ++ python-lsp-server.optional-dependencies.all))
     ];
     system.userActivationScripts = {
-      neovim.text = ''
-        if [ ! -d $XDG_CONFIG_HOME/nvim/.git ]; then
-            mkdir -p $XDG_CONFIG_HOME/nvim
-            ${pkgs.git}/bin/git  clone ${cfg.configUrl} $XDG_CONFIG_HOME/nvim
-        fi
-      '';
+      neovim.text =
+        /*
+        bash
+        */
+        ''
+          if [ ! -d $XDG_CONFIG_HOME/nvim/.git ]; then
+              mkdir -p $XDG_CONFIG_HOME/nvim
+              ${pkgs.git}/bin/git  clone ${cfg.configUrl} $XDG_CONFIG_HOME/nvim
+          fi
+        '';
     };
   };
 }
