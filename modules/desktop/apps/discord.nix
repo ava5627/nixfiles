@@ -28,32 +28,34 @@ in {
       ];
 
     system.userActivationScripts.betterDiscord.text = let
-      plugins = lib.concatStringsSep " " (map (x: "\"x\"") cfg.plugins);
-      themes = lib.concatStringsSep " " (map (x: "\"x\"") cfg.themes);
+      plugins = lib.concatStringsSep " " (map (x: "\"${x}\"") cfg.plugins);
+      themes = lib.concatStringsSep " " (map (x: "\"${x}\"") cfg.themes);
     in
       /*
       bash
       */
       ''
-        if [ ! -d ~/.config/BetterDiscord ] ; then
-          mkdir -p ~/.config/BetterDiscord/themes
-          mkdir -p ~/.config/BetterDiscord/plugins
-          mkdir -p ~/.config/BetterDiscord/data/stable
+        if [ ! -d $XDG_CONFIG_HOME/BetterDiscord ] ; then
+          mkdir -p $XDG_CONFIG_HOME/BetterDiscord/themes
+          mkdir -p $XDG_CONFIG_HOME/BetterDiscord/plugins
+          mkdir -p $XDG_CONFIG_HOME/BetterDiscord/data/stable
           ${pkgs.betterdiscordctl}/bin/betterdiscordctl install
-          echo "{" > ~/.config/BetterDiscord/data/stable/plugins.json
+          echo "{" > $XDG_CONFIG_HOME/BetterDiscord/data/stable/plugins.json
           for plugin in ${plugins}; do
-            ${pkgs.wget}/bin/wget $plugin -o ~/.config/BetterDiscord/plugins/$(basename $plugin)
+            ${pkgs.wget}/bin/wget $plugin -O $XDG_CONFIG_HOME/BetterDiscord/plugins/$(basename $plugin)
             plugin_name=$(basename $plugin | cut -d'.' -f1)
-            echo "  \"$plugin_name\": true," >> ~/.config/BetterDiscord/data/stable/plugins.json
+            echo "  \"$plugin_name\": true," >> $XDG_CONFIG_HOME/BetterDiscord/data/stable/plugins.json
           done
-          echo "}" >> ~/.config/BetterDiscord/data/stable/plugins.json
-          echo "{" > ~/.config/BetterDiscord/data/stable/themes.json
+          echo "  \"dummy\": false" >> $XDG_CONFIG_HOME/BetterDiscord/data/stable/plugins.json
+          echo "}" >> $XDG_CONFIG_HOME/BetterDiscord/data/stable/plugins.json
+          echo "{" > $XDG_CONFIG_HOME/BetterDiscord/data/stable/themes.json
           for theme in ${themes}; do
-            ${pkgs.wget}/bin/wget $theme -o ~/.config/BetterDiscord/themes/$(basename $theme)
+            ${pkgs.wget}/bin/wget $theme -O $XDG_CONFIG_HOME/BetterDiscord/themes/$(basename $theme)
             theme_name=$(basename $theme | cut -d'.' -f1)
-            echo "  \"$theme_name\": true," >> ~/.config/BetterDiscord/data/stable/themes.json
+            echo "  \"$theme_name\": true," >> $XDG_CONFIG_HOME/BetterDiscord/data/stable/themes.json
           done
-          echo "}" >> ~/.config/BetterDiscord/data/stable/themes.json
+          echo "  \"dummy\": false" >> $XDG_CONFIG_HOME/BetterDiscord/data/stable/themes.json
+          echo "}" >> $XDG_CONFIG_HOME/BetterDiscord/data/stable/themes.json
         fi
       '';
   };
