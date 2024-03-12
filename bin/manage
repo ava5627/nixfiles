@@ -89,10 +89,8 @@ def git_commit(message=None):
 def rebuild(method, **kwargs):
     rebuild_command = ["sudo", "nixos-rebuild", method, "--flake"]
     if host := kwargs.get("host"):
-        print(f"Rebuilding NixOS configuration for {host}", end="")
         rebuild_command.append(f".#{host}")
     else:
-        print("Rebuilding NixOS configuration", end="")
         rebuild_command.append(".")
 
     if kwargs.get("fast"):
