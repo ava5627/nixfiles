@@ -46,9 +46,9 @@ def git_diff():
 
 
 def unpulled_commits():
-    subprocess.run(["git", "fetch"])
+    subprocess.run(["git", "fetch"], capture_output=True)
     unpulled = subprocess.run(
-        "git log HEAD..origin/main",
+        "git log HEAD..origin/main --oneline",
         capture_output=True,
         shell=True
     ).stdout.decode().strip()

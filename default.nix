@@ -77,9 +77,6 @@ with lib.my; {
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    # system
-    home-manager
-
     # shell programs
     neofetch # system info
     fd # find replacement
@@ -89,19 +86,6 @@ with lib.my; {
     xdg-ninja # search for .files in home directory that can be moved
     dua # disk usage analyzer
     cached-nix-shell # nix shell caching
-
-    # applications
-    insync # google drive sync
-    solaar # logitech device manager
-    morgen # calendar
-    discord # chat
-    betterdiscordctl # betterdiscord manager
-    pcmanfm # file manager
-    gnome.file-roller # archive manager
-    libsForQt5.okular # document viewer
-    geeqie # image viewer
-    gimp # image editor
-    vlc # media player
 
     # utilities
     unzip # zip file extractor

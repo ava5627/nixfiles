@@ -43,6 +43,15 @@ with lib; {
       qalculate-gtk # calculator
       arandr # screen layout editor
       copyq # clipboard manager
+      insync # google drive sync
+      solaar # logitech device manager
+      morgen # calendar
+      pcmanfm # file manager
+      gnome.file-roller # archive manager
+      libsForQt5.okular # document viewer
+      geeqie # image viewer
+      gimp # image editor
+      vlc # media player
 
       libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
       libsForQt5.qt5.qtgraphicaleffects # required for sddm theme

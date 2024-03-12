@@ -14,20 +14,14 @@
       HISTFILE = "$XDG_STATE_HOME/bash/history";
       GNUPGHOME = "$XDG_DATA_HOME/gnupg";
       SCREENRC = "$XDG_CONFIG_HOME/screen/screenrc";
-      GTK2_RC_FILES = "$XDG_CONFIG_HOME/gtk-2.0/gtkrc";
       NUGET_PACKAGES = "$XDG_CACHE_HOME/NuGetPackages";
-      KERAS_HOME = "$XDG_STATE_HOME/keras";
-      XINITRC = "$XDG_CONFIG_HOME/X11/xinitrc";
       GOPATH = "$XDG_CONFIG_HOME/go";
       ANDROID_HOME = "$XDG_DATA_HOME/android";
       GRADLE_USER_HOME = "$XDG_DATA_HOME/gradle";
       MYSQL_HISTFILE = "$XDG_DATA_HOME/mysql_history";
       ZDOTDIR = "$HOME/.config/zsh";
       PARALLEL_HOME = "$XDG_DATA_HOME/parallel";
-      RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
-      CARGO_HOME = "$XDG_DATA_HOME/cargo";
       WGETRC = "$XDG_CONFIG_HOME/wgetrc";
-      VIRTUAL_ENV_DISABLE_PROMPT = "1";
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
       NODE_REPL_HISTORY_FILE = "$XDG_DATA_HOME/node_repl_history";
       XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/compose";
@@ -37,7 +31,7 @@
     # PDF -> firefox
     "application/pdf" = "firefox.desktop";
     # zip -> file-roller or firefox
-    "application/zip" = ["file-roller.desktop" "firefox.desktop"];
+    "application/zip" = ["org.gnome.FileRoller.desktop" "firefox.desktop"];
     # folders -> pcmanfm
     "inode/directory" = "pcmanfm.desktop";
     # images -> geeqie, feh, or gimp
