@@ -38,9 +38,7 @@ in {
           ranger = ''ranger --choosedir=/tmp/ranger_dir; set LASTDIR (cat /tmp/ranger_dir); cd $LASTDIR; rm /tmp/ranger_dir'';
           cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'';
 
-          vc = "python -m venv .venv";
-          va = "source .venv/bin/activate.fish";
-          vv = "source .venv/bin/activate.fish && nvim .";
+          pyc = "echo layout python > .envrc && direnv allow && poetry init";
 
           ".." = "cd ..";
           "..." = "cd ../..";
