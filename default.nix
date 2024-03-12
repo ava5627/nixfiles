@@ -20,7 +20,7 @@ with lib.my; {
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    delete_generations = "+5";
+    delete_generations = "+5"; # keep only the last 5 generations
   };
   nix.optimise = {
     automatic = true;
@@ -30,7 +30,7 @@ with lib.my; {
     (final: prev: {
       my = mapModules ./packages (p: pkgs.callPackage p {});
     })
-  ];
+  ]; # make my packages accessible via pkgs.my
 
   # Bootloader.
   boot.loader.efi.canTouchEfiVariables = true;
@@ -110,9 +110,9 @@ with lib.my; {
     poetry # python package manager
   ];
   environment.variables = {
-    MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+    MANPAGER = "sh -c 'col -bx | bat -l man -p'"; # use bat as man pager
     MANROFFOPT = "-c";
-    PAGER = "bat";
+    PAGER = "bat"; # use bat as pager
   };
   fonts.packages = with pkgs; [
     noto-fonts
@@ -133,14 +133,6 @@ with lib.my; {
     nix-ld.libraries = [
       # add missing dynamic libraries for unpackaged programs here
     ];
-  };
-
-  # List services that you want to enable:
-  services.pipewire = {
-    enable = true;
-    wireplumber.enable = true;
-    pulse.enable = true;
-    alsa.enable = true;
   };
 
   # Enable the OpenSSH daemon.

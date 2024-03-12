@@ -13,7 +13,7 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelParams = ["acpi_enforce_resources=lax"];
+  boot.kernelParams = ["acpi_enforce_resources=lax"]; # allow openRGB to access ram
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
@@ -41,10 +41,10 @@
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   modules.hardware.nvidia.enable = true;
-  hardware.nvidia.forceFullCompositionPipeline = true;
+  hardware.nvidia.forceFullCompositionPipeline = true; # reduce screen tearing
   boot.loader.systemd-boot.enable = true;
 
-  services.xserver = {
+  services.xserver = { # set up screens just the way I like them
     monitorSection = ''
       VendorName     "Unknown"
       ModelName      "DELL E2422H"
@@ -53,7 +53,7 @@
       Option         "DPMS"
     '';
     screenSection = ''
-      Option "metamodes" "DP-0: nvidia-auto-select +3840+0, DP-4: nvidia-auto-select +1920+0, DP-2: nvidia-auto-select +0+0;
+      Option "metamodes" "DP-0: nvidia-auto-select +3840+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DP-4: nvidia-auto-select +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DP-2: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On};
       Option "SLI" "Off"
       Option "MultiGPU" "Off"
       Option "BaseMosaic" "off"

@@ -33,7 +33,7 @@ with lib; {
       xkb = {
         layout = "us";
         variant = "";
-        options = "caps:ctrl_modifier";
+        options = "caps:ctrl_modifier"; # make caps lock an additional ctrl
       };
     };
 

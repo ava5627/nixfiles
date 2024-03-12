@@ -15,9 +15,10 @@
 
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelParams = ["acpi_osi=!" "acpi_osi='Windows\" \"2009'"];
+  boot.kernelParams = ["acpi_osi=!" "acpi_osi='Windows\" \"2009'"]; # should allow using airplane mode key but looks like it doesn't work TODO: remember to look into this
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
+  boot.loader.systemd-boot.enable = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e882cd2f-9b1b-46b8-a23e-cbd920963f27";
@@ -47,15 +48,14 @@
   };
 
   hardware.nvidia = {
-    prime = {
+    prime = { # enable NVIDIA Optimus required for any graphics output
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
       sync.enable = true;
     };
   };
-  boot.loader.systemd-boot.enable = true;
   services.xserver.libinput = {
     enable = true;
-    touchpad.naturalScrolling = true;
+    touchpad.naturalScrolling = true; # reverse scrolling direction
   };
 }
