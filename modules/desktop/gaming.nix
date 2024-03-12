@@ -15,6 +15,7 @@ in {
       jdk17 # java 17
       jdk8 # java 8
       prismlauncher
+      ckan
     ];
   };
 }
