@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -7,4 +7,7 @@
     enable = true;
     touchpad.naturalScrolling = true;
   };
+  environment.systemPackages = [
+    pkgs.my.msi-perkeyrgb
+  ];
 }
