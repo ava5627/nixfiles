@@ -154,7 +154,8 @@ def diff():
         shell=True
     )
     lines = out.stdout.decode().split("\n")
-    print("\n".join(lines[2:-2]))
+    if lines:
+        print("\n".join(lines[2:-2]))
 
 
 def main():
@@ -166,7 +167,8 @@ def main():
             os.chdir(os.path.expanduser("~/nixfiles"))
     parser = argparse.ArgumentParser(description='Manage NixOS configuration')
     subparsers = parser.add_subparsers(dest="command")
-    parser.add_argument("--no-commit", "-n", action="store_true", help="Don't commit the changes")
+    parser.add_argument("--no-commit", "-n",
+                        action="store_true", help="Don't commit the changes")
     rebuild_parser = argparse.ArgumentParser(add_help=False)
     hosts = os.listdir("./hosts")
     rebuild_parser.add_argument(
@@ -221,10 +223,10 @@ def main():
         git_commit(message="Update flakes")
         diff()
     elif args.command == "update":
+        checks()
         update(args.flakes)
     elif args.command == "test":
-        subprocess.run(["sudo", "-v"])
-        untracked_files()
+        checks()
         rebuild("test", fast=True)
     elif args.command == "rollback":
         subprocess.call(["sudo", "-v"])
