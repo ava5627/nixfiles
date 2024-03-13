@@ -3,7 +3,7 @@
 ## Edited version of powermenu script from https://github.com/adi1090x/rofi
 
 rofi_command="rofi -theme styles/powermenu.rasi -kb-select-1 s -kb-select-2 r -kb-select-3 l -kb-select-4 u"
-uptime=$(TZ="UTC" date -d@$(cut -d\  -f1 /proc/uptime) +"%j %H %M" | awk '{if ($1-1 > 0) printf "$1 days "; if ($2 > 0) printf $2" hours "; if ($3 > 0) print $3" minutes "}')
+uptime=$(TZ="UTC" date -d@$(cut -d\  -f1 /proc/uptime) +"%j %H %M" | awk '{if ($1-1 > 0) printf $1" days "; if ($2 > 0) printf $2" hours "; if ($3 > 0) print $3" minutes "}')
 
 # Options
 shutdown="󰐥"
