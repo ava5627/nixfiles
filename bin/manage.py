@@ -36,7 +36,7 @@ def untracked_files():
 
 
 def git_diff():
-    if not git_status():
+    if not has_changes():
         return
     subprocess.run(
         "git "
@@ -47,13 +47,12 @@ def git_diff():
     )
 
 
-def git_status():
+def has_changes():
     status = subprocess.run(
-        "git status --porcelain",
-        capture_output=True,
+        "git diff HEAD --quiet",
         shell=True
-    ).stdout.decode().strip()
-    return status
+    )
+    return status.returncode != 0
 
 
 def unpulled_commits():
@@ -63,7 +62,7 @@ def unpulled_commits():
         capture_output=True,
         shell=True
     ).stdout.decode().strip()
-    if unpulled and git_status():
+    if unpulled and has_changes():
         print("Unpulled commits:")
         print(unpulled)
         exit(1)
@@ -74,7 +73,7 @@ def unpulled_commits():
 
 
 def git_commit(message=None):
-    if not git_status():
+    if not has_changes():
         return
     nix_generation = subprocess.run(
         "ls -v1 /nix/var/nix/profiles | tail -n 1 | cut -d- -f2",
