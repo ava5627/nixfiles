@@ -4,7 +4,7 @@
   hidapi,
 }:
 with python3.pkgs;
-  buildPythonPackage rec {
+  buildPythonPackage {
     # https://github.com/Askannz/msi-perkeyrgb
     pname = "msi-perkeyrgb";
     version = "2.1";
