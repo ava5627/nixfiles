@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i python3 -p python3 python3Packages.argcomplete
+#! nix-shell -i python3 -p python3 python3Packages.argcomplete nvd git ripgrep
 # PYTHON_ARGCOMPLETE_OK
 # vim: ft=python
 import socket

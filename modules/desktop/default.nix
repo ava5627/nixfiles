@@ -58,7 +58,6 @@ with lib; {
       # shell scripts
       (writeShellScriptBin "powermenu" (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
       (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
-      (writeScriptBin "manage" (builtins.readFile "${config.dotfiles.bin}/manage.py"))
     ];
     programs.nm-applet.enable = true;
 

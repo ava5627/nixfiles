@@ -6,9 +6,9 @@
 }:
 with lib;
 with lib.my; let
-  cfg = config.modules.shell.programs;
+  cfg = config.modules.terminal.programs;
 in {
-  options.modules.shell.programs.enable = mkBool true "Usefull shell programs";
+  options.modules.terminal.programs.enable = mkBool true "Usefull terminal programs";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       neofetch # system info

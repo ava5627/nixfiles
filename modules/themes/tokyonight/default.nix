@@ -81,7 +81,7 @@ in {
       };
       xdg.configFile = {
         "fish/conf.d/colors.fish" = {
-          enable = config.modules.shell.fish.enable;
+          enable = config.modules.terminal.fish.enable;
           source = ./config/fish.fish;
         };
         "Kvantum/KvArcTokyoNight" = {

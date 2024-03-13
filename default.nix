@@ -5,6 +5,7 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }:
 with lib.my; {
@@ -70,6 +71,7 @@ with lib.my; {
     curl # web requests
     file # file type identification
     nvd # nix package version diff
+    (writeScriptBin "manage" (builtins.readFile "${config.dotfiles.bin}/manage.py"))
   ];
   environment.variables = {
     MANPAGER = "sh -c 'col -bx | bat -l man -p'"; # use bat as man pager

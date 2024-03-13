@@ -5,9 +5,9 @@
 }:
 with lib;
 with lib.my; let
-  cfg = config.modules.shell.git;
+  cfg = config.modules.terminal.git;
 in {
-  options.modules.shell.git = with types; {
+  options.modules.terminal.git = with types; {
     enable = mkBool true "git";
     userName = mkOpt str "ava5627";
     userEmail = mkOpt str "avasharris1@gmail.com";

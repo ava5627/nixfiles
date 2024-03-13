@@ -6,9 +6,9 @@
 }:
 with lib;
 with lib.my; let
-  cfg = config.modules.shell.fish;
+  cfg = config.modules.terminal.fish;
 in {
-  options.modules.shell.fish = {
+  options.modules.terminal.fish = {
     enable = mkBool true "fish";
   };
 
