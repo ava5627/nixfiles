@@ -69,7 +69,11 @@ def unpulled_commits():
     elif unpulled:
         print("Unpulled commits")
         print("No local changes, pulling...")
-        subprocess.run(["git", "pull"], capture_output=True)
+        pull = subprocess.run(["git", "pull"], capture_output=True)
+        if pull.returncode != 0:
+            print("Failed to pull")
+            print(pull.stderr.decode())
+            exit(1)
 
 
 def git_commit(message=None):
