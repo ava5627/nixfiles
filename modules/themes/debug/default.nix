@@ -28,8 +28,5 @@ in {
         }
       ];
     };
-    home.xdg.configFile = {
-      "fish/conf.d/colors.fish".source = ./config/fish.fish;
-    };
   };
 }

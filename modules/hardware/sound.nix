@@ -29,6 +29,8 @@ in {
     environment.systemPackages = with pkgs; [
       pavucontrol # PulseAudio Volume Control
       qpwgraph # pipewire graph interface
+      playerctl # media player control
     ];
+    home.services.playerctld.enable = true;
   };
 }

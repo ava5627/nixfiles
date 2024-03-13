@@ -14,8 +14,9 @@ in {
     environment.systemPackages = with pkgs; [
       jdk17 # java 17
       jdk8 # java 8
-      prismlauncher
-      ckan
+      prismlauncher # minecraft launcher
+      ckan # kerbal space program mod manager
+      wine # windows compatibility layer
     ];
   };
 }

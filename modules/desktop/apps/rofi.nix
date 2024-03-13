@@ -6,7 +6,6 @@
 with lib;
 with lib.my; let
   cfg = config.modules.desktop.rofi;
-  home = config.home-manager.users.${config.user.name};
 in {
   options.modules.desktop.rofi.enable = mkEnableOption "rofi";
   config = mkIf cfg.enable {
@@ -31,7 +30,7 @@ in {
           kb-remove-to-eol = "";
         };
         theme = let
-          inherit (home.lib.formats.rasi) mkLiteral;
+          inherit (config.home.lib.formats.rasi) mkLiteral;
         in {
           "*" = {
             spacing = 5;

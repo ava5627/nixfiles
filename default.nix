@@ -10,7 +10,6 @@
 with lib.my; {
   imports =
     [
-      inputs.home-manager.nixosModules.home-manager
       inputs.nix-gc-env.nixosModules.default
     ]
     ++ (mapModulesRec' (toString ./modules) import);
@@ -53,17 +52,6 @@ with lib.my; {
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable networking
-  networking.networkmanager.enable = true;
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
-
-  services.avahi.enable = true;
-  services.printing.enable = true;
-
   virtualisation.docker.enable = true;
   virtualisation.docker.extraPackages = with pkgs; [
     docker-compose
@@ -77,37 +65,11 @@ with lib.my; {
 
   # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    # shell programs
-    neofetch # system info
-    fd # find replacement
-    stow # symlink manager
-    jq # json processor
-    tlrc # explain commands
-    xdg-ninja # search for .files in home directory that can be moved
-    dua # disk usage analyzer
-    cached-nix-shell # nix shell caching
-
-    # utilities
     unzip # zip file extractor
     wget # web requests
     curl # web requests
-    ffmpeg # multimedia framework
     file # file type identification
-    glow # terminal markdown viewer
-    wine # windows compatibility layer
     nvd # nix package version diff
-    playerctl # media player control
-
-    # development
-    rustup
-    nodejs
-    gnumake
-    gcc
-    jdk17 # java 17
-    jdk8 # java 8
-    alejandra # nix formatter
-    python3Packages.ipython # python repl
-    poetry # python package manager
   ];
   environment.variables = {
     MANPAGER = "sh -c 'col -bx | bat -l man -p'"; # use bat as man pager
@@ -123,10 +85,7 @@ with lib.my; {
     source-code-pro
   ];
 
-  sound.enable = true;
   programs = {
-    nm-applet.enable = true;
-
     dconf.enable = true;
 
     nix-ld.enable = true;
@@ -135,10 +94,7 @@ with lib.my; {
     ];
   };
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
   services.gvfs.enable = true;
-  services.hardware.openrgb.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

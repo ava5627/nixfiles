@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   environment = {
     sessionVariables = {
       # Xdg directories
@@ -39,5 +39,25 @@
     "image/jpeg" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
     "image/gif" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
     "image/jpg" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
+  };
+  home.xdg = {
+    enable = true;
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+    };
+    configFile = {
+      "neofetch/".source = "${config.dotfiles.config}/neofetch";
+      "ranger".source = "${config.dotfiles.config}/ranger";
+      "ideavim/ideavimrc".source = "${config.dotfiles.config}/ideavimrc";
+      "ipython/profile_default/ipython_config.py".source = "${config.dotfiles.config}/ipython_config.py";
+      "wgetrc".text = "hsts-file = /home/${config.user.name}/.cache/wget-hsts";
+      "npm/npmrc".text = ''
+        prefix=$XDG_DATA_HOME/npm
+        cache=$XDG_CACHE_HOME/npm
+        init-module=$XDG_CONFIG_HOME/npm/npm-init.js
+        tmp=$XDG_RUNTIME_DIR/npm
+      '';
+    };
   };
 }

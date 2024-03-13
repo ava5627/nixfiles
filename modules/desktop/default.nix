@@ -58,16 +58,35 @@ with lib; {
       # shell scripts
       (writeShellScriptBin "powermenu" (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
       (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
-      (writeScriptBin "manage" (builtins.readFile "${config.dotfiles.bin}/manage"))
+      (writeScriptBin "manage" (builtins.readFile "${config.dotfiles.bin}/manage.py"))
     ];
+    programs.nm-applet.enable = true;
 
     home = {
-      programs.feh.enable = true;
+      programs = {
+        feh.enable = true;
+        obs-studio.enable = true;
+        mpv = {
+          enable = true;
+          scripts = [pkgs.mpvScripts.mpris];
+        };
+      };
+      services = {
+        kdeconnect = {
+          enable = true;
+          indicator = true;
+        };
+      };
       xdg.configFile = {
         "copyq/" = {
           source = "${config.dotfiles.config}/copyq";
           recursive = true;
         };
+      };
+      home.pointerCursor = {
+        name = "Bibata-Modern-Ice";
+        package = pkgs.bibata-cursors;
+        size = 0;
       };
     };
   };

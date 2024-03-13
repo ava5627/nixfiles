@@ -7,6 +7,11 @@
 }:
 with lib;
 with lib.my; {
+  imports = [
+    inputs.home-manager.nixosModules.home-manager
+    # home-manager.users.${config.user.name} is long, so we alias it to home
+    (lib.mkAliasOptionModule ["home"] ["home-manager" "users" "${config.user.name}"])
+  ];
   options = with types; {
     user = mkOpt attrs {};
     dotfiles = {
@@ -18,9 +23,6 @@ with lib.my; {
       homeModules = mkOpt path "${config.dotfiles.dir}/home/modules";
       themes = mkOpt path "${config.dotfiles.homeModules}/themes";
     };
-    # dont use attrs here https://github.com/NixOS/nixpkgs/issues/85508
-    home = mkOpt (attrsOf anything) {};
-
     # autoStart = mkOpt (listOf str) [];
   };
 
@@ -47,12 +49,19 @@ with lib.my; {
 
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.extraSpecialArgs = {
-      dotfiles = config.dotfiles;
+
+    home = {
+      # This value determines the Home Manager release that your configuration is
+      # compatible with. This helps avoid breakage when a new Home Manager release
+      # introduces backwards incompatible changes.
+      #
+      # You should not change this value, even if you update Home Manager. If you do
+      # want to update the value, then make sure to first check the Home Manager
+      # release notes.
+      home.stateVersion = "23.11"; # Please read the comment before changing.
+
+      # Let Home Manager install and manage itself.
+      programs.home-manager.enable = true;
     };
-    home-manager.users.${config.user.name} = mkMerge [
-      ../home
-      config.home
-    ];
   };
 }

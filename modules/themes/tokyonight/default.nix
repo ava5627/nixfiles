@@ -6,7 +6,6 @@
 }:
 with lib; let
   cfg = config.modules.theme;
-  home = config.home-manager.users.${config.user.name};
 in {
   config = mkIf (cfg.active == "Tokyo Night") {
     modules.theme = {
@@ -69,11 +68,6 @@ in {
         };
       };
     };
-    qt = {
-      enable = true;
-      style = "kvantum";
-      platformTheme = "qt5ct";
-    };
     home = {
       gtk = {
         theme = {
@@ -86,25 +80,17 @@ in {
         };
       };
       xdg.configFile = {
-        "fish/conf.d/colors.fish".source = mkIf config.modules.shell.fish.enable ./config/fish.fish;
-        "Kvantum/KvArcTokyoNight".source = "${pkgs.my.tokyo-night-theme}/share/Kvantum/KvArcTokyoNight";
-        "Kvantum/kvantum.kvconfig".text = "[General]\ntheme=KvArcTokyoNight\n";
-      };
-      programs.rofi.theme = let
-        inherit (home.lib.formats.rasi) mkLiteral;
-      in {
-        "*" = {
-          accent = mkLiteral cfg.rofi.accent;
-          accent-alt = mkLiteral cfg.rofi.accent-alt;
-          background = mkLiteral cfg.rofi.background;
-          background-light = mkLiteral cfg.rofi.background-light;
-          text-color = mkLiteral cfg.rofi.text-color;
-
-          background-color = mkLiteral cfg.rofi.background-light;
-          border-color = mkLiteral cfg.rofi.accent;
+        "fish/conf.d/colors.fish" = {
+          enable = config.modules.shell.fish.enable;
+          source = ./config/fish.fish;
         };
-        listview = {
-          background-color = mkLiteral cfg.rofi.background;
+        "Kvantum/KvArcTokyoNight" = {
+          enable = config.modules.desktop.qt.enable;
+          source = "${pkgs.my.tokyo-night-theme}/share/Kvantum/KvArcTokyoNight";
+        };
+        "Kvantum/kvantum.kvconfig" = {
+          enable = config.modules.desktop.qt.enable;
+          text = "[General]\ntheme=KvArcTokyoNight\n";
         };
       };
       programs.kitty = {
