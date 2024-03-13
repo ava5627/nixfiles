@@ -18,5 +18,8 @@ in {
       VIRTUAL_ENV_DISABLE_PROMPT = "1";
       KERAS_HOME = "$XDG_STATE_HOME/keras";
     };
+    home.home.shellAliases = {
+      pyc = "echo layout python > .envrc && direnv allow && poetry init";
+    };
   };
 }

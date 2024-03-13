@@ -14,36 +14,55 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.programs = {
-      git = {
-        enable = true;
-        userName = cfg.userName;
-        userEmail = cfg.userEmail;
-        ignores = [ ".ropeproject" ".envrc" ".direnv" ];
-        delta = {
+    home = {
+      programs = {
+        git = {
           enable = true;
-          options = {
-            syntax-theme = "Dracula";
-            line-numbers = true;
-            side-by-side = true;
-            decorations = true;
-            hyperlinks = true;
-            syntax-highlighting = true;
-            commit-decoration = true;
-            conflictstyle = "diff3";
-            navigate = true;
-            file-decoration-style = "omit";
-            hunk-header-decoration-style = "omit";
-            hunk-header-style = "file line-number syntax";
+          userName = cfg.userName;
+          userEmail = cfg.userEmail;
+          ignores = [".ropeproject" ".envrc" ".direnv"];
+          delta = {
+            enable = true;
+            options = {
+              syntax-theme = "Dracula";
+              line-numbers = true;
+              side-by-side = true;
+              decorations = true;
+              hyperlinks = true;
+              syntax-highlighting = true;
+              commit-decoration = true;
+              conflictstyle = "diff3";
+              navigate = true;
+              file-decoration-style = "omit";
+              hunk-header-decoration-style = "omit";
+              hunk-header-style = "file line-number syntax";
+            };
+          };
+          aliases = {
+            olog = "log --oneline --decorate --graph";
+            dlog = "log -p --ext-diff";
           };
         };
-        aliases = {
-          olog = "log --oneline --decorate --graph";
-          dlog = "log -p --ext-diff";
+        gh.enable = true;
+        lazygit.enable = true;
+        fish.shellAbbrs = {
+          ga = "git add";
+          gc = "git commit";
+          gcm = "git commit -m";
+          gcam = "git commit -am";
+          gca = "git commit --amend";
+          gdh = "git diff HEAD^";
         };
       };
-      gh.enable = true;
-      lazygit.enable = true;
+      home.shellAliases = {
+        gs = "git status -s";
+        gss = "git status";
+        gad = "git add .";
+        gd = "git diff";
+        gp = "git push";
+        gpl = "git pull";
+        gf = "git push --force-with-lease";
+      };
     };
   };
 }

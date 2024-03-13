@@ -24,6 +24,10 @@ in {
       #   };
       # };
       xdg.configFile."ranger".source = "${config.dotfiles.config}/ranger";
+      shellAliases = {
+        # make ranger use the last directory it was in after exiting
+        ranger = ''ranger --choosedir=/tmp/ranger_dir; set LASTDIR (cat /tmp/ranger_dir); cd $LASTDIR; rm /tmp/ranger_dir'';
+      };
     };
   };
 }

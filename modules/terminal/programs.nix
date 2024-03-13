@@ -21,31 +21,42 @@ in {
       ffmpeg # multimedia framework
       glow # terminal markdown viewer
     ];
-    home.programs = {
-      btop = {
-        enable = true;
-        settings = {
-          theme_background = false;
-          vim_keys = true;
+    home = {
+      programs = {
+        btop = {
+          enable = true;
+          settings = {
+            theme_background = false;
+            vim_keys = true;
+          };
+        };
+        lsd.enable = true;
+        ripgrep.enable = true;
+        zoxide = {
+          enable = true;
+          options = ["--cmd cd"];
+        };
+        bat = {
+          enable = true;
+          extraPackages = with pkgs.bat-extras; [batman];
+        };
+        fzf.enable = true;
+        navi = {
+          enable = true;
+        };
+        direnv = {
+          enable = true;
+          nix-direnv.enable = true;
+        };
+        fish.functions.lb = {
+          body = builtins.readFile "${config.dotfiles.config}/fish/functions/lb.fish";
+          description = "lsd on directory, bat on file";
         };
       };
-      lsd.enable = true;
-      ripgrep.enable = true;
-      zoxide = {
-        enable = true;
-        options = ["--cmd cd"];
-      };
-      bat = {
-        enable = true;
-        extraPackages = with pkgs.bat-extras; [batman];
-      };
-      fzf.enable = true;
-      navi = {
-        enable = true;
-      };
-      direnv = {
-        enable = true;
-        nix-direnv.enable = true;
+      home.shellAliases = {
+        man = "batman";
+        cb = "cd -"; # go back
+        ls = "lb";
       };
     };
   };

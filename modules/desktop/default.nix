@@ -70,6 +70,9 @@ with lib; {
           scripts = [pkgs.mpvScripts.mpris];
         };
       };
+      home.shellAliases = {
+        cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'';
+      };
       services = {
         kdeconnect = {
           enable = true;

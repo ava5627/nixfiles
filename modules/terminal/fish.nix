@@ -21,47 +21,7 @@ in {
       programs.fish = {
         enable = true;
         shellAliases = {
-          c = "clear";
           cla = "clear; exec fish";
-
-          ls = "lb";
-          ll = "lb -l";
-          la = "lb -A";
-          lla = "lb -lA";
-
-          ip = "ip -c";
-          ipa = "ip addr";
-
-          qlog = "clear && tail -f ~/.local/share/qtile/qtile.log";
-
-          v = "nvim .";
-          ranger = ''ranger --choosedir=/tmp/ranger_dir; set LASTDIR (cat /tmp/ranger_dir); cd $LASTDIR; rm /tmp/ranger_dir'';
-          cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'';
-
-          pyc = "echo layout python > .envrc && direnv allow && poetry init";
-
-          ".." = "cd ..";
-          "..." = "cd ../..";
-          "...." = "cd ../../..";
-          cb = "cd -";
-
-          man = "batman";
-
-          gs = "git status -s";
-          gss = "git status";
-          gad = "git add .";
-          gd = "git diff";
-          gp = "git push";
-          gpl = "git pull";
-          gf = "git push --force-with-lease";
-        };
-        shellAbbrs = {
-          ga = "git add";
-          gc = "git commit";
-          gcm = "git commit -m";
-          gcam = "git commit -am";
-          gca = "git commit --amend";
-          gdh = "git diff HEAD^";
         };
         interactiveShellInit =
           /*
@@ -102,11 +62,6 @@ in {
           fish_right_prompt = {
             body = builtins.readFile "${config.dotfiles.config}/fish/functions/fish_right_prompt.fish";
             description = "Custom fish right prompt";
-          };
-          lb = {
-            body = builtins.readFile "${config.dotfiles.config}/fish/functions/lb.fish";
-            description = "ls on directory, bat on file";
-            wraps = "ls";
           };
         };
       };

@@ -45,5 +45,8 @@ in {
           fi
         '';
     };
+    home.home.shellAliases = {
+      qlog = "clear && tail -f ~/.local/share/qtile/qtile.log";
+    };
   };
 }

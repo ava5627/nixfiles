@@ -14,13 +14,19 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.programs.neovim = {
-      enable = true;
-      defaultEditor = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      withNodeJs = true;
-      withPython3 = true;
+    home = {
+      programs.neovim = {
+        enable = true;
+        defaultEditor = true;
+        vimAlias = true;
+        vimdiffAlias = true;
+        withNodeJs = true;
+        withPython3 = true;
+      };
+
+      home.shellAliases = {
+        v = "nvim .";
+      };
     };
     environment.variables = {EDITOR = "nvim";};
     environment.systemPackages = with pkgs; [
