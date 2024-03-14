@@ -40,7 +40,10 @@ in {
           enable = true;
           extraPackages = with pkgs.bat-extras; [batman];
         };
-        fzf.enable = true;
+        fzf = {
+          enable = true;
+          enableFishIntegration = false;
+        };
         navi = {
           enable = true;
         };
