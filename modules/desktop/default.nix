@@ -6,6 +6,17 @@
 }:
 with lib; {
   config = mkIf config.services.xserver.enable {
+    services.xserver = {
+      displayManager.sddm = {
+        enable = true;
+        theme = "${pkgs.my.sugar-candy}";
+      };
+      xkb = {
+        layout = "us";
+        variant = "";
+        options = "caps:ctrl_modifier"; # make caps lock an additional ctrl
+      };
+    };
     modules.desktop = {
       dunst.enable = true;
       firefox.enable = true;
@@ -25,42 +36,6 @@ with lib; {
         ];
       };
     };
-    services.xserver = {
-      displayManager.sddm = {
-        enable = true;
-        theme = "${pkgs.my.sugar-candy}";
-      };
-      xkb = {
-        layout = "us";
-        variant = "";
-        options = "caps:ctrl_modifier"; # make caps lock an additional ctrl
-      };
-    };
-
-    environment.systemPackages = with pkgs; [
-      xdotool # keyboard and mouse automation
-      xclip # clipboard manager
-      qalculate-gtk # calculator
-      arandr # screen layout editor
-      copyq # clipboard manager
-      insync # google drive sync
-      solaar # logitech device manager
-      morgen # calendar
-      pcmanfm # file manager
-      gnome.file-roller # archive manager
-      libsForQt5.okular # document viewer
-      geeqie # image viewer
-      gimp # image editor
-      vlc # media player
-
-      libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
-      libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
-      # shell scripts
-      (writeShellScriptBin "powermenu" (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
-      (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
-    ];
-    programs.nm-applet.enable = true;
-
     home = {
       programs = {
         feh.enable = true;
@@ -89,6 +64,46 @@ with lib; {
         name = "Bibata-Modern-Ice";
         package = pkgs.bibata-cursors;
         size = 0;
+      };
+    };
+
+    environment.systemPackages = with pkgs; [
+      xdotool # keyboard and mouse automation
+      xclip # clipboard manager
+      qalculate-gtk # calculator
+      arandr # screen layout editor
+      copyq # clipboard manager
+      insync # google drive sync
+      solaar # logitech device manager
+      morgen # calendar
+      pcmanfm # file manager
+      gnome.file-roller # archive manager
+      libsForQt5.okular # document viewer
+      geeqie # image viewer
+      gimp # image editor
+      vlc # media player
+      polkit_gnome # polkit authentication agent
+
+      libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
+      libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
+      # shell scripts
+      (writeShellScriptBin "powermenu" (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
+      (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
+    ];
+    programs.nm-applet.enable = true;
+    systemd.services = {
+      polkit-gnome-authentication-agent-1 = {
+        description = "PolicyKit Authentication Agent";
+        wantedBy = ["graphical-session.target"];
+        wants = ["graphical-session.target"];
+        after = ["graphical-session.target"];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
       };
     };
   };

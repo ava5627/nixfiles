@@ -71,6 +71,8 @@ with lib.my; {
     curl # web requests
     file # file type identification
     nvd # nix package version diff
+    psmisc # process management
+    procps # process management
     (writeScriptBin "manage" (builtins.readFile "${config.dotfiles.bin}/manage.py"))
   ];
   environment.variables = {

@@ -13,5 +13,6 @@ in {
     networking.firewall.enable = false;
     services.avahi.enable = true; # mDNS support
     services.printing.enable = true;
+    services.openssh.enable = true;
   };
 }
