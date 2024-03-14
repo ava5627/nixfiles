@@ -104,8 +104,7 @@ in {
         "--color=hl:#3d59a1,hl+:#7aa2f7,info:#9ece6a,marker:#f7768e"
         "--color=prompt:#d7005f,spinner:#af5fff,pointer:#af5fff,header:#bb9af7"
         "--color=border:#262626,label:#aeaeae,query:#c0caf5"
-        "--prompt=\"> \""
-        "--marker=\">\" --pointer=\"◆\" --separator=\"─\""
+        "--layout=reverse"
       ];
       programs.zathura.options = {
         "completion-bg" = "#16161e";
