@@ -50,7 +50,7 @@
       "neofetch".source = "${config.dotfiles.config}/neofetch";
       "ideavim/ideavimrc".source = "${config.dotfiles.config}/ideavimrc";
       "ipython/profile_default/ipython_config.py".source = "${config.dotfiles.config}/ipython_config.py";
-      "wgetrc".text = "hsts-file = /home/${config.user.name}/.cache/wget-hsts";
+      wgetrc.text = "hsts-file = $XDG_CACHE_HOME/wget-hsts";
       "npm/npmrc".text = ''
         prefix=$XDG_DATA_HOME/npm
         cache=$XDG_CACHE_HOME/npm

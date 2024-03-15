@@ -40,13 +40,8 @@ in {
           enable = true;
           extraPackages = with pkgs.bat-extras; [batman];
         };
-        fzf = {
-          enable = true;
-          enableFishIntegration = false;
-        };
-        navi = {
-          enable = true;
-        };
+        fzf.enable = true;
+        navi.enable = true;
         direnv = {
           enable = true;
           nix-direnv.enable = true;
@@ -61,6 +56,10 @@ in {
         cb = "cd -"; # go back
         ls = "lb";
       };
+    };
+    environment.variables = {
+      MANPAGER = "sh -c 'col -bx | bat -l man -p'"; # use bat as man pager
+      MANROFFOPT = "-c";
     };
   };
 }

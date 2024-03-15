@@ -73,12 +73,10 @@ with lib.my; {
     nvd # nix package version diff
     psmisc # process management
     procps # process management
+    gnumake # make
+    gcc # c compiler
     (writeScriptBin "manage" (builtins.readFile "${config.dotfiles.bin}/manage.py"))
   ];
-  environment.variables = {
-    MANPAGER = "sh -c 'col -bx | bat -l man -p'"; # use bat as man pager
-    MANROFFOPT = "-c";
-  };
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk

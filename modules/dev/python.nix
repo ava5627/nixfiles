@@ -19,7 +19,8 @@ in {
       KERAS_HOME = "$XDG_STATE_HOME/keras";
     };
     home.home.shellAliases = {
-      pyc = "echo layout python > .envrc && direnv allow && poetry init";
+      pyc = "echo layout python > .envrc && direnv allow";
+      pyi = "test -f pyproject.toml && poetry install || poetry init";
     };
   };
 }

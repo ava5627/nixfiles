@@ -6,14 +6,13 @@
 }:
 with lib;
 with lib.my; let
-  cfg = config.modules.dev;
+  cfg = config.modules.dev.nix;
 in {
-  options.modules.dev.enable = mkBool true "Enable dev module";
+  options.modules.dev.nix.enable = mkBool true "Nix";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      gnumake
-      gcc
       alejandra # nix formatter
+      nil # nix language server
     ];
   };
 }
