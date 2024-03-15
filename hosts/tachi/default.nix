@@ -10,4 +10,5 @@
   environment.systemPackages = [
     pkgs.my.msi-perkeyrgb
   ];
+  services.udev.packages = [ pkgs.my.msi-perkeyrgb ];
 }
