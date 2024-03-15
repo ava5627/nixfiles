@@ -15,6 +15,11 @@ with python3.pkgs;
       sha256 = "0f25png4fcf7n07g57aa8nc2z3524ydx41b1vzh4dyij39r8lvs0";
     };
 
+    postInstall = ''
+      mkdir -p $out/etc/udev/rules.d
+      cp ./99-msi-rgb.rules $out/etc/udev/rules.d
+    '';
+
     nativeBuildInputs = [hidapi setuptools];
     build-system = [setuptools];
   }
