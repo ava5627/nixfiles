@@ -104,7 +104,7 @@ def rebuild(method, **kwargs):
 
     if target_host := kwargs.get("target_host"):
         host = target_host
-        rebuild_command.append(f".#{host}")
+        rebuild_command.append(f".#{host.split('@'[-1])}")
         rebuild_command.extend(["--target-host", target_host])
     elif host := kwargs.get("host"):
         rebuild_command.append(f".#{host}")
