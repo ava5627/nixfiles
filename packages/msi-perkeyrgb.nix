@@ -21,5 +21,6 @@ with python3.pkgs;
     '';
 
     nativeBuildInputs = [hidapi setuptools];
+    buildInputs = [hidapi];
     build-system = [setuptools];
   }

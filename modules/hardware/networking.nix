@@ -11,8 +11,13 @@ in {
   config = mkIf cfg.enable {
     networking.networkmanager.enable = true;
     networking.firewall.enable = false;
-    services.avahi.enable = true; # mDNS support
-    services.printing.enable = true;
-    services.openssh.enable = true;
+    services = {
+      avahi.enable = true; # mDNS support
+      printing.enable = true;
+      openssh = {
+        enable = true;
+        settings.PermitRootLogin = "prohibit-password";
+      };
+    };
   };
 }

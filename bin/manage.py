@@ -101,21 +101,25 @@ def git_commit(message=None):
 
 def rebuild(method, **kwargs):
     rebuild_command = ["sudo", "nixos-rebuild", method, "--flake"]
-    if host := kwargs.get("host"):
+
+    if target_host := kwargs.get("target_host"):
+        host = target_host
+        rebuild_command.append(f".#{host}")
+        rebuild_command.extend(["--target-host", target_host])
+    elif host := kwargs.get("host"):
         rebuild_command.append(f".#{host}")
     else:
         host = socket.gethostname()
         rebuild_command.append(".")
 
+    if build_host := kwargs.get("build_host"):
+        rebuild_command.extend(["--build-host", build_host])
+        host += f" (built on {build_host})"
+
     if kwargs.get("fast"):
         rebuild_command.append("--fast")
     if kwargs.get("debug"):
         rebuild_command.append("--show-trace")
-    if build_host := kwargs.get("build_host"):
-        rebuild_command.extend(["--build-host", build_host])
-    if target_host := kwargs.get("target_host"):
-        rebuild_command.extend(["--target-host", target_host])
-        host = target_host + " on " + build_host or host
     if kwargs.get("rollback"):
         rebuild_command = rebuild_command[:2] + ["switch", "--rollback"]
     try:
@@ -124,9 +128,7 @@ def rebuild(method, **kwargs):
             i = 0
             while process.poll() is None:
                 spin = ["\\", "|", "/", "-"]
-                if kwargs.get("host"):
-                    print(
-                        f"\rRebuilding NixOS configuration for {host} {spin[i]}", end="")
+                print(f"\rRebuilding NixOS configuration for {host} {spin[i]}", end="")
                 i = (i + 1) % 4
                 sleep(0.1)
             if process.returncode != 0:
