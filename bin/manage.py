@@ -104,6 +104,7 @@ def rebuild(method, **kwargs):
     if host := kwargs.get("host"):
         rebuild_command.append(f".#{host}")
     else:
+        host = socket.gethostname()
         rebuild_command.append(".")
 
     if kwargs.get("fast"):
@@ -114,6 +115,7 @@ def rebuild(method, **kwargs):
         rebuild_command.extend(["--build-host", build_host])
     if target_host := kwargs.get("target_host"):
         rebuild_command.extend(["--target-host", target_host])
+        host = target_host + " on " + build_host or host
     if kwargs.get("rollback"):
         rebuild_command = rebuild_command[:2] + ["switch", "--rollback"]
     try:
@@ -125,9 +127,6 @@ def rebuild(method, **kwargs):
                 if kwargs.get("host"):
                     print(
                         f"\rRebuilding NixOS configuration for {host} {spin[i]}", end="")
-                else:
-                    print(
-                        f"\rRebuilding NixOS configuration for {socket.gethostname()} {spin[i]}", end="")
                 i = (i + 1) % 4
                 sleep(0.1)
             if process.returncode != 0:
