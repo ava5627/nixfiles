@@ -13,6 +13,7 @@ in {
     steam = mkBool true "gaming";
     minecraft = mkBool true "minecraft";
     wine = mkBool true "wine";
+    lutris = mkBool true "lutris";
   };
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.steam {
@@ -36,6 +37,11 @@ in {
         WINEPREFIX = "$XDG_DATA_HOME/wine";
         WINEARCH = "win64";
       };
+    })
+    (mkIf cfg.lutris {
+      environment.systemPackages = [
+        pkgs.lutris
+      ];
     })
   ]);
 }
