@@ -50,7 +50,7 @@ in {
           gc = "git commit";
           gcm = "git commit -m";
           gcam = "git commit -am";
-          gca = "git commit --amend";
+          gca = "git commit --amend -a";
           gdh = "git diff HEAD^";
         };
       };
