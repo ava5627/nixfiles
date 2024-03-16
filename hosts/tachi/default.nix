@@ -4,7 +4,12 @@
   ];
   modules = {
     theme.active = "Tokyo Night";
-    desktop.qtile.enable = true;
+    desktop = {
+      qtile.enable = true;
+      firefox.autoStart = false;
+      discord.autoStart = false;
+      gaming.steam.autoStart = false;
+    };
   };
   services.xserver.libinput = {
     enable = true;

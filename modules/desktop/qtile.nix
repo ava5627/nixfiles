@@ -49,10 +49,13 @@ in {
           fi
         '';
     };
-    home.xdg.configFile."qtile/autostart.sh".text = /* bash */''
-      #!/usr/bin/env bash
-      ${concatMapStrings (x: x + " &\n") config.modules.autoStart }
-    '';
+    home.xdg.configFile."qtile/autostart.sh" = {
+      text = ''
+        #!/usr/bin/env bash
+        ${concatMapStrings (x: x + " &\n") config.modules.autoStart}
+      '';
+      executable = true;
+    };
     home.home.shellAliases = {
       qlog = "clear && tail -f ~/.local/share/qtile/qtile.log";
     };

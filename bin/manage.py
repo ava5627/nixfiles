@@ -103,8 +103,17 @@ def rebuild(method, **kwargs):
     rebuild_command = ["sudo", "nixos-rebuild", method, "--flake"]
 
     if target_host := kwargs.get("target_host"):
-        host = target_host
-        rebuild_command.append(f".#{host.split('@')[-1]}")
+        if "@" in target_host:
+            host = target_host.split('@')[-1]
+        else:
+            host = target_host
+            target_host = f"root@{host}"
+        ssh_open = subprocess.run(f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True)
+        if ssh_open.returncode != 0:
+            print(f"Could not connect to {target_host}")
+            exit(1)
+        rebuild_command.remove("sudo")
+        rebuild_command.append(f".#{host}")
         rebuild_command.extend(["--target-host", target_host])
     elif host := kwargs.get("host"):
         rebuild_command.append(f".#{host}")
@@ -225,7 +234,7 @@ def main():
     args = parser.parse_args()
     if args.command == "rebuild" or args.command is None:
         checks()
-        git_diff()
+        # git_diff()
         rebuild("switch", **vars(args))
         diff()
         if not args.no_commit:
