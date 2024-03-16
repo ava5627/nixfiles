@@ -51,7 +51,7 @@ in {
         scripts = [pkgs.mpvScripts.mpris];
       };
       home.shellAliases = {
-        cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'';
+        cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --demuxer-lavf-o=video_size=1920x1080'';
       };
       services.kdeconnect = {
         enable = true;
