@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib;
@@ -15,10 +14,7 @@ in {
       enable = true;
       font = {
         name = "Source Code Pro";
-        size =
-          if pkgs.system == "x86_64-linux"
-          then 10
-          else 12;
+        size = 12;
       };
       settings = {
         background_opacity = "0.97";
