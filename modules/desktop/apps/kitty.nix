@@ -14,7 +14,7 @@ in {
       enable = true;
       font = {
         name = "Source Code Pro";
-        size = 12;
+        size = 10;
       };
       settings = {
         background_opacity = "0.97";
