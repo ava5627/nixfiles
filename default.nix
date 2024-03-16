@@ -59,8 +59,6 @@ with lib.my; {
   ];
 
   services.gnome.gnome-keyring.enable = true;
-  security.polkit.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
