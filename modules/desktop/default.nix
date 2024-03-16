@@ -43,22 +43,19 @@ in {
         ];
       };
     };
+
     home = {
-      programs = {
-        obs-studio.enable = true;
-        mpv = {
-          enable = true;
-          scripts = [pkgs.mpvScripts.mpris];
-        };
+      programs.obs-studio.enable = true;
+      programs.mpv = {
+        enable = true;
+        scripts = [pkgs.mpvScripts.mpris];
       };
       home.shellAliases = {
         cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'';
       };
-      services = {
-        kdeconnect = {
-          enable = true;
-          indicator = true;
-        };
+      services.kdeconnect = {
+        enable = true;
+        indicator = true;
       };
       xdg.configFile = {
         "copyq/" = {
@@ -72,14 +69,6 @@ in {
         size = 0;
       };
     };
-    modules.autoStart =
-      [
-        "copyq"
-        "solaar -w hide"
-        "systemctl restart --user kdeconnect-indicator"
-      ]
-      ++ optionals cfg.morgen.autoStart ["morgen"]
-      ++ optionals cfg.insync.autoStart ["insync"];
 
     environment.systemPackages = with pkgs; [
       xdotool # keyboard and mouse automation
@@ -104,7 +93,6 @@ in {
       (writeShellScriptBin "powermenu" (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
       (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
     ];
-    programs.nm-applet.enable = true;
     systemd.services = {
       polkit-gnome-authentication-agent-1 = {
         description = "PolicyKit Authentication Agent";
@@ -120,5 +108,13 @@ in {
         };
       };
     };
+    modules.autoStart =
+      [
+        "copyq"
+        "solaar -w hide"
+        "systemctl restart --user kdeconnect-indicator"
+      ]
+      ++ optionals cfg.morgen.autoStart ["morgen"]
+      ++ optionals cfg.insync.autoStart ["insync"];
   };
 }
