@@ -1,19 +1,23 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
-with lib; let
+with lib;
+with lib.my;
+let
   cfg = config.modules.desktop.firefox;
   cfg_profile = config.home.programs.firefox.profiles.${config.user.name};
   extension_name = "yaru_orange@ava.xpi";
   extension_path = ".mozilla/firefox/${cfg_profile.name}/extensions/${extension_name}";
 in {
-  options.modules.desktop.firefox.enable = mkEnableOption "Firefox";
+  options.modules.desktop.firefox = {
+    enable = mkEnableOption "Firefox";
+    autoStart = mkBool true "Start Firefox on login";
+  };
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [
-      firefox
+    modules.autoStart = mkIf cfg.autoStart [
+      "firefox"
     ];
     home.programs.firefox = {
       enable = true;

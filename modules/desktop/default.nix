@@ -4,7 +4,15 @@
   pkgs,
   ...
 }:
-with lib; {
+with lib;
+with lib.my; let
+  cfg = config.modules.desktop;
+in {
+  options.modules.desktop = {
+    morgen.autoStart = mkBool true "Start morgen on login";
+    insync.autoStart = mkBool true "Start insync on login";
+  };
+
   config = mkIf config.services.xserver.enable {
     services.xserver = {
       displayManager.sddm = {
@@ -37,7 +45,6 @@ with lib; {
     };
     home = {
       programs = {
-        feh.enable = true;
         obs-studio.enable = true;
         mpv = {
           enable = true;
@@ -65,6 +72,14 @@ with lib; {
         size = 0;
       };
     };
+    modules.autoStart =
+      [
+        "copyq"
+        "solaar -w hide"
+        "systemctl restart --user kdeconnect-indicator"
+      ]
+      ++ optionals cfg.morgen.autoStart ["morgen"]
+      ++ optionals cfg.insync.autoStart ["insync"];
 
     environment.systemPackages = with pkgs; [
       xdotool # keyboard and mouse automation

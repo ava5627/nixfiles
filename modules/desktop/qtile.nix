@@ -28,6 +28,10 @@ in {
       };
       picom.enable = true;
     };
+    home.programs.feh.enable = true;
+    modules.autoStart = [
+      "feh --no-fehbg --bg-scale $HOME/Pictures/Wallpapers/camp_fire.jpg"
+    ];
 
     environment.systemPackages = with pkgs; [
       xcolor # color picker
@@ -45,6 +49,10 @@ in {
           fi
         '';
     };
+    home.xdg.configFile."qtile/autostart.sh".text = /* bash */''
+      #!/usr/bin/env bash
+      ${concatMapStrings (x: x + " &\n") config.modules.autoStart }
+    '';
     home.home.shellAliases = {
       qlog = "clear && tail -f ~/.local/share/qtile/qtile.log";
     };

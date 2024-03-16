@@ -10,6 +10,7 @@ with lib.my; let
 in {
   options.modules.desktop.discord = {
     enable = mkEnableOption "Discord";
+    autoStart = mkBool true "Start Discord on login";
     plugins = mkOption {
       type = types.listOf types.str;
       default = [];
@@ -27,6 +28,9 @@ in {
         betterdiscordctl
       ];
 
+    modules.autoStart = mkIf cfg.autoStart [
+      "discord"
+    ];
     system.userActivationScripts.betterDiscord.text = let
       plugins = lib.concatStringsSep " " (map (x: "\"${x}\"") cfg.plugins);
       themes = lib.concatStringsSep " " (map (x: "\"${x}\"") cfg.themes);

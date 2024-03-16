@@ -11,6 +11,9 @@ in {
   options.modules.desktop.flameshot.enable = mkEnableOption "Flameshot";
   config = mkIf cfg.enable {
     environment.systemPackages = [pkgs.flameshot];
+    modules.autoStart = [
+      "flameshot"
+    ];
 
     home.xdg.configFile = {
       "flameshot/flameshot.ini".source = iniFormat.generate "flameshot.ini" {

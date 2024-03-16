@@ -24,7 +24,8 @@ with lib.my; {
       homeModules = mkOpt path "${config.dotfiles.dir}/home/modules";
       themes = mkOpt path "${config.dotfiles.homeModules}/themes";
     };
-    # autoStart = mkOpt (listOf str) [];
+    modules.autoStart = mkOpt (listOf str) [];
+    launchAll = mkBool true "Launch all services on startup";
   };
 
   config = {

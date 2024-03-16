@@ -23,5 +23,9 @@ in {
     environment.systemPackages = with pkgs; [
       blueberry # graphical bluetooth manager
     ];
+    modules.autoStart = [
+      "blueberry-tray"
+    ];
+
   };
 }
