@@ -9,7 +9,7 @@ with lib.my; let
   cfg = config.modules.desktop.qtile;
 in {
   options.modules.desktop.qtile = {
-    enable = mkBool true "qtile";
+    enable = mkEnableOption "qtile";
     configUrl = mkOpt types.str "https://github.com/ava5627/qtile-config";
   };
 

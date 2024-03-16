@@ -9,13 +9,12 @@ with lib.my; let
   cfg = config.modules.desktop.gaming;
 in {
   options.modules.desktop.gaming = {
-    enable = mkEnableOption "Enable gaming";
-    steam = mkBool true "gaming";
-    minecraft = mkBool true "minecraft";
-    wine = mkBool true "wine";
-    lutris = mkBool true "lutris";
+    steam = mkEnableOption "steam";
+    minecraft = mkEnableOption "minecraft";
+    wine = mkEnableOption "wine";
+    lutris = mkEnableOption "lutris";
   };
-  config = mkIf cfg.enable (mkMerge [
+  config = mkMerge [
     (mkIf cfg.steam {
       programs.steam.enable = true;
       environment.systemPackages = [
@@ -43,5 +42,5 @@ in {
         pkgs.lutris
       ];
     })
-  ]);
+  ];
 }

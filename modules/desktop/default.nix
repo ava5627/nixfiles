@@ -21,7 +21,6 @@ with lib; {
       dunst.enable = true;
       firefox.enable = true;
       flameshot.enable = true;
-      gaming.enable = true;
       kitty.enable = true;
       zathura.enable = true;
       rofi.enable = true;
