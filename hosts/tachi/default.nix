@@ -7,6 +7,10 @@
     desktop = {
       qtile.enable = true;
       firefox.autoStart = false;
+      discord.autoStart = false;
+      gaming.steam.enable = true;
+      gaming.steam.autoStart = false;
+      foundry.enable = true;
     };
   };
   services.xserver.libinput = {
