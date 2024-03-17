@@ -84,9 +84,11 @@ with lib.my; {
     source-code-pro
   ];
 
-  programs.nix-ld = {
-    enable = true;
-    libraries = [
+  programs = {
+    dconf.enable = true;
+
+    nix-ld.enable = true;
+    nix-ld.libraries = [
       # add missing dynamic libraries for unpackaged programs here
     ];
   };
