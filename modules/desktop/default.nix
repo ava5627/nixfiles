@@ -45,6 +45,7 @@ in {
     };
 
     home = {
+      xsession.enable = true;
       programs.obs-studio.enable = true;
       programs.mpv = {
         enable = true;
@@ -113,7 +114,7 @@ in {
         "solaar -w hide"
         "systemctl restart --user kdeconnect-indicator"
       ]
-      ++ optionals cfg.morgen.autoStart ["morgen"]
-      ++ optionals cfg.insync.autoStart ["insync"];
+      ++ optionals cfg.morgen.autoStart ["morgen --hidden"]
+      ++ optionals cfg.insync.autoStart ["insync start --no-daemon"];
   };
 }
