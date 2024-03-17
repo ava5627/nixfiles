@@ -83,7 +83,8 @@ in {
       solaar # logitech device manager
       morgen # calendar
       pcmanfm # file manager
-      gnome.file-roller # archive manager
+      lxde.lxmenu-data # adds applications to the menu
+      shared-mime-info # mime types
       libsForQt5.okular # document viewer
       geeqie # image viewer
       gimp # image editor
@@ -96,6 +97,7 @@ in {
       (writeShellScriptBin "powermenu" (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
       (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
     ];
+    programs.file-roller.enable = true;
     security.polkit.enable = true;
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
       description = "PolicyKit Authentication Agent";

@@ -1,5 +1,23 @@
 {
   "nodes": {
+    "foundry-vtt": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1710638592,
+        "narHash": "sha256-R6477tybK4LBP8MKlmMyvndTcZR1Ofi/XA9nDEVcViY=",
+        "owner": "reckenrode",
+        "repo": "nix-foundryvtt",
+        "rev": "0e61d84370fd051d873216553d09e596b7ad3a34",
+        "type": "github"
+      },
+      "original": {
+        "owner": "reckenrode",
+        "repo": "nix-foundryvtt",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -52,6 +70,22 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1701389149,
+        "narHash": "sha256-rU1suTIEd5DGCaAXKW6yHoCfR1mnYjOXQFOaH7M23js=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "5de0b32be6e85dc1a9404c75131316e4ffbc634c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
         "lastModified": 1709703039,
         "narHash": "sha256-6hqgQ8OK6gsMu1VtcGKBxKQInRLHtzulDo9Z5jxHEFY=",
         "owner": "nixos",
@@ -68,10 +102,11 @@
     },
     "root": {
       "inputs": {
+        "foundry-vtt": "foundry-vtt",
         "home-manager": "home-manager",
         "nix-gc-env": "nix-gc-env",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },

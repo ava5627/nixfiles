@@ -84,16 +84,14 @@ with lib.my; {
     source-code-pro
   ];
 
-  programs = {
-    dconf.enable = true;
-
-    nix-ld.enable = true;
-    nix-ld.libraries = [
+  programs.nix-ld = {
+    enable = true;
+    libraries = [
       # add missing dynamic libraries for unpackaged programs here
     ];
   };
 
-  services.gvfs.enable = true;
+  services.gvfs.enable = true; # auto mount usb
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
