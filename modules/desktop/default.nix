@@ -74,6 +74,8 @@ in {
     environment.systemPackages = with pkgs; [
       xdotool # keyboard and mouse automation
       xclip # clipboard manager
+      xorg.xkill # kill a window
+      xdotool # keyboard and mouse automation
       qalculate-gtk # calculator
       arandr # screen layout editor
       copyq # clipboard manager
