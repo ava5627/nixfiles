@@ -41,6 +41,9 @@ in {
           if [ ! -d $XDG_CONFIG_HOME/nvim/.git ]; then
               mkdir -p $XDG_CONFIG_HOME/nvim
               ${pkgs.git}/bin/git  clone ${cfg.configUrl} $XDG_CONFIG_HOME/nvim
+          else
+              cd $XDG_CONFIG_HOME/nvim
+              ${pkgs.git}/bin/git diff --quiet && ${pkgs.git}/bin/git pull
           fi
         '';
     };
