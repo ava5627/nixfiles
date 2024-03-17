@@ -10,7 +10,6 @@
         minecraft.enable = true;
       };
       qtile.enable = true;
-      foundry.enable = true;
     };
   };
   services.hardware.openrgb.enable = true;
