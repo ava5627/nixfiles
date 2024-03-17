@@ -29,9 +29,8 @@ with python3.pkgs;
       cp ./99-msi-rgb.rules $out/etc/udev/rules.d
     '';
 
-    nativeBuildInputs = [
+    dependencies = [
       hidapi
-      setuptools
       usbutils
     ];
     build-system = [setuptools];
