@@ -2,6 +2,7 @@
   python3,
   fetchFromGitHub,
   hidapi,
+  usbutils,
 }:
 with python3.pkgs;
   buildPythonPackage {
@@ -28,7 +29,10 @@ with python3.pkgs;
       cp ./99-msi-rgb.rules $out/etc/udev/rules.d
     '';
 
-    nativeBuildInputs = [hidapi setuptools];
-    buildInputs = [hidapi];
+    nativeBuildInputs = [
+      hidapi
+      setuptools
+      usbutils
+    ];
     build-system = [setuptools];
   }
