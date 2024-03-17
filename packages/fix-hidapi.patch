@@ -1,0 +1,18 @@
+diff --git a/msi_perkeyrgb/hidapi_wrapping.py b/msi_perkeyrgb/hidapi_wrapping.py
+index e55e604..45ef395 100644
+--- a/msi_perkeyrgb/hidapi_wrapping.py
++++ b/msi_perkeyrgb/hidapi_wrapping.py
+@@ -29,12 +29,7 @@ class HID_Keyboard:
+     def __init__(self, usb_id):
+ 
+         # Locating HIDAPI library
+-        s = popen("ldconfig -p").read()
+-        path_matches = re.findall("/.*libhidapi-hidraw\\.so.+", s)
+-        if len(path_matches) == 0:
+-            raise HIDLibraryError("Cannot locate the hidapi library")
+-
+-        lib_path = path_matches[0]
++        lib_path = "libhidapi-hidraw.so"
+ 
+         if not exists(lib_path):
+             raise HIDLibraryError("ldconfig reports HIDAPI library at %s but file does not exists." % lib_path)

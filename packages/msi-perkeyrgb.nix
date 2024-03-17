@@ -15,6 +15,14 @@ with python3.pkgs;
       sha256 = "0f25png4fcf7n07g57aa8nc2z3524ydx41b1vzh4dyij39r8lvs0";
     };
 
+    patches = [
+      ./fix-hidapi.patch
+    ];
+
+    postPatch = ''
+      substituteInPlace msi_perkeyrgb/hidapi_wrapping.py --replace libhidapi-hidraw.so ${hidapi.out}/lib/libhidapi-hidraw.so
+    '';
+
     postInstall = ''
       mkdir -p $out/etc/udev/rules.d
       cp ./99-msi-rgb.rules $out/etc/udev/rules.d
