@@ -52,7 +52,7 @@ in {
     home.xdg.configFile."qtile/autostart.sh" = {
       text = ''
         #!/usr/bin/env bash
-        ${concatMapStrings (x: x + " &\n") config.modules.autoStart}
+        ${concatStringsSep " &\n" config.modules.autoStart}
       '';
       executable = true;
     };
