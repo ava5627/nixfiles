@@ -48,7 +48,10 @@
       };
     };
     environment.etc."logid.cfg".source = "${config.dotfiles.config}/logid.cfg";
-    environment.systemPackages = with pkgs; [logiops];
+    environment.systemPackages = with pkgs; [logiops usbutils solaar];
+    modules.autoStart = [
+      "solaar -w hide"
+    ];
 
     # Add a `udev` rule to restart `logiops` when the mouse is connected
     # https://github.com/PixlOne/logiops/issues/239#issuecomment-1044122412

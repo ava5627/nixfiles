@@ -80,7 +80,6 @@ in {
       arandr # screen layout editor
       copyq # clipboard manager
       insync # google drive sync
-      solaar # logitech device manager
       morgen # calendar
       pcmanfm # file manager
       lxde.lxmenu-data # adds applications to the menu
@@ -115,7 +114,6 @@ in {
     modules.autoStart =
       [
         "copyq"
-        "solaar -w hide"
         "systemctl restart --user kdeconnect-indicator"
       ]
       ++ optionals cfg.morgen.autoStart ["morgen --hidden"]
