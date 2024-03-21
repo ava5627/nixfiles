@@ -21,7 +21,7 @@ in {
       };
     };
     networking.hosts = {
-      "174.63.73.226" = ["ragnatus"];
+      "73.78.217.14" = ["ragnatus"];
       "71.56.222.98" = ["strahd"];
     };
   };

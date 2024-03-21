@@ -34,10 +34,7 @@ in {
       rofi.enable = true;
       discord = {
         enable = true;
-        plugins = [
-          "https://raw.githubusercontent.com/TheCommieAxolotl/BetterDiscord-Stuff/main/Timezones/Timezones.plugin.js"
-          "https://github.com/Strencher/BetterDiscordStuff/raw/master/InvisibleTyping/InvisibleTyping.plugin.js"
-        ];
+        plugins = [];
         themes = [
           "https://raw.githubusercontent.com/ava5627/nixfiles/main/modules/themes/tokyonight/config/midnight.theme.css"
         ];
