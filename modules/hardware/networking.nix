@@ -20,5 +20,9 @@ in {
         settings.PermitRootLogin = "prohibit-password";
       };
     };
+    networking.hosts = {
+      "174.63.73.226" = ["ragnatus"];
+      "71.56.222.98" = ["strahd"];
+    };
   };
 }
