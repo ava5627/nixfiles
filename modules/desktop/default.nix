@@ -89,6 +89,7 @@ in {
       gimp # image editor
       vlc # media player
       polkit_gnome # polkit authentication agent
+      libnotify # notifications
 
       libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
       libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
