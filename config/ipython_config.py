@@ -1,4 +1,6 @@
 
+import importlib
+
 c = get_config()  # NOQA
 # The name or class of a Pygments style to use for syntax
 #          highlighting. To see available styles, run `pygmentize -L styles`.
@@ -11,3 +13,7 @@ c.TerminalInteractiveShell.highlighting_style = 'monokai'
 #              printf "\x1b[38;2;255;100;0mTRUECOLOR\x1b[0m\n"
 #  Default: False
 c.TerminalInteractiveShell.true_color = True
+
+# Enable rich if installed
+if importlib.util.find_spec('rich'):
+    c.InteractiveShellApp.extensions.append('rich')
