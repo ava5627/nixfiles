@@ -115,6 +115,6 @@ in {
         "systemctl restart --user kdeconnect-indicator"
       ]
       ++ optionals cfg.morgen.autoStart ["morgen --hidden"]
-      ++ optionals cfg.insync.autoStart ["insync start --no-daemon"];
+      ++ optionals cfg.insync.autoStart ["insync start"];
   };
 }
