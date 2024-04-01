@@ -18,8 +18,6 @@
         Restart = "always";
         User = "root";
 
-        RuntimeDirectory = "logiops";
-
         CapabilityBoundingSet = ["CAP_SYS_NICE"];
         DeviceAllow = ["/dev/uinput rw" "char-hidraw rw"];
         ProtectClock = true;
