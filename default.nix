@@ -21,6 +21,7 @@ with lib.my; {
     automatic = true;
     dates = "weekly";
     delete_generations = "+5"; # keep only the last 5 generations
+    persistent = true;
   };
   nix.optimise = {
     automatic = true;
