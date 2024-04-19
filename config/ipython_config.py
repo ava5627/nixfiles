@@ -17,3 +17,7 @@ c.TerminalInteractiveShell.true_color = True
 # Enable rich if installed
 if importlib.util.find_spec('rich'):
     c.InteractiveShellApp.extensions.append('rich')
+
+# Enable autoreload
+c.InteractiveShellApp.extensions.append('autoreload')
+c.InteractiveShellApp.exec_lines = ['%autoreload 2']
