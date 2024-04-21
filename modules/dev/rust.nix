@@ -12,6 +12,7 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       rustup
+      vscode-extensions.vadimcn.vscode-lldb
     ];
 
     environment.variables = {
