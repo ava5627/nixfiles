@@ -1,13 +1,19 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i python3 -p python3 python3Packages.argcomplete nvd git ripgrep
+#! nix-shell -i python3 -p python3 python3Packages.argcomplete nvd git ripgrep python3Packages.rich
 # PYTHON_ARGCOMPLETE_OK
 # vim: ft=python
-import socket
-import argcomplete
 import argparse
 import os
+import socket
 import subprocess
-from time import sleep
+
+import argcomplete
+from rich import print
+from rich.console import Group
+from rich.live import Live
+from rich.panel import Panel
+from rich.status import Status
+from rich.text import Text
 
 
 def checks():
@@ -71,12 +77,12 @@ def unpulled_commits():
         print("No local changes, pulling...")
         pull = subprocess.run(["git", "pull"], capture_output=True)
         if pull.returncode != 0:
-            print("Failed to pull")
+            print("[bold red]Failed[/bold red] to pull changes")
             print(pull.stderr.decode())
             exit(1)
 
 
-def git_commit(message=None):
+def git_commit(message=None, host=None):
     if not has_changes():
         return
     nix_generation = subprocess.run(
@@ -84,7 +90,7 @@ def git_commit(message=None):
         capture_output=True,
         shell=True
     ).stdout.decode().strip()
-    hostname = socket.gethostname()
+    hostname = host or socket.gethostname()
     hostname = hostname[0].upper() + hostname[1:]
     commit_message = f"{hostname} NixOS {nix_generation}"
     if message:
@@ -108,7 +114,8 @@ def rebuild(method, **kwargs):
         else:
             host = target_host
             target_host = f"root@{host}"
-        ssh_open = subprocess.run(f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True)
+        ssh_open = subprocess.run(
+            f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True)
         if ssh_open.returncode != 0:
             print(f"Could not connect to {target_host}")
             exit(1)
@@ -132,42 +139,53 @@ def rebuild(method, **kwargs):
     if kwargs.get("rollback"):
         rebuild_command = rebuild_command[:2] + ["switch", "--rollback"]
     try:
-        with open("/tmp/nixos-rebuild.log", "w") as log:
-            process = subprocess.Popen(rebuild_command, stdout=log, stderr=log)
-            i = 0
-            while process.poll() is None:
-                spin = ["\\", "|", "/", "-"]
-                print(f"\rRebuilding NixOS configuration for {host} {spin[i]}", end="")
-                i = (i + 1) % 4
-                sleep(0.1)
-            if process.returncode != 0:
-                raise subprocess.CalledProcessError(
-                    process.returncode, rebuild_command)
-            else:
-                print("\rRebuild successful\033[K")
+        run_in_box(
+            rebuild_command, f"Rebuilding NixOS configuration for {host}", "/tmp/nixos-rebuild.log"
+        )
     except subprocess.CalledProcessError:
-        print("\rRebuild failed\033[K")
         print("See /tmp/nixos-rebuild.log for details")
         subprocess.run(
-            r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log", shell=True)
+            r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log", shell=True, check=True
+        )
         exit(1)
+
+
+def run_in_box(command, title, file):
+    with open(file, "w") as log:
+        process = subprocess.Popen(
+            command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        panel = Panel("", highlight=True)
+        status = Status(title)
+        group = Group(status, panel)
+        lines = []
+        with Live(group, refresh_per_second=10) as live:
+            while process.poll() is None:
+                line = process.stdout.readline().decode()
+                log.write(line)
+                if len(lines) > 10:
+                    lines.pop(0)
+                lines.append(line)
+                panel.renderable = "".join(lines)
+                if "error" in line.lower() or "warning" in line.lower():
+                    line = line.replace("error", "[bold red]Error[/bold red]")
+                    line = line.replace("warning", "[bold yellow]Warning[/bold yellow]")
+                    live.console.print(line.strip())
+            if process.returncode != 0:
+                live.update(f"[bold red]Failed[/bold red] {title}")
+                raise subprocess.CalledProcessError(
+                    process.returncode, command)
+            else:
+                live.update(Text("Successful", style="bold green"))
 
 
 def update(flakes=None):
     command = ["nix", "flake", "update"]
     if flakes:
         command.extend(flakes)
-    process = subprocess.Popen(
-        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    spin = ["\\", "|", "/", "-"]
-    i = 0
-    while process.poll() is None:
-        print(f"\rUpdating flakes {spin[i]}", end="")
-        i = (i + 1) % 4
-        sleep(0.1)
+    run_in_box(command, "Updating flakes", "/tmp/nix-flake-update.log")
 
 
-def diff():
+def version_diff():
     out = subprocess.run(
         "ls -v1 /nix/var/nix/profiles | "
         "tail -n 2 | "
@@ -232,19 +250,24 @@ def main():
 
     argcomplete.autocomplete(parser)
     args = parser.parse_args()
-    if args.command == "rebuild" or args.command is None:
+    if args.command == "rebuild":
         checks()
-        # git_diff()
+        git_diff()
         rebuild("switch", **vars(args))
-        diff()
+        version_diff()
         if not args.no_commit:
-            git_commit(message=args.message if args.command else None)
+            git_commit(message=args.message, host=args.host or args.target_host)
+    if not args.command:
+        checks()
+        rebuild("switch")
+        version_diff()
+        git_commit()
     elif args.command == "upgrade":
         checks()
         update()
         rebuild("switch", **vars(args))
         git_commit(message="Update flakes")
-        diff()
+        version_diff()
     elif args.command == "update":
         checks()
         update(args.flakes)
@@ -255,7 +278,7 @@ def main():
         subprocess.call(["sudo", "-v"])
         rebuild("switch", rollback=True)
     elif args.command == "diff":
-        diff()
+        version_diff()
 
 
 if __name__ == "__main__":

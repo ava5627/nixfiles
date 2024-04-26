@@ -14,15 +14,17 @@ in {
   };
 
   config = mkIf config.services.xserver.enable {
-    services.xserver = {
+    services = {
       displayManager.sddm = {
         enable = true;
         theme = "${pkgs.my.sugar-candy}";
       };
-      xkb = {
-        layout = "us";
-        variant = "";
-        options = "caps:ctrl_modifier"; # make caps lock an additional ctrl
+      xserver = {
+        xkb = {
+          layout = "us";
+          variant = "";
+          options = "caps:ctrl_modifier"; # make caps lock an additional ctrl
+        };
       };
     };
     modules.desktop = {
