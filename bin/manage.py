@@ -4,6 +4,7 @@
 import argparse
 import json
 import os
+import re
 import socket
 import subprocess
 
@@ -170,23 +171,29 @@ def run_in_box(command, title, file):
     with open(file, "w") as log:
         process = subprocess.Popen(
             command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        panel = Panel("", highlight=True)
+        panel = Panel(title, highlight=True)
         status = Status(title)
         group = Group(status, panel)
-        lines = []
+        lines = [title + "\n"]
         with Live(group, refresh_per_second=10) as live:
             while process.poll() is None:
                 line = process.stdout.readline().decode()
                 log.write(line)
                 if len(lines) > 10:
                     lines.pop(0)
-                lines.append(line.strip())
-                panel.renderable = "\n".join(lines)
-                if "error" in line.lower() or "warning" in line.lower():
-                    line = line.replace("error", "[bold red]Error[/bold red]")
-                    line = line.replace(
-                        "warning", "[bold yellow]Warning[/bold yellow]")
-                    live.console.print(line.strip())
+                lines.append(line)
+                output = "".join(lines)
+                if output.endswith("\n"):
+                    output = output[:-1]
+                panel.renderable = output
+                if re.search(r"\b(error|failed|warning)\b:", line, re.IGNORECASE):
+                    line = re.sub(
+                        r"\b(error|failed)\b:", "[bold red]\\1[/bold red]:", line, flags=re.IGNORECASE
+                    )
+                    line = re.sub(
+                        r"\b(warning)\b:", "[bold yellow]\\1[/bold yellow]:", line, flags=re.IGNORECASE
+                    )
+                live.console.print(line.strip())
             if process.returncode != 0:
                 live.update(f"[bold red]Failed[/bold red] {title}")
                 raise subprocess.CalledProcessError(
