@@ -20,7 +20,7 @@ in {
           enable = true;
           userName = cfg.userName;
           userEmail = cfg.userEmail;
-          ignores = [".ropeproject" ".envrc" ".direnv" "__pycache__" ".vscode" ".dvc" ".ipynb_checkpoints" ".venv"];
+          ignores = [".ropeproject" ".envrc" ".direnv" "__pycache__" ".vscode" ".ipynb_checkpoints" ".venv"];
           delta = {
             enable = true;
             options = {

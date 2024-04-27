@@ -163,8 +163,8 @@ def run_in_box(command, title, file):
                 log.write(line)
                 if len(lines) > 10:
                     lines.pop(0)
-                lines.append(line)
-                panel.renderable = "".join(lines)
+                lines.append(line.strip())
+                panel.renderable = "\n".join(lines)
                 if "error" in line.lower() or "warning" in line.lower():
                     line = line.replace("error", "[bold red]Error[/bold red]")
                     line = line.replace("warning", "[bold yellow]Warning[/bold yellow]")
