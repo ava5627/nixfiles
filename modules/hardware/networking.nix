@@ -17,7 +17,6 @@ in {
       printing.enable = true;
       openssh = {
         enable = true;
-        settings.PermitRootLogin = "prohibit-password";
       };
     };
     networking.hosts = {

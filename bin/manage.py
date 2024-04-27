@@ -2,6 +2,7 @@
 #! nix-shell -i python3 -p python3 python3Packages.argcomplete nvd git ripgrep python3Packages.rich
 # PYTHON_ARGCOMPLETE_OK
 import argparse
+import json
 import os
 import socket
 import subprocess
@@ -85,10 +86,11 @@ def git_commit(message=None, host=None):
     if not has_changes():
         return
     nix_generation = subprocess.run(
-        "ls -v1 /nix/var/nix/profiles | tail -n 1 | cut -d- -f2",
+        "nixos-rebuild list-generations --json",
         capture_output=True,
         shell=True
     ).stdout.decode().strip()
+    nix_generation = json.loads(nix_generation)[0]["generation"]
     hostname = host or socket.gethostname()
     hostname = hostname[0].upper() + hostname[1:]
     commit_message = f"{hostname} NixOS {nix_generation}"
@@ -117,6 +119,13 @@ def rebuild(method, **kwargs):
             f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True)
         if ssh_open.returncode != 0:
             print(f"Could not connect to {target_host}")
+            exit(1)
+        print(
+            f"Enabling root login on {host}, please enter password for {target_host}")
+        copy = subprocess.run(
+            ["ssh", "-t", target_host, "sudo cp -f ~/.ssh/authorized_keys /root/.ssh/"])
+        if copy.returncode != 0:
+            print("Failed to enable root login")
             exit(1)
         rebuild_command.remove("sudo")
         rebuild_command.append(f".#{host}")
@@ -147,6 +156,15 @@ def rebuild(method, **kwargs):
             r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log", shell=True, check=True
         )
         exit(1)
+    finally:
+        if target_host:
+            print(f"Disabling root login on {host}")
+            remove = subprocess.run(
+                ["ssh", "-t", target_host, "sudo rm -f /root/.ssh/authorized_keys"])
+            if remove.returncode != 0:
+                print(
+                    "[bold yellow]Warning[/bold yellow]: Failed to disable root login")
+                print("Make sure to remove the key manually")
 
 
 def run_in_box(command, title, file):
@@ -167,7 +185,8 @@ def run_in_box(command, title, file):
                 panel.renderable = "\n".join(lines)
                 if "error" in line.lower() or "warning" in line.lower():
                     line = line.replace("error", "[bold red]Error[/bold red]")
-                    line = line.replace("warning", "[bold yellow]Warning[/bold yellow]")
+                    line = line.replace(
+                        "warning", "[bold yellow]Warning[/bold yellow]")
                     live.console.print(line.strip())
             if process.returncode != 0:
                 live.update(f"[bold red]Failed[/bold red] {title}")
@@ -195,7 +214,7 @@ def version_diff():
     )
     lines = out.stdout.decode().split("\n")
     if lines:
-        print("\n".join(lines[2:-2]))
+        print(Text.from_ansi("\n".join(lines[2:-2])))
 
 
 def main():
@@ -251,11 +270,12 @@ def main():
     args = parser.parse_args()
     if args.command == "rebuild":
         checks()
-        git_diff()
+        # git_diff()
         rebuild("switch", **vars(args))
         version_diff()
         if not args.no_commit:
-            git_commit(message=args.message, host=args.host or args.target_host)
+            git_commit(message=args.message,
+                       host=args.host or args.target_host)
     if not args.command:
         checks()
         rebuild("switch")
