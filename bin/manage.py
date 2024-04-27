@@ -114,7 +114,6 @@ def rebuild(method, **kwargs):
             host = target_host.split('@')[-1]
         else:
             host = target_host
-            target_host = f"root@{host}"
         ssh_open = subprocess.run(
             f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True)
         if ssh_open.returncode != 0:
@@ -129,7 +128,7 @@ def rebuild(method, **kwargs):
             exit(1)
         rebuild_command.remove("sudo")
         rebuild_command.append(f".#{host}")
-        rebuild_command.extend(["--target-host", target_host])
+        rebuild_command.extend(["--target-host", "root@" + host])
     elif host := kwargs.get("host"):
         rebuild_command.append(f".#{host}")
     else:
