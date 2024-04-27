@@ -29,9 +29,6 @@ with lib.my; {
     automatic = true;
     dates = ["weekly"];
   };
-  nix.extraOptions = ''
-    warn-dirty = false
-  '';
 
   nixpkgs.overlays = [
     (final: prev: {

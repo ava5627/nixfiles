@@ -125,7 +125,7 @@ def rebuild(method, **kwargs):
         copy = subprocess.run(
             ["ssh", "-t", target_host, "sudo cp -f ~/.ssh/authorized_keys /root/.ssh/"])
         if copy.returncode != 0:
-            print("Failed to enable root login")
+            print("[bold red]Failed[/bold red] to enable root login")
             exit(1)
         rebuild_command.remove("sudo")
         rebuild_command.append(f".#{host}")
@@ -171,21 +171,19 @@ def run_in_box(command, title, file):
     with open(file, "w") as log:
         process = subprocess.Popen(
             command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-        panel = Panel(title, highlight=True)
+        panel = Panel("", highlight=True)
         status = Status(title)
         group = Group(status, panel)
-        lines = [title + "\n"]
+        lines = []
         with Live(group, refresh_per_second=10) as live:
             while process.poll() is None:
                 line = process.stdout.readline().decode()
                 log.write(line)
                 if len(lines) > 10:
                     lines.pop(0)
-                lines.append(line)
-                output = "".join(lines)
-                if output.endswith("\n"):
-                    output = output[:-1]
-                panel.renderable = output
+                line = Text.from_ansi(line.strip()).plain
+                lines.append(line.strip())
+                panel.renderable = "\n".join(lines)
                 if re.search(r"\b(error|failed|warning)\b:", line, re.IGNORECASE):
                     line = re.sub(
                         r"\b(error|failed)\b:", "[bold red]\\1[/bold red]:", line, flags=re.IGNORECASE
@@ -220,16 +218,16 @@ def version_diff():
     )
     lines = out.stdout.decode().split("\n")
     if lines:
-        print(Text.from_ansi("\n".join(lines[2:-2])))
+        print("\n".join(lines[2:-2]))
 
 
 def main():
-    if not os.path.exists("flake.nix"):
-        if not os.path.exists(os.path.expanduser("~/nixfiles/flake.nix")):
-            print("This script must be run from NixOS configuration directory")
-            exit(1)
-        else:
-            os.chdir(os.path.expanduser("~/nixfiles"))
+    # if not os.path.exists("flake.nix"):
+    #     if not os.path.exists(os.path.expanduser("~/nixfiles/flake.nix")):
+    #         print("This script must be run from NixOS configuration directory")
+    #         exit(1)
+    #     else:
+    os.chdir(os.path.expanduser("~/nixfiles"))
     parser = argparse.ArgumentParser(description='Manage NixOS configuration')
     subparsers = parser.add_subparsers(dest="command")
     parser.add_argument("--no-commit", "-n",
@@ -308,3 +306,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
