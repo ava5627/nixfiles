@@ -193,7 +193,7 @@ def run_in_box(command, title, file):
                     line = re.sub(
                         r"\b(warning)\b:", "[bold yellow]\\1[/bold yellow]:", line, flags=re.IGNORECASE
                     )
-                live.console.print(line.strip())
+                    live.console.print(line.strip())
             if process.returncode != 0:
                 live.update(f"[bold red]Failed[/bold red] {title}")
                 raise subprocess.CalledProcessError(

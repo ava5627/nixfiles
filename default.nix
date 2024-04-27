@@ -15,8 +15,10 @@ with lib.my; {
     ]
     ++ (mapModulesRec' (toString ./modules) import);
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
-  nix.settings.use-xdg-base-directories = true;
+  nix.settings = {
+    experimental-features = ["nix-command" "flakes"];
+    use-xdg-base-directories = true;
+  };
   nix.gc = {
     automatic = true;
     dates = "weekly";
@@ -27,6 +29,10 @@ with lib.my; {
     automatic = true;
     dates = ["weekly"];
   };
+  nix.extraOptions = ''
+    warn-dirty = false
+  '';
+
   nixpkgs.overlays = [
     (final: prev: {
       my = mapModules ./packages (p: pkgs.callPackage p {});
