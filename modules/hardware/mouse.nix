@@ -45,7 +45,7 @@
         UMask = "0077";
       };
     };
-    environment.etc."logid.cfg".source = "${config.dotfiles.config}/logid.cfg";
+    environment.etc."logid.cfg".text = builtins.readFile "${config.dotfiles.config}/logid.cfg";
     environment.systemPackages = with pkgs; [logiops usbutils];
     modules.autoStart = [
       "solaar -w hide"
