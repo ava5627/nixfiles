@@ -60,7 +60,7 @@ in {
         gad = "git add .";
         gd = "git diff";
         gp = "git push";
-        gpl = "git pull";
+        gl = "git pull";
         gf = "git push --force-with-lease";
       };
     };
