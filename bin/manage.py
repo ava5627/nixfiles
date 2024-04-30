@@ -218,7 +218,7 @@ def version_diff():
     )
     lines = out.stdout.decode().split("\n")
     if lines:
-        print("\n".join(lines[2:-2]))
+        print(Text.from_ansi("\n".join(lines[2:-2])))
 
 
 def main():
@@ -306,4 +306,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
