@@ -11,7 +11,8 @@ in {
   options.modules.terminal.programs.enable = mkBool true "Usefull terminal programs";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      neofetch # system info
+      neofetch # system info  TODO: replace with fastfetch
+      fastfetch # system info
       fd # find replacement
       stow # symlink manager
       jq # json processor
