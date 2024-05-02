@@ -44,7 +44,7 @@ in {
               bind \cj down-or-search
               bind \ck up-or-search
             end
-            neofetch
+            fastfetch
           '';
         functions = {
           fish_prompt = {

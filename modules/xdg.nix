@@ -47,7 +47,6 @@
       createDirectories = true;
     };
     configFile = {
-      "neofetch".source = "${config.dotfiles.config}/neofetch";
       "ideavim/ideavimrc".source = "${config.dotfiles.config}/ideavimrc";
       "ipython/profile_default/ipython_config.py".source = "${config.dotfiles.config}/ipython_config.py";
       wgetrc.text = "hsts-file = $XDG_CACHE_HOME/wget-hsts";

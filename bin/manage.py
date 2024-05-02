@@ -10,6 +10,7 @@ import subprocess
 
 import argcomplete
 from rich import print
+from rich.prompt import Confirm
 from rich.console import Group
 from rich.live import Live
 from rich.panel import Panel
@@ -37,8 +38,7 @@ def untracked_files():
         if ".nix" in untracked:
             exit(1)
         else:
-            confirm = input("Continue? [y/N]: ")
-            if confirm.lower() != "y":
+            if not Confirm.ask("Continue?", default=False):
                 exit(1)
 
 
