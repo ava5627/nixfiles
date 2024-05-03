@@ -3,7 +3,6 @@
     "display": {
         "keyWidth": 13
     },
-    // "logo": "Aperture",
     "logo": {
         "source": "$XDG_CONFIG_HOME/fastfetch/aperture.txt",
         "type": "file",
@@ -11,10 +10,11 @@
             "1": "cyan"
         },
         "padding": {
-            "top": 1
+            "top": 2
         }
     },
     "modules": [
+        "break",
         {
             "type": "title",
             "format": "┌───────────────────── {6}{7}{8} ─────────────────────┐",
