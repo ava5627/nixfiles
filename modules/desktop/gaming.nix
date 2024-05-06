@@ -12,7 +12,6 @@ in {
     steam.enable = mkEnableOption "steam";
     steam.autoStart = mkBool true "Start Steam on login";
     minecraft.enable = mkEnableOption "minecraft";
-    wine.enable = mkEnableOption "wine";
     lutris.enable = mkEnableOption "lutris";
   };
   config = mkMerge [
@@ -31,15 +30,6 @@ in {
         pkgs.jdk8
         pkgs.prismlauncher
       ];
-    })
-    (mkIf cfg.wine.enable {
-      environment.systemPackages = [
-        pkgs.wine
-      ];
-      environment.variables = {
-        WINEPREFIX = "$XDG_DATA_HOME/wine";
-        WINEARCH = "win64";
-      };
     })
     (mkIf cfg.lutris.enable {
       environment.systemPackages = [
