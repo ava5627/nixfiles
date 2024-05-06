@@ -22,4 +22,13 @@
     pkgs.my.msi-perkeyrgb
   ];
   services.udev.packages = [pkgs.my.msi-perkeyrgb];
+  users.users."minecraft" = {
+    name = "minecraft";
+    description = "Minecraft Server User";
+    extraGroups = [ "wheel" "networkmanager" ];
+    isNormalUser = true;
+    home = "/home/minecraft";
+    group = "users";
+    uid = 2000;
+  };
 }
