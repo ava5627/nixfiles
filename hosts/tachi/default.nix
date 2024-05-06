@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -25,7 +25,6 @@
   users.users."minecraft" = {
     name = "minecraft";
     description = "Minecraft Server User";
-    extraGroups = [ "wheel" "networkmanager" ];
     isNormalUser = true;
     home = "/home/minecraft";
     group = "users";
