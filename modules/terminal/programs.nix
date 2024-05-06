@@ -29,6 +29,7 @@ in {
             theme_background = false;
             vim_keys = true;
           };
+          package = pkgs.btop.override { cudaSupport = true; };
         };
         lsd.enable = true;
         ripgrep.enable = true;
