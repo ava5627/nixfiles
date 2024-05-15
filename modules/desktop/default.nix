@@ -11,6 +11,7 @@ in {
   options.modules.desktop = {
     morgen.autoStart = mkBool true "Start morgen on login";
     insync.autoStart = mkBool true "Start insync on login";
+    kdeconnect.autoStart = mkBool true "Start kdeconnect on login";
   };
 
   config = mkIf config.services.xserver.enable {
@@ -113,10 +114,8 @@ in {
       };
     };
     modules.autoStart =
-      [
-        "copyq"
-        "systemctl restart --user kdeconnect-indicator"
-      ]
+      ["copyq"]
+      ++ optionals cfg.kdeconnect.autoStart ["systemctl restart --user kdeconnect-indicator"]
       ++ optionals cfg.morgen.autoStart ["morgen --hidden"]
       ++ optionals cfg.insync.autoStart ["insync start"];
   };

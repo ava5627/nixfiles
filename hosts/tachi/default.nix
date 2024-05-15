@@ -1,4 +1,4 @@
-{pkgs, config, ...}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -8,6 +8,8 @@
       qtile.enable = true;
       firefox.autoStart = false;
       discord.autoStart = false;
+      morgen.autoStart = false;
+      kdeconnect.autoStart = false;
       gaming.steam.enable = true;
       gaming.steam.autoStart = false;
       gaming.minecraft.enable = true;
@@ -22,12 +24,4 @@
     pkgs.my.msi-perkeyrgb
   ];
   services.udev.packages = [pkgs.my.msi-perkeyrgb];
-  users.users."minecraft" = {
-    name = "minecraft";
-    description = "Minecraft Server User";
-    isNormalUser = true;
-    home = "/home/minecraft";
-    group = "users";
-    uid = 2000;
-  };
 }
