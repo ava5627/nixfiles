@@ -16,10 +16,6 @@
       foundry.enable = true;
     };
   };
-  services.xserver.libinput = {
-    enable = true;
-    touchpad.naturalScrolling = true;
-  };
   environment.systemPackages = [
     pkgs.my.msi-perkeyrgb
   ];
