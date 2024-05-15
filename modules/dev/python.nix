@@ -11,7 +11,7 @@ in {
   options.modules.dev.python.enable = mkBool true "Python";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      (python3.withPackages (ps: with ps; [ipython python-lsp-server pyls-isort pylsp-rope] ++ python-lsp-server.optional-dependencies.all))
+      (python3.withPackages (ps: with ps; [ipython python-lsp-server pyls-isort pylsp-rope python-lsp-black] ++ python-lsp-server.optional-dependencies.all))
       poetry
     ];
     environment.variables = {
