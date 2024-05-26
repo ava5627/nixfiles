@@ -41,6 +41,7 @@ double edges */
 
 #nav-bar {
     box-shadow: none !important;
+    border: 0px !important;
 }
 
 #TabsToolbar {
