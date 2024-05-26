@@ -86,6 +86,7 @@ with lib.my; {
     liberation_ttf
     (nerdfonts.override {fonts = ["SourceCodePro" "Ubuntu" "UbuntuMono"];})
     source-code-pro
+    corefonts
   ];
 
   programs = {
