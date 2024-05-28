@@ -28,6 +28,9 @@ in {
           settings = {
             theme_background = false;
             vim_keys = true;
+            shown_boxes = "proc cpu mem net gpu0";
+            proc_sorting = "memory";
+            proc_aggregate = true;
           };
           package = pkgs.btop.override { cudaSupport = true; };
         };
