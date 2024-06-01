@@ -21,6 +21,9 @@ in {
           userName = cfg.userName;
           userEmail = cfg.userEmail;
           ignores = [".ropeproject" ".envrc" ".direnv" "__pycache__" ".vscode" ".ipynb_checkpoints" ".venv"];
+          extraConfig = {
+            init.defaultBranch = "main";
+          };
           delta = {
             enable = true;
             options = {
