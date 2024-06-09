@@ -26,8 +26,6 @@ in {
     })
     (mkIf cfg.minecraft.enable {
       environment.systemPackages = [
-        pkgs.jdk17
-        pkgs.jdk8
         pkgs.prismlauncher
       ];
     })
