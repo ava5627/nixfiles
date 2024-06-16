@@ -11,6 +11,7 @@
       };
       qtile.enable = true;
     };
+    dev.latex.enable = true;
   };
   services.hardware.openrgb.enable = true;
   modules.autoStart = [
