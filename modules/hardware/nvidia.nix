@@ -13,11 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hardware.opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
+    hardware.graphics.enable = true;
     services.xserver.videoDrivers = ["nvidia"];
     environment.systemPackages = with pkgs; [
       (writeShellScriptBin "nvidia-settings" ''
