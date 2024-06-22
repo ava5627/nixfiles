@@ -13,7 +13,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hardware.graphics.enable = true;
+    hardware.graphics ={
+      enable = true;
+      enable32Bit = true;
+    };
     services.xserver.videoDrivers = ["nvidia"];
     environment.systemPackages = with pkgs; [
       (writeShellScriptBin "nvidia-settings" ''
