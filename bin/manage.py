@@ -211,7 +211,7 @@ def run_in_box(command, title, file):
                 line = Text.from_ansi(line.strip()).plain
                 lines.append(line.strip())
                 panel.renderable = "\n".join(lines)
-                if re.search(r"\b(error|failed|warning)\b:", line, re.IGNORECASE):
+                if re.search(r"\b(error|failed|warning)\b:", line, re.IGNORECASE) and "Git tree" not in line:
                     line = re.sub(
                         r"\b(error|failed)\b:",
                         "[bold red]\\1[/bold red]:",
