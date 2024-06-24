@@ -18,6 +18,7 @@ in {
       driSupport = true;
       driSupport32Bit = true;
     };
+    hardware.nvidia.modesetting.enable = true;
     services.xserver.videoDrivers = ["nvidia"];
     environment.systemPackages = with pkgs; [
       (writeShellScriptBin "nvidia-settings" ''
