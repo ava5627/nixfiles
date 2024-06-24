@@ -13,9 +13,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    hardware.graphics ={
+    hardware.opengl = {
       enable = true;
-      enable32Bit = true;
+      driSupport = true;
+      driSupport32Bit = true;
     };
     services.xserver.videoDrivers = ["nvidia"];
     environment.systemPackages = with pkgs; [
