@@ -56,7 +56,7 @@ in {
       };
       services.kdeconnect = {
         enable = false;
-        indicator = true;
+        indicator = false;
       };
       xdg.configFile = {
         "copyq/" = {
