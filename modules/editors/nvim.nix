@@ -39,8 +39,9 @@ in {
         */
         ''
           if [ ! -d $XDG_CONFIG_HOME/nvim/.git ]; then
-              mkdir -p $XDG_CONFIG_HOME/nvim
-              ${pkgs.git}/bin/git  clone ${cfg.configUrl} $XDG_CONFIG_HOME/nvim
+              # mkdir -p $XDG_CONFIG_HOME/nvim
+              # ${pkgs.git}/bin/git clone ${cfg.configUrl} $XDG_CONFIG_HOME/nvim
+              echo "No git repo found at $XDG_CONFIG_HOME/nvim" >> $XDG_CONFIG_HOME/nvim/nvim.log
           else
               cd $XDG_CONFIG_HOME/nvim
               ${pkgs.git}/bin/git diff --quiet && ${pkgs.git}/bin/git pull

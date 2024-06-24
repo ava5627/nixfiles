@@ -277,14 +277,14 @@ def main():
         # git_diff()
         rebuild("switch", **vars(args))
         version_diff()
-        if not args.no_commit:
-            git_commit(message=args.message,
-                       host=args.host or args.target_host)
+        git_commit(message=args.message,
+                   host=args.host or args.target_host)
     if not args.command:
         checks()
         rebuild("switch")
         version_diff()
-        git_commit()
+        if not args.no_commit:
+            git_commit()
     elif args.command == "upgrade":
         checks()
         update()
