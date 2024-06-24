@@ -11,7 +11,7 @@ in {
   options.modules.desktop = {
     morgen.autoStart = mkBool true "Start morgen on login";
     insync.autoStart = mkBool true "Start insync on login";
-    kdeconnect.autoStart = mkBool true "Start kdeconnect on login";
+    kdeconnect.autoStart = mkBool false "Start kdeconnect on login";
   };
 
   config = mkIf config.services.xserver.enable {
@@ -55,7 +55,7 @@ in {
         cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --demuxer-lavf-o=video_size=1920x1080'';
       };
       services.kdeconnect = {
-        enable = true;
+        enable = false;
         indicator = true;
       };
       xdg.configFile = {
