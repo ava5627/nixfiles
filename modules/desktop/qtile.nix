@@ -47,9 +47,6 @@ in {
               rm $XDG_CONFIG_HOME/colors.json || true
               rm $XDG_CONFIG_HOME/autostart.sh || true
               ${pkgs.git}/bin/git clone ${cfg.configUrl} $XDG_CONFIG_HOME/qtile
-          else
-              cd $XDG_CONFIG_HOME/qtile
-              ${pkgs.git}/bin/git diff --quiet && ${pkgs.git}/bin/git pull
           fi
         '';
     };

@@ -10,10 +10,10 @@ import subprocess
 
 import argcomplete
 from rich import print
-from rich.prompt import Confirm
 from rich.console import Group
 from rich.live import Live
 from rich.panel import Panel
+from rich.prompt import Confirm
 from rich.status import Status
 from rich.text import Text
 
@@ -24,14 +24,17 @@ def checks():
         exit(1)
     untracked_files()
     unpulled_commits()
+    update_non_nix()
 
 
 def untracked_files():
-    untracked = subprocess.run(
-        "git ls-files --others --exclude-standard",
-        capture_output=True,
-        shell=True
-    ).stdout.decode().strip()
+    untracked = (
+        subprocess.run(
+            "git ls-files --others --exclude-standard", capture_output=True, shell=True
+        )
+        .stdout.decode()
+        .strip()
+    )
     if untracked:
         print("Untracked files:")
         print(untracked)
@@ -42,33 +45,46 @@ def untracked_files():
                 exit(1)
 
 
+def update_non_nix():
+    cfg_dir = os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config"))
+    nvim_dir = os.path.join(cfg_dir, "nvim")
+    if os.path.exists(nvim_dir + "/.git") and not has_changes(nvim_dir):
+        subprocess.run(["git", "pull"], check=True, cwd=nvim_dir)
+    qtile_dir = os.path.join(cfg_dir, "qtile")
+    if os.path.exists(qtile_dir + "/.git") and not has_changes(qtile_dir):
+        subprocess.run(["git", "pull"], check=True, cwd=qtile_dir)
+
+
 def git_diff():
     if not has_changes():
         return
     subprocess.run(
         "git "
         "-c delta.side-by-side=false "
-        "-c delta.hunk-header-style=\"omit\" "
+        '-c delta.hunk-header-style="omit" '
         "diff -U0",
-        shell=True
+        shell=True,
     )
 
 
-def has_changes():
+def has_changes(dir=None):
     status = subprocess.run(
         "git diff HEAD --quiet",
-        shell=True
+        shell=True,
+        cwd=dir,
     )
     return status.returncode != 0
 
 
 def unpulled_commits():
     subprocess.run(["git", "fetch"], capture_output=True)
-    unpulled = subprocess.run(
-        "git log HEAD..origin/main --oneline",
-        capture_output=True,
-        shell=True
-    ).stdout.decode().strip()
+    unpulled = (
+        subprocess.run(
+            "git log HEAD..origin/main --oneline", capture_output=True, shell=True
+        )
+        .stdout.decode()
+        .strip()
+    )
     if unpulled and has_changes():
         print("Unpulled commits:")
         print(unpulled)
@@ -86,11 +102,13 @@ def unpulled_commits():
 def git_commit(message=None, host=None):
     if not has_changes():
         return
-    nix_generation = subprocess.run(
-        "nixos-rebuild list-generations --json",
-        capture_output=True,
-        shell=True
-    ).stdout.decode().strip()
+    nix_generation = (
+        subprocess.run(
+            "nixos-rebuild list-generations --json", capture_output=True, shell=True
+        )
+        .stdout.decode()
+        .strip()
+    )
     nix_generation = json.loads(nix_generation)[0]["generation"]
     hostname = host or socket.gethostname()
     hostname = hostname[0].upper() + hostname[1:]
@@ -98,7 +116,8 @@ def git_commit(message=None, host=None):
     if message:
         commit_message += f": {message}"
     commit_status = subprocess.run(
-        ["git", "commit", "-am", commit_message], capture_output=True)
+        ["git", "commit", "-am", commit_message], capture_output=True
+    )
     if commit_status.returncode != 0:
         print(commit_status.stderr.decode())
     push_status = subprocess.run(["git", "push"], capture_output=True)
@@ -112,18 +131,19 @@ def rebuild(method, **kwargs):
 
     if target_host := kwargs.get("target_host"):
         if "@" in target_host:
-            host = target_host.split('@')[-1]
+            host = target_host.split("@")[-1]
         else:
             host = target_host
         ssh_open = subprocess.run(
-            f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True)
+            f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True
+        )
         if ssh_open.returncode != 0:
             print(f"Could not connect to {target_host}")
             exit(1)
-        print(
-            f"Enabling root login on {host}, please enter password for {target_host}")
+        print(f"Enabling root login on {host}, please enter password for {target_host}")
         copy = subprocess.run(
-            ["ssh", "-t", target_host, "sudo cp -f ~/.ssh/authorized_keys /root/.ssh/"])
+            ["ssh", "-t", target_host, "sudo cp -f ~/.ssh/authorized_keys /root/.ssh/"]
+        )
         if copy.returncode != 0:
             print("[bold red]Failed[/bold red] to enable root login")
             exit(1)
@@ -148,29 +168,36 @@ def rebuild(method, **kwargs):
         rebuild_command = rebuild_command[:2] + ["switch", "--rollback"]
     try:
         run_in_box(
-            rebuild_command, f"Rebuilding NixOS configuration for {host}", "/tmp/nixos-rebuild.log"
+            rebuild_command,
+            f"Rebuilding NixOS configuration for {host}",
+            "/tmp/nixos-rebuild.log",
         )
     except subprocess.CalledProcessError:
         print("See /tmp/nixos-rebuild.log for details")
         subprocess.run(
-            r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log", shell=True, check=True
+            r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log",
+            shell=True,
+            check=True,
         )
         exit(1)
     finally:
         if target_host:
             print(f"Disabling root login on {host}")
             remove = subprocess.run(
-                ["ssh", "-t", target_host, "sudo rm -f /root/.ssh/authorized_keys"])
+                ["ssh", "-t", target_host, "sudo rm -f /root/.ssh/authorized_keys"]
+            )
             if remove.returncode != 0:
                 print(
-                    "[bold yellow]Warning[/bold yellow]: Failed to disable root login")
+                    "[bold yellow]Warning[/bold yellow]: Failed to disable root login"
+                )
                 print("Make sure to remove the key manually")
 
 
 def run_in_box(command, title, file):
     with open(file, "w") as log:
         process = subprocess.Popen(
-            command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+            command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
+        )
         panel = Panel("", highlight=True)
         status = Status(title)
         group = Group(status, panel)
@@ -186,16 +213,21 @@ def run_in_box(command, title, file):
                 panel.renderable = "\n".join(lines)
                 if re.search(r"\b(error|failed|warning)\b:", line, re.IGNORECASE):
                     line = re.sub(
-                        r"\b(error|failed)\b:", "[bold red]\\1[/bold red]:", line, flags=re.IGNORECASE
+                        r"\b(error|failed)\b:",
+                        "[bold red]\\1[/bold red]:",
+                        line,
+                        flags=re.IGNORECASE,
                     )
                     line = re.sub(
-                        r"\b(warning)\b:", "[bold yellow]\\1[/bold yellow]:", line, flags=re.IGNORECASE
+                        r"\b(warning)\b:",
+                        "[bold yellow]\\1[/bold yellow]:",
+                        line,
+                        flags=re.IGNORECASE,
                     )
                     live.console.print(line.strip())
             if process.returncode != 0:
                 live.update(f"[bold red]Failed[/bold red] {title}")
-                raise subprocess.CalledProcessError(
-                    process.returncode, command)
+                raise subprocess.CalledProcessError(process.returncode, command)
             else:
                 live.update(Text("Successful", style="bold green"))
 
@@ -214,7 +246,7 @@ def version_diff():
         "awk '{print \"/nix/var/nix/profiles/\" $0}' | "
         "xargs nvd --color always diff",
         capture_output=True,
-        shell=True
+        shell=True,
     )
     lines = out.stdout.decode().split("\n")
     if lines:
@@ -228,46 +260,52 @@ def main():
     #         exit(1)
     #     else:
     os.chdir(os.path.expanduser("~/nixfiles"))
-    parser = argparse.ArgumentParser(description='Manage NixOS configuration')
+    parser = argparse.ArgumentParser(description="Manage NixOS configuration")
     subparsers = parser.add_subparsers(dest="command")
-    parser.add_argument("--no-commit", "-n",
-                        action="store_true", help="Don't commit the changes")
+    parser.add_argument(
+        "--no-commit", "-n", action="store_true", help="Don't commit the changes"
+    )
     rebuild_parser = argparse.ArgumentParser(add_help=False)
     hosts = os.listdir("./hosts")
     rebuild_parser.add_argument(
-        "--host", choices=hosts,
-        help="The host to rebuild", required=(socket.gethostname() not in hosts)
+        "--host",
+        choices=hosts,
+        help="The host to rebuild",
+        required=(socket.gethostname() not in hosts),
     )
     rebuild_parser.add_argument(
-        "--fast", "-f", action="store_true",
-        help="Skip building nix for quicker rebuilds"
+        "--fast",
+        "-f",
+        action="store_true",
+        help="Skip building nix for quicker rebuilds",
     )
     rebuild_parser.add_argument(
-        "--debug", "-d", action="store_true", help="Enable debug output")
+        "--debug", "-d", action="store_true", help="Enable debug output"
+    )
     rebuild_parser.add_argument("--build-host", help="The host to build on")
-    rebuild_parser.add_argument(
-        "--target-host", help="Where to deploy the build")
+    rebuild_parser.add_argument("--target-host", help="Where to deploy the build")
 
     rebuild_cmd_parser = subparsers.add_parser(
-        "rebuild", help="Rebuild the system", parents=[rebuild_parser])
+        "rebuild", help="Rebuild the system", parents=[rebuild_parser]
+    )
     rebuild_cmd_parser.add_argument(
         "message",
         nargs="?",
         help="The commit message to go with the rebuild",
-        metavar="Commit message"
+        metavar="Commit message",
     )
     subparsers.add_parser(
-        "upgrade", help="Update all flakes then rebuild", parents=[rebuild_parser])
+        "upgrade", help="Update all flakes then rebuild", parents=[rebuild_parser]
+    )
 
     update_parser = subparsers.add_parser("update", help="Update flakes")
-    update_parser.add_argument(
-        "flakes", nargs="*", help="The flakes to update")
+    update_parser.add_argument("flakes", nargs="*", help="The flakes to update")
     subparsers.add_parser("test", help="Test the system")
     subparsers.add_parser("rollback", help="Rollback the system")
     subparsers.add_parser(
         "diff",
         help="List packages that have changed between"
-        " the current and previous system generations"
+        " the current and previous system generations",
     )
 
     argcomplete.autocomplete(parser)
@@ -277,8 +315,7 @@ def main():
         # git_diff()
         rebuild("switch", **vars(args))
         version_diff()
-        git_commit(message=args.message,
-                   host=args.host or args.target_host)
+        git_commit(message=args.message, host=args.host or args.target_host)
     if not args.command:
         checks()
         rebuild("switch")
