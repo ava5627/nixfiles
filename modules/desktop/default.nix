@@ -35,13 +35,7 @@ in {
       kitty.enable = true;
       zathura.enable = true;
       rofi.enable = true;
-      discord = {
-        enable = true;
-        plugins = [];
-        themes = [
-          "https://raw.githubusercontent.com/ava5627/nixfiles/main/modules/themes/tokyonight/config/midnight.theme.css"
-        ];
-      };
+      discord.enable = true;
     };
 
     home = {

@@ -45,13 +45,13 @@
   boot.loader.systemd-boot.enable = true;
 
   services.xserver = { # set up screens just the way I like them
-    monitorSection = ''
-      VendorName     "Unknown"
-      ModelName      "DELL E2422H"
-      HorizSync       30.0 - 83.0
-      VertRefresh     50.0 - 75.0
-      Option         "DPMS"
-    '';
+    # monitorSection = ''
+    #   VendorName     "Unknown"
+    #   ModelName      "DELL E2422H"
+    #   HorizSync       30.0 - 83.0
+    #   VertRefresh     50.0 - 75.0
+    #   Option         "DPMS"
+    # '';
     screenSection = ''
       Option "metamodes" "DP-0: nvidia-auto-select +3840+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DP-4: nvidia-auto-select +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DP-2: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On};
       Option "SLI" "Off"
