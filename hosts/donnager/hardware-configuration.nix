@@ -58,7 +58,7 @@
       Option "MultiGPU" "Off"
       Option "BaseMosaic" "off"
       Option "Stereo" "0"
-      Option "nvidiaXineramaInfoOrder" "DFP-5"
+      Option "nvidiaXineramaInfoOrder" "DP-4"
     '';
   };
 }

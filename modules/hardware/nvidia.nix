@@ -16,6 +16,9 @@ in {
     hardware.graphics = {
       enable = true;
       enable32Bit = true;
+      extraPackages = with pkgs; [
+        vaapiVdpau
+      ];
     };
     hardware.nvidia.modesetting.enable = true;
     services.xserver.videoDrivers = ["nvidia"];
