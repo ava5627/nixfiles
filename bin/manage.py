@@ -18,13 +18,14 @@ from rich.status import Status
 from rich.text import Text
 
 
-def checks():
+def checks(rollback=False):
     sudo = subprocess.run(["sudo", "-v"])
     if sudo.returncode != 0:
         exit(1)
     untracked_files()
-    unpulled_commits()
-    update_non_nix()
+    if not rollback:
+        unpulled_commits()
+        update_non_nix()
 
 
 def untracked_files():
@@ -301,7 +302,9 @@ def main():
     update_parser = subparsers.add_parser("update", help="Update flakes")
     update_parser.add_argument("flakes", nargs="*", help="The flakes to update")
     subparsers.add_parser("test", help="Test the system")
-    subparsers.add_parser("rollback", help="Rollback the system")
+    rollback_parser = subparsers.add_parser("rollback", help="Rollback the system")
+    rollback_parser.add_argument("commit", help="The commit to rollback to", nargs="?")
+
     subparsers.add_parser(
         "diff",
         help="List packages that have changed between"
@@ -335,8 +338,17 @@ def main():
         checks()
         rebuild("test", fast=True)
     elif args.command == "rollback":
-        subprocess.call(["sudo", "-v"])
-        rebuild("switch", rollback=True)
+        if args.commit:
+            if args.commit.isdigit():
+                args.commit = f"HEAD~{args.commit}"
+            rb = subprocess.run(["git", "checkout", args.commit])
+            if rb.returncode != 0:
+                print("Failed to rollback")
+                exit(1)
+        checks(rollback=True)
+        rebuild("switch")
+        cur_version = subprocess.check_output("git log -1 --pretty=\"%h %s\"", shell=True).decode().strip()
+        print(f"Rollback to '{cur_version}' successful")
     elif args.command == "diff":
         version_diff()
 
