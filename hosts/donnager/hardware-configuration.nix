@@ -13,7 +13,7 @@
 
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelParams = ["acpi_enforce_resources=lax"]; # allow openRGB to access ram
+  # boot.kernelParams = ["acpi_enforce_resources=lax"]; # allow openRGB to access ram
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
