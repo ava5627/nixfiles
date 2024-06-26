@@ -212,7 +212,10 @@ def run_in_box(command, title, file):
                 line = Text.from_ansi(line.strip()).plain
                 lines.append(line.strip())
                 panel.renderable = "\n".join(lines)
-                if re.search(r"\b(error|failed|warning)\b:", line, re.IGNORECASE) and "Git tree" not in line:
+                if (
+                    re.search(r"\b(error|failed|warning)\b:", line, re.IGNORECASE)
+                    and "Git tree" not in line
+                ):
                     line = re.sub(
                         r"\b(error|failed)\b:",
                         "[bold red]\\1[/bold red]:",
@@ -267,7 +270,9 @@ def main():
         "--no-commit", "-n", action="store_true", help="Don't commit the changes"
     )
     rebuild_parser = argparse.ArgumentParser(add_help=False)
-    hosts = os.listdir("./hosts")
+    hosts = [
+        d for d in os.listdir("./hosts") if os.path.exists(f"./hosts/{d}/default.nix")
+    ]
     rebuild_parser.add_argument(
         "--host",
         choices=hosts,
@@ -347,7 +352,11 @@ def main():
                 exit(1)
         checks(rollback=True)
         rebuild("switch")
-        cur_version = subprocess.check_output("git log -1 --pretty=\"%h %s\"", shell=True).decode().strip()
+        cur_version = (
+            subprocess.check_output('git log -1 --pretty="%h %s"', shell=True)
+            .decode()
+            .strip()
+        )
         print(f"Rollback to '{cur_version}' successful")
     elif args.command == "diff":
         version_diff()
