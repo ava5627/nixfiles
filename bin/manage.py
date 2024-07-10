@@ -132,9 +132,9 @@ def rebuild(method, **kwargs):
 
     if target_host := kwargs.get("target_host"):
         if "@" in target_host:
-            host = target_host.split("@")[-1]
+            host: str = target_host.split("@")[-1]
         else:
-            host = target_host
+            host: str = target_host
         ssh_open = subprocess.run(
             f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True
         )
@@ -149,7 +149,7 @@ def rebuild(method, **kwargs):
             print("[bold red]Failed[/bold red] to enable root login")
             exit(1)
         rebuild_command.remove("sudo")
-        rebuild_command.append(f".#{host}")
+        rebuild_command.append(f".#{host.removesuffix('.local')}")
         rebuild_command.extend(["--target-host", "root@" + host])
     elif host := kwargs.get("host"):
         rebuild_command.append(f".#{host}")
