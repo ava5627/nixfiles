@@ -55,7 +55,7 @@ in {
           gcam = "git commit -am";
           gca = "git commit --amend -a";
           gdh = "git diff HEAD^";
-          # grc = "gh repo create --public --source=. ";
+          grc = "gh repo create --public --source=. ";
         };
       };
       home.shellAliases = {
