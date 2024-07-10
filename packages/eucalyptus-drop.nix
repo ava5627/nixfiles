@@ -18,7 +18,6 @@ stdenvNoCC.mkDerivation {
   #     qtquickcontrols2 # required for sddm theme
   #     qtgraphicaleffects # required for sddm theme
   # ];
-  #
   # dontWrapQtApps = true;
 
   installPhase = ''
