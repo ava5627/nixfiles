@@ -18,7 +18,7 @@ in {
     services = {
       displayManager.sddm = {
         enable = true;
-        theme = "${pkgs.my.eucalyptus-drop}";
+        theme = "${pkgs.my.sugar-candy}";
       };
       xserver = {
         xkb = {
