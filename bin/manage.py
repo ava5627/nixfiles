@@ -323,7 +323,8 @@ def main():
         # git_diff()
         rebuild("switch", **vars(args))
         version_diff()
-        git_commit(message=args.message, host=args.host or args.target_host)
+        if not args.no_commit:
+            git_commit(message=args.message, host=args.host or args.target_host)
     if not args.command:
         checks()
         rebuild("switch")

@@ -1,10 +1,10 @@
 {
-  stdenv,
+  stdenvNoCC,
   fetchFromGitLab,
-  libsForQt5,
+  # libsForQt5,
   background_image ? ../config/camp_fire.jpg
 }:
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   name = "eucalyptus-drop";
   version = "0.0.1";
   src = fetchFromGitLab {
@@ -14,12 +14,12 @@ stdenv.mkDerivation {
     sha256 = "wq6V3UOHteT6CsHyc7+KqclRMgyDXjajcQrX/y+rkA0=";
   };
 
-  propagatedBuildInputs = [
-      libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
-      libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
-  ];
-
-  dontWrapQtApps = true;
+  # propagatedUserEnvPkgs = with libsForQt5.qt5; [
+  #     qtquickcontrols2 # required for sddm theme
+  #     qtgraphicaleffects # required for sddm theme
+  # ];
+  #
+  # dontWrapQtApps = true;
 
   installPhase = ''
     runHook preInstall
