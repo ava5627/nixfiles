@@ -20,12 +20,13 @@ in {
         };
       };
     };
-    environment.systemPackages = with pkgs; [
-      blueberry # graphical bluetooth manager
-    ];
-    modules.autoStart = [
-      "blueberry-tray"
-    ];
+    services.blueman.enable = true;
+    # environment.systemPackages = with pkgs; [
+    #   blueberry # graphical bluetooth manager
+    # ];
+    # modules.autoStart = [
+    #   "blueberry-tray"
+    # ];
 
   };
 }
