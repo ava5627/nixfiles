@@ -13,6 +13,7 @@ in {
     services.audiobookshelf = {
       enable = true;
       openFirewall = true;
+      host = "192.168.1.175";
     };
   };
 }
