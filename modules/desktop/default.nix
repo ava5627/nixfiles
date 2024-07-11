@@ -85,6 +85,7 @@ in {
       polkit_gnome # polkit authentication agent
       libnotify # notifications
       libsForQt5.kdenlive # video editor
+      transmission_4 # torrent client
 
       libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
       libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
