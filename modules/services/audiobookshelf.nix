@@ -12,6 +12,7 @@ in {
   config = mkIf cfg.enable {
     services.audiobookshelf = {
       enable = true;
+      openFirewall = true;
     };
   };
 }
