@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, pkgs, ...}: {
   environment = {
     sessionVariables = {
       # Xdg directories
@@ -44,6 +44,7 @@
     portal = {
       enable = true;
       config.common.default = ["gtk"];
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     };
   };
   home.xdg = {
