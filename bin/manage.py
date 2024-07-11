@@ -37,7 +37,7 @@ def untracked_files():
         .strip()
     )
     if untracked:
-        print("Untracked files:")
+        print("[bod yellow]Untracked files:")
         print(untracked)
         if ".nix" in untracked:
             exit(1)

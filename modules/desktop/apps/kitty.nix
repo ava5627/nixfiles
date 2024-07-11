@@ -23,6 +23,5 @@ in {
       };
       shellIntegration.enableFishIntegration = true;
     };
-    environment.variables.TERMINAL = "kitty";
   };
 }

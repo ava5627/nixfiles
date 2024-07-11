@@ -6,9 +6,9 @@
 }:
 with lib;
 with lib.my; let
-  cfg = config.modules.desktop.transmission;
+  cfg = config.modules.services.transmission;
 in {
-  options.modules.desktop.transmission.enable = mkBool true "Transmission";
+  options.modules.services.transmission.enable = mkBool true "Transmission";
   config = mkIf cfg.enable {
     services.transmission = {
       enable = true;
