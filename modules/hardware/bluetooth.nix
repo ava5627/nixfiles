@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib;
@@ -21,12 +20,6 @@ in {
       };
     };
     services.blueman.enable = true;
-    # environment.systemPackages = with pkgs; [
-    #   blueberry # graphical bluetooth manager
-    # ];
-    # modules.autoStart = [
-    #   "blueberry-tray"
-    # ];
-
+    home.services.blueman-applet.enable = true;
   };
 }
