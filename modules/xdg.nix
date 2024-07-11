@@ -27,18 +27,24 @@
       XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/compose";
     };
   };
-  xdg.mime.defaultApplications = {
-    # PDF -> firefox
-    "application/pdf" = "firefox.desktop";
-    # zip -> file-roller or firefox
-    "application/zip" = ["org.gnome.FileRoller.desktop" "firefox.desktop"];
-    # folders -> pcmanfm
-    "inode/directory" = "pcmanfm.desktop";
-    # images -> geeqie, feh, or gimp
-    "image/png" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
-    "image/jpeg" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
-    "image/gif" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
-    "image/jpg" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
+  xdg = {
+    mime.defaultApplications = {
+      # PDF -> firefox
+      "application/pdf" = "firefox.desktop";
+      # zip -> file-roller or firefox
+      "application/zip" = ["org.gnome.FileRoller.desktop" "firefox.desktop"];
+      # folders -> pcmanfm
+      "inode/directory" = "pcmanfm.desktop";
+      # images -> geeqie, feh, or gimp
+      "image/png" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
+      "image/jpeg" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
+      "image/gif" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
+      "image/jpg" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
+    };
+    portal = {
+      enable = true;
+      config.common.default = ["gtk"];
+    };
   };
   home.xdg = {
     enable = true;
