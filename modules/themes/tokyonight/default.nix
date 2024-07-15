@@ -71,7 +71,7 @@ in {
     home = {
       gtk = {
         theme = {
-          package = pkgs.tokyonight-gtk-theme-variants.themes.dark-bl;
+          package = pkgs.tokyonight-gtk-theme;
           name = "Tokyonight-Dark-BL";
         };
         iconTheme = {
