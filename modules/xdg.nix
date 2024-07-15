@@ -37,13 +37,11 @@
         # folders -> pcmanfm
         "inode/directory" = "pcmanfm.desktop";
         # images -> geeqie, feh, or gimp
+        "image/*" = ["org.geeqie.Geeqie.desktop" "feh.desktop" "gimp.desktop"];
         "image/png" = ["org.geeqie.Geeqie.desktop" "feh.desktop" "gimp.desktop"];
         "image/jpeg" = ["org.geeqie.Geeqie.desktop" "feh.desktop" "gimp.desktop"];
         "image/gif" = ["org.geeqie.Geeqie.desktop" "feh.desktop" "gimp.desktop"];
         "image/jpg" = ["org.geeqie.Geeqie.desktop" "feh.desktop" "gimp.desktop"];
-      };
-      removedAssociations = {
-        "inode/directory" = ["kitty-open.desktop"];
       };
     };
     portal = {
