@@ -1,4 +1,4 @@
-{config, pkgs, ...}: {
+{config, ...}: {
   environment = {
     sessionVariables = {
       # Xdg directories
@@ -28,23 +28,23 @@
     };
   };
   xdg = {
-    mime.defaultApplications = {
-      # PDF -> firefox
-      "application/pdf" = "firefox.desktop";
-      # zip -> file-roller or firefox
-      "application/zip" = ["org.gnome.FileRoller.desktop"];
-      # folders -> pcmanfm
-      "inode/directory" = "pcmanfm.desktop";
-      # images -> geeqie, feh, or gimp
-      "image/png" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
-      "image/jpeg" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
-      "image/gif" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
-      "image/jpg" = ["geeqie.desktop" "feh.desktop" "gimp.desktop"];
-    };
-    portal = {
-      enable = true;
-      config.common.default = "*";
-      extraPortals = [ pkgs.xdg-desktop-portal-xapp ];
+    mime = {
+      defaultApplications = {
+        # PDF -> firefox
+        "application/pdf" = "firefox.desktop";
+        # zip -> file-roller or firefox
+        "application/zip" = ["org.gnome.FileRoller.desktop"];
+        # folders -> pcmanfm
+        "inode/directory" = "pcmanfm.desktop";
+        # images -> geeqie, feh, or gimp
+        "image/png" = ["org.geeqie.Geeqie.desktop" "feh.desktop" "gimp.desktop"];
+        "image/jpeg" = ["org.geeqie.Geeqie.desktop" "feh.desktop" "gimp.desktop"];
+        "image/gif" = ["org.geeqie.Geeqie.desktop" "feh.desktop" "gimp.desktop"];
+        "image/jpg" = ["org.geeqie.Geeqie.desktop" "feh.desktop" "gimp.desktop"];
+      };
+      removedAssociations = {
+        "inode/directory" = ["kitty-open.desktop"];
+      };
     };
   };
   home.xdg = {
