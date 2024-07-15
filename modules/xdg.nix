@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, pkgs, ...}: {
   environment = {
     sessionVariables = {
       # Xdg directories
@@ -45,6 +45,11 @@
       removedAssociations = {
         "inode/directory" = ["kitty-open.desktop"];
       };
+    };
+    portal = {
+      enable = true;
+      config.common.default = "*";
+      extraPortals = [ pkgs.xdg-desktop-portal-xapp ];
     };
   };
   home.xdg = {

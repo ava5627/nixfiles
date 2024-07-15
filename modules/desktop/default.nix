@@ -77,7 +77,6 @@ in {
       morgen # calendar
       pcmanfm # file manager
       lxde.lxmenu-data # adds applications to the menu
-      shared-mime-info # mime types
       libsForQt5.okular # document viewer
       geeqie # image viewer
       gimp # image editor
