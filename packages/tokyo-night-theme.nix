@@ -2,6 +2,7 @@
   stdenv,
   fetchFromGitHub,
   gtk-engine-murrine,
+  gnome-themes-extra,
 }:
 stdenv.mkDerivation {
   pname = "tokyo-night-theme";
@@ -16,6 +17,7 @@ stdenv.mkDerivation {
 
   propagatedUserEnvPkgs = [
     gtk-engine-murrine
+    gnome-themes-extra
   ];
 
   dontBuild = true;

@@ -20,6 +20,7 @@ in {
       dua # disk usage analyzer
       ffmpeg # multimedia framework
       glow # terminal markdown viewer
+      difftastic # diff viewer
     ];
     home = {
       programs = {
