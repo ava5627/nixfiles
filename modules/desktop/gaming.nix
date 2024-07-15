@@ -19,6 +19,7 @@ in {
       programs.steam.enable = true;
       environment.systemPackages = [
         pkgs.ckan
+        pkgs.dotnet-sdk
       ];
       modules.autoStart = mkIf cfg.steam.autoStart [
         "steam -silent"
