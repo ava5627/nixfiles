@@ -19,7 +19,7 @@ in {
       programs.steam.enable = true;
       environment.systemPackages = [
         pkgs.ckan
-        pkgs.dotnet-sdk_8
+        pkgs.dotnet-sdk_8 # required for tModLoader to work
       ];
       modules.autoStart = mkIf cfg.steam.autoStart [
         "steam -silent"

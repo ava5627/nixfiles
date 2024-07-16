@@ -18,6 +18,6 @@ in {
     environment.variables = {
       RUSTUP_HOME = "$XDG_DATA_HOME/rustup";
       CARGO_HOME = "$XDG_DATA_HOME/cargo";
-    };
+    }; # get cargo and rustup out of home
   };
 }

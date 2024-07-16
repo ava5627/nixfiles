@@ -13,6 +13,6 @@ in {
     environment.systemPackages = with pkgs; [
       texliveMedium
     ];
-    programs.java.enable = true;
+    programs.java.enable = true; # Required for tex to work
   };
 }

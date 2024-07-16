@@ -28,6 +28,6 @@ in {
         mkdir -p "$XDG_CONFIG_HOME/nvidia"
         exec ${config.boot.kernelPackages.nvidia_x11.settings}/bin/nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"
       '')
-    ];
+    ]; # make nvidia-settings not use home directory
   };
 }

@@ -4,6 +4,7 @@
   ...
 }: {
   config = {
+    # Stolen from https://github.com/ckiee/nixfiles/
     systemd.services.logiops = {
       description = "Logitech Configuration Daemon";
       documentation = ["https://github.com/PixlOne/logiops"];

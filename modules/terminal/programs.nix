@@ -34,23 +34,23 @@ in {
             proc_aggregate = true;
           };
           package = pkgs.btop.override { cudaSupport = true; };
-        };
-        lsd.enable = true;
-        ripgrep.enable = true;
+        }; # system monitor
+        lsd.enable = true; # ls replacement
+        ripgrep.enable = true; # grep replacement
         zoxide = {
           enable = true;
           options = ["--cmd cd"];
-        };
+        }; # cd replacement
         bat = {
           enable = true;
           extraPackages = with pkgs.bat-extras; [batman];
-        };
-        fzf.enable = true;
-        navi.enable = true;
+        }; # cat replacement
+        fzf.enable = true; # fuzzy finder
+        navi.enable = true; # cheatsheet
         direnv = {
           enable = true;
           nix-direnv.enable = true;
-        };
+        }; # environment manager
         fish.functions.lb = {
           body = builtins.readFile "${config.dotfiles.config}/fish/functions/lb.fish";
           description = "lsd on directory, bat on file";
