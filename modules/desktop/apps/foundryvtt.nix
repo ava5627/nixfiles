@@ -2,6 +2,7 @@
   config,
   lib,
   inputs,
+  pkgs,
   ...
 }:
 with lib;
@@ -15,6 +16,7 @@ in {
   config = mkIf cfg.enable {
     services.foundryvtt = {
       enable = true;
+      package = inputs.foundry-vtt.packages.${pkgs.system}.foundryvtt_12;
     };
     user.extraGroups = [ "foundryvtt" ];
   };

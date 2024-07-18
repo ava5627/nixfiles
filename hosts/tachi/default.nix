@@ -13,7 +13,7 @@
       gaming.steam.enable = true;
       gaming.steam.autoStart = false;
       gaming.minecraft.enable = true;
-      foundry.enable = false;
+      foundry.enable = true;
     };
   };
   environment.systemPackages = [
