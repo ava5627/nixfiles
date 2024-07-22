@@ -100,7 +100,7 @@ def unpulled_commits():
             exit(1)
 
 
-def git_commit(message=None, host=None):
+def git_commit(message=None, host=None, message_only=False):
     if not has_changes():
         return
     nix_generation = (
@@ -112,9 +112,11 @@ def git_commit(message=None, host=None):
     )
     nix_generation = json.loads(nix_generation)[0]["generation"]
     hostname = host or socket.gethostname()
-    hostname = hostname[0].upper() + hostname[1:]
+    hostname = hostname.title()
     commit_message = f"{hostname} NixOS {nix_generation}"
-    if message:
+    if message_only and message:
+        commit_message = message
+    elif message:
         commit_message += f": {message}"
     commit_status = subprocess.run(
         ["git", "commit", "-am", commit_message], capture_output=True
@@ -334,8 +336,8 @@ def main():
     elif args.command == "upgrade":
         checks()
         update()
+        git_commit(message="Update flakes", message_only=True)
         rebuild("switch", **vars(args))
-        git_commit(message="Update flakes")
         version_diff()
     elif args.command == "update":
         checks()
