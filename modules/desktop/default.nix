@@ -70,6 +70,7 @@ in {
       xclip # clipboard manager
       xorg.xkill # kill a window
       xdotool # keyboard and mouse automation
+      xorg.xev # event viewer
       qalculate-gtk # calculator
       arandr # screen layout editor
       copyq # clipboard manager
