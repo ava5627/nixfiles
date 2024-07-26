@@ -1,4 +1,8 @@
-{config, pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   environment = {
     sessionVariables = {
       # Xdg directories
@@ -25,6 +29,7 @@
       DOCKER_CONFIG = "$XDG_CONFIG_HOME/docker";
       NODE_REPL_HISTORY_FILE = "$XDG_DATA_HOME/node_repl_history";
       XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/compose";
+      NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
     };
   };
   xdg = {
@@ -47,7 +52,7 @@
     portal = {
       enable = true;
       config.common.default = "*";
-      extraPortals = [ pkgs.xdg-desktop-portal-xapp ];
+      extraPortals = [pkgs.xdg-desktop-portal-xapp];
     };
   };
   home.xdg = {
