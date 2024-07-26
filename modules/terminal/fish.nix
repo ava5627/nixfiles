@@ -37,12 +37,21 @@ in {
             set __fish_git_prompt_color_upstream red
             set __fish_git_prompt_showdirtystate 1
             set __fish_git_prompt_char_dirtystate '*'
+            function rm_to_rf
+              if not commandline | string length -q
+                commandline -r (history search -n 1 -p "rm " | string collect)
+              end
+              set -l cmd (commandline -p | string collect)
+              set -l cmd (string replace -r "rm " "rm -rf " $cmd)
+              commandline -r $cmd
+            end
             function fish_user_key_bindings
               bind \cq kill-whole-line
               bind \cr history-pager
               bind \ew backward-kill-bigword
               bind \cj down-or-search
               bind \ck up-or-search
+              bind \er rm_to_rf
             end
             fastfetch
           '';
