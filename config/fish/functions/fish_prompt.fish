@@ -1,12 +1,12 @@
 function fish_prompt --description "Custom fish prompt"
     set -g fish_prompt_pwd_dir_length 0
-    set __fish_git_prompt_showupstream informative
-    set __fish_git_prompt_char_upstream_prefix " "
-    set __fish_git_prompt_showcolorhints 1
-    set __fish_git_prompt_use_informative_chars 1
-    set __fish_git_prompt_color_upstream red
-    set __fish_git_prompt_showdirtystate 1
-    set __fish_git_prompt_char_dirtystate '*'
+    set -g __fish_git_prompt_showupstream informative
+    set -g __fish_git_prompt_char_upstream_prefix " "
+    set -g __fish_git_prompt_showcolorhints 1
+    set -g __fish_git_prompt_use_informative_chars 1
+    set -g __fish_git_prompt_color_upstream red
+    set -g __fish_git_prompt_showdirtystate 1
+    set -g __fish_git_prompt_char_dirtystate '*'
 
     echo
     if test $VIRTUAL_ENV

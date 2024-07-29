@@ -25,7 +25,7 @@ set -g fish_color_search_match --background=$selection
 set -g fish_color_operator $green
 set -g fish_color_escape $pink
 set -g fish_color_autosuggestion $comment
-set -g fish_color_cwd $magenta
+set -g fish_color_cwd $pink
 set -g fish_color_host $fish_color_user
 
 # Completion Pager Colors
