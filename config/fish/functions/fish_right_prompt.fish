@@ -1,4 +1,4 @@
-function fish_right_prompt
+function fish_right_prompt --description 'Display right prompt'
     set -l last_duration $CMD_DURATION
     set -l last_pipestatus $pipestatus
     set -l last_status $status

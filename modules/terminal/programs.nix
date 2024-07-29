@@ -46,7 +46,6 @@ in {
           extraPackages = with pkgs.bat-extras; [batman];
         }; # cat replacement
         fzf.enable = true; # fuzzy finder
-        navi.enable = true; # cheatsheet
         direnv = {
           enable = true;
           nix-direnv.enable = true;
