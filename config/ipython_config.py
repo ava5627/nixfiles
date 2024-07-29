@@ -6,6 +6,17 @@ c = get_config()  # NOQA
 #          highlighting. To see available styles, run `pygmentize -L styles`.
 #  Default: traitlets.Undefined
 c.TerminalInteractiveShell.highlighting_style = 'monokai'
+try:
+    # sources:
+    # https://github.com/ipython/ipython/issues/13446
+    # https://github.com/ipython/ipython/issues/13486
+    # https://github.com/ipython/ipython/pull/13756
+    # https://github.com/ipython/ipython/pull/14476
+    from IPython.core import ultratb
+    ultratb.VerboseTB._tb_highlight = "bg:ansired ansiblack"
+    ultratb.VerboseTB._tb_highlight_style = "monokai"
+except Exception:
+    print("Error patching background color for tracebacks, they'll be the ugly default instead")
 # Use 24bit colors instead of 256 colors in prompt highlighting.
 #          If your terminal supports true color, the following command should
 #          print ``TRUECOLOR`` in orange::
