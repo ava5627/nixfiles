@@ -1,4 +1,27 @@
-# Variables
+set fish_greeting                                 # Supresses fish's intro message
+
+# add to path if not already there
+fish_add_path "$HOME/.local/bin"
+fish_add_path "$HOME/.config/rofi/bin"
+fish_add_path "/usr/lib/jvm/default/bin"
+fish_add_path "$XDG_DATA_HOME/cargo/bin"
+
+export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
+export XDG_DATA_HOME=$HOME/.local/share
+export XDG_STATE_HOME=$HOME/.local/state
+# export XDG_RUNTIME_DIR=/run/user/(id -u)
+
+set fish_color_host $fish_color_user
+set fish_color_cwd magenta #$fish_color_param
+set -g fish_prompt_pwd_dir_length 0
+
+export EDITOR=nvim
+export QT_STYLE_OVERRIDE=kvantum
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
+
+# clean home dir
 export NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc
 export CUDA_CACHE_PATH=$XDG_CACHE_HOME/nv
 export HISTFILE=$XDG_STATE_HOME/bash/history
@@ -24,46 +47,110 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export NODE_REPL_HISTORY_FILE="$XDG_DATA_HOME"/node_repl_history
 export IPYTHONDIR="$XDG_CONFIG_HOME"/ipython
 
-# Abbreviations
+if set -q VIRTUAL_ENV && contains $VIRTUAL_ENV/bin $PATH
+    set index (contains -i $VIRTUAL_ENV/bin $PATH)
+    set -ge PATH[$index]
+    set -gxp PATH $VIRTUAL_ENV/bin
+end
+
+# If not running interactively, don't continue
+if not status --is-interactive
+  exit
+end
+
+set __fish_git_prompt_showupstream informative
+set __fish_git_prompt_char_upstream_prefix " "
+set __fish_git_prompt_showcolorhints 1
+set __fish_git_prompt_use_informative_chars 1
+set __fish_git_prompt_color_upstream red
+set __fish_git_prompt_showdirtystate 1
+set __fish_git_prompt_char_dirtystate '*'
+
+function fish_user_key_bindings
+    # fish_vi_key_bindings
+    # bind -M insert \cq kill-whole-line
+    fish_default_key_bindings
+    bind \cq kill-whole-line
+end
+
+# programs
+zoxide init fish --cmd cd | source
+direnv hook fish | source
+
+# Quick aliases
+
+# clear
+alias cls='clear'
+alias c='clear'
+alias cla='clear; exec fish'
+
+# pacman
+alias pacs='sudo pacman -Syu'
+alias pacq='pacman -Q'
+alias pacr='sudo pacman -Rns'
+alias pacss='pacman -Ss'
+alias pacsi='pacman -Si'
+alias pacqs='pacman -Qs'
+alias pacqi='pacman -Qi'
+alias pacar='sudo pacman -Rns (pacman -Qtdq)'
+
+# yay
+alias ys='yay -Sua'
+alias yss='yay -Ss'
+
+# ls
+alias ls='lb'
+alias ll='lb -l'
+alias la='lb -A'
+alias lla='lb -lA'
+
+
+alias ip='ip --color=auto'
+
+alias q=exit
+
+alias vim='nvim'
+alias v='nvim .'
+
+alias qlog='clear && tail -f ~/.local/share/qtile/qtile.log'
+
+alias ranger='ranger --choosedir=/tmp/ranger_dir; set LASTDIR (cat /tmp/ranger_dir); cd $LASTDIR; rm /tmp/ranger_dir'
+
+
+# python
+# alias vc='python -m venv .venv'
+# alias va='source ./.venv/bin/activate.fish'
+# alias vv='source ./.venv/bin/activate.fish & nvim .'
+alias pyc 'echo layout python > .envrc && direnv allow'
+alias pyi 'test -f pyproject.toml && poetry install || poetry init'
+
+alias cam='mpv av://v4l2:/dev/video0 --profile=low-latency --untimed'
+
+# Directory cd
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias cb='cd -'
+
+# Dotfiles
+alias gconfig='git --git-dir=$HOME/dotfiles/.git --work-tree=$HOME/dotfiles'
+
 abbr --add -- ga 'git add'
 abbr --add -- gc 'git commit'
 abbr --add -- gca 'git commit --amend -a'
 abbr --add -- gcam 'git commit -am'
 abbr --add -- gcm 'git commit -m'
 abbr --add -- gdh 'git diff HEAD^'
-abbr --add -- grc 'gh repo create --public --source=. '
-
-# Aliases
-alias .. 'cd ..'
-alias ... 'cd ../..'
-alias .... 'cd ../../..'
-alias c clear
-alias cam 'mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --demuxer-lavf-o=video_size=1920x1080'
-alias cb 'cd -'
-alias cla 'clear; exec fish'
 alias gad 'git add .'
 alias gd 'git diff'
 alias gf 'git push --force-with-lease'
-alias gl 'git pull'
 alias gp 'git push'
+alias gl 'git pull'
 alias gs 'git status -s'
 alias gss 'git status'
-alias ip 'ip -c'
-alias ipa 'ip addr'
-alias la 'ls -A'
-alias ll 'ls -l'
-alias lla 'ls -lA'
-alias ls lb
-alias man batman
-alias pyc 'echo layout python > .envrc && direnv allow'
-alias pyi 'test -f pyproject.toml && poetry install || poetry init'
-alias qlog 'clear && tail -f ~/.local/share/qtile/qtile.log'
-alias v 'nvim .'
-alias vimdiff 'nvim -d'
 
-# Program shell integration
-direnv hook fish | source
-zoxide init fish --cmd cd | source
-fzf --fish | source
 
+
+# Startup
 fastfetch
+
