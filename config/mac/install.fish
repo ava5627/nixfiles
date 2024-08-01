@@ -10,6 +10,7 @@ set -l directories (
 )
 
 for directory in $directories
+    echo "Creating directory $CFG_DIR/$directory"
     mkdir -p $CFG_DIR/$directory
 end
 
@@ -32,18 +33,26 @@ if test -d ./config/mac
     exit 1
 end
 
+echo "Creating fish config symlinks"
 ln -s $PWD/config/mac/config.fish $CFG_DIR/config.fish
 ln -s $PWD/config/fish/completions $CFG_DIR/fish/completions
 ln -s $PWD/config/fish/functions $CFG_DIR/fish/functions
 ln -s $PWD/modules/themes/tokyonight/config/fish.fish $CFG_DIR/fish/conf.d/tokyonight.fish
 
+echo "Creating kitty config symlink"
 ln -s $PWD/config/mac/kitty.conf $CFG_DIR/kitty/kitty.conf
 
+echo "Creating fastfetch symlink"
 ln -s $PWD/config/fastfetch $CFG_DIR/fastfetch
 
+echo "Creating ipython config symlink"
 ln -s $PWD/config/ipython/profile_default/ipython_config.py $CFG_DIR/ipython/profile_default/ipython_config.py
 
+echo "Creating git config symlinks"
 ln -s $PWD/config/mac/gitconfig $CFG_DIR/git/config
 ln -s $PWD/config/mac/gitignore $CFG_DIR/git/ignore
 
+echo "Creating firefox userChrome.css symlink"
 ln -s $PWD/config/firefox/userChrome.css $CFG_DIR/userChrome.css
+
+echo "Done!"
