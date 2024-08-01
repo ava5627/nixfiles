@@ -1,3 +1,4 @@
+# vim: ft=gitconfig
 [alias]
 	dlog = "log -p --ext-diff"
 	olog = "log --oneline --decorate --graph"
