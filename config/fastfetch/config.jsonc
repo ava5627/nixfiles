@@ -35,7 +35,6 @@
         "gpu",
         "memory",
         "battery",
-        "poweradapter",
         "disk",
         "kernel",
         "uptime",
