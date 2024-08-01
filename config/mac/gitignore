@@ -1,0 +1,7 @@
+.ropeproject
+.envrc
+.direnv
+__pycache__
+.vscode
+.ipynb_checkpoints
+.venv

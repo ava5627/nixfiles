@@ -1,0 +1,36 @@
+[alias]
+	dlog = "log -p --ext-diff"
+	olog = "log --oneline --decorate --graph"
+
+[core]
+	pager = "delta"
+
+[credential "https://gist.github.com"]
+	helper = "gh auth git-credential"
+
+[credential "https://github.com"]
+	helper = "gh auth git-credential"
+
+[delta]
+	commit-decoration = true
+	conflictstyle = "diff3"
+	decorations = true
+	file-decoration-style = "omit"
+	hunk-header-decoration-style = "omit"
+	hunk-header-style = "file line-number syntax"
+	hyperlinks = true
+	line-numbers = true
+	navigate = true
+	side-by-side = true
+	syntax-highlighting = true
+	syntax-theme = "Dracula"
+
+[init]
+	defaultBranch = "main"
+
+[interactive]
+	diffFilter = "delta --color-only"
+
+[user]
+	email = "avasharris1@gmail.com"
+	name = "ava5627"
