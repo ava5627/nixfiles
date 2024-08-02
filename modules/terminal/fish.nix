@@ -28,6 +28,7 @@ in {
           fish
           */
           ''
+            set fish_greeting
             fastfetch
           '';
       };
