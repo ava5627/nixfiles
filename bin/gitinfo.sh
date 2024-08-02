@@ -5,5 +5,10 @@ repo=$1
 if [[ "$repo" != https://* ]]; then
     repo="https://github.com/$repo"
 fi
-info=$(nix-prefetch-git --quiet "$repo")
-echo $info | jq .$2
+if [[ $nargs -eq 2 ]]; then
+    info=$(nix-prefetch-git --quiet "$repo")
+else
+    other_args=${@:3}
+    info=$(nix-prefetch-git --quiet "$repo" $other_args)
+fi
+echo $info | jq
