@@ -14,11 +14,22 @@ export ZDOTDIR="$HOME"/.config/zsh
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export IPYTHONDIR="$XDG_CONFIG_HOME"/ipython
 
-export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # If not running interactively, don't continue
 if not status --is-interactive
   exit
+end
+
+# when a neovim terminal is opened fish re-adds `fish_user_paths` to the PATH, making the VIRTUAL_ENV no longer the first element
+# since `/opt/homebrew/bin` is in the `fish_user_paths` and is added to the PATH after the VIRTUAL_ENV
+# it means that while the prompt says the VIRTUAL_ENV is active, in actuality homebrew python is being used
+# this block of code ensures that the VIRTUAL_ENV is always the first element in the PATH
+# also direnv activates the environment but doesn't change the prompt, so disable the prompt and add it manually in the prompt function
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+if set -q VIRTUAL_ENV && contains $VIRTUAL_ENV/bin $PATH
+    set index (contains -i $VIRTUAL_ENV/bin $PATH)
+    set -ge PATH[$index]
+    set -gxp PATH $VIRTUAL_ENV/bin
 end
 
 # programs
