@@ -14,6 +14,8 @@ export ZDOTDIR="$HOME"/.config/zsh
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export IPYTHONDIR="$XDG_CONFIG_HOME"/ipython
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 # If not running interactively, don't continue
 if not status --is-interactive
   exit
