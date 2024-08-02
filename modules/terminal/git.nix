@@ -53,7 +53,7 @@ in {
           gc = "git commit";
           gcm = "git commit -m";
           gcam = "git commit -am";
-          gca = "git commit --amend -a";
+          gca = "git commit --amend -a --no-edit";
           gdh = "git diff HEAD^";
           grc = "gh repo create --public --source=. ";
         };
