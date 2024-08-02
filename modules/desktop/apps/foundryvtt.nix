@@ -16,8 +16,8 @@ in {
   config = mkIf cfg.enable {
     services.foundryvtt = {
       enable = true;
-      package = inputs.foundry-vtt.packages.${pkgs.system}.foundryvtt_latest.overrideAttrs (final: prev: {
-        releaseType = "stable";
+      package = inputs.foundry-vtt.packages.${pkgs.system}.foundryvtt_12.overrideAttrs (final: prev: {
+        version = "12.328";
       });
     };
     user.extraGroups = [ "foundryvtt" ];
