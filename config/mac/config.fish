@@ -36,6 +36,7 @@ end
 zoxide init fish --cmd cd | source
 direnv hook fish | source
 fzf --fish | source
+starship init fish | source
 
 # Abbreviations
 abbr --add -- ga 'git add'
@@ -72,6 +73,8 @@ alias v 'nvim .'
 alias vim 'nvim'
 alias q exit
 alias qlog 'clear && tail -f ~/.local/share/qtile/qtile.log'
+
+
 
 # Startup
 fastfetch
