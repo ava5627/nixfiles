@@ -96,6 +96,7 @@ $container\
 $shell\
 $username\
 $hostname\
+${custom.hostname}\
 $character"""
 
 # Replace the '❯' symbol in the prompt with '➜'
@@ -112,16 +113,27 @@ format = "[$user]($style)@"
 style_root = "red bold"
 style_user = "green bold"
 
-[hostname]
-ssh_only = false
+[hostname] # yellow hostname when connected via ssh
+ssh_only = true
 format = "[$hostname]($style) "
+style = "yellow bold"
+
+[custom.hostname] # green hostname when local
+command = "hostname -s"
+when = "test -z $SSH_TTY"
 style = "green bold"
+format = "[$output]($style) "
 
 [fill]
 symbol = " "
 
 [directory]
-style = "purple bold"
+style = "blue bold"
+truncate_to_repo = true
+fish_style_pwd_dir_length = 2
+truncation_length = 5
+repo_root_style = "purple bold"
+
 
 [git_branch]
 symbol = ""
@@ -132,11 +144,13 @@ style = "green"
 format = "[\\($hash$tag\\)]($style)"
 
 [git_status]
-format = "(|[$all_status( $ahead_behind)]($style))\\) "
+format = "[( $all_status)( $ahead_behind)]($style)\\) "
 modified = "*"
 deleted = "x"
-ahead = "󰁅$count"
-behind = "󰁝$count"
+untracked = "?"
+renamed = ">"
+behind = "󰁅$count"
+ahead = "󰁝$count"
 diverged = "󰁝$ahead_count󰁅$behind_count"
 
 [cmd_duration]
@@ -151,7 +165,8 @@ time_format = "%H:%M"
 
 [python]
 symbol = ""
-format = '\[[${symbol}${pyenv_prefix}(${version}) (\($virtualenv\))]($style)\]'
+format = '\[[${symbol}${pyenv_prefix}(${version})( \($virtualenv\))]($style)\]'
+style = "blue bold"
 
 [rust]
 format = '\[[$symbol($version)]($style)\]'
@@ -160,6 +175,8 @@ format = '\[[$symbol($version)]($style)\]'
 symbol = ""
 format = '\[[$symbol$name]($style)\]'
 
+
+# unchanged from default
 
 [aws]
 symbol = ""
