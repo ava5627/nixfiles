@@ -145,6 +145,7 @@ format = "[\\($hash$tag\\)]($style)"
 
 [git_status]
 format = "[( $all_status)( $ahead_behind)]($style)\\) "
+style = "red"
 modified = "*"
 deleted = "x"
 untracked = "?"
@@ -174,6 +175,10 @@ format = '\[[$symbol($version)]($style)\]'
 [nix_shell]
 symbol = ""
 format = '\[[$symbol$name]($style)\]'
+
+[status]
+disabled = false
+format = '[\[$symbol$common_meaning$signal_name$maybe_int\]]($style) '
 
 
 # unchanged from default
