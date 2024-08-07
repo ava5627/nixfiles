@@ -7,7 +7,7 @@ with lib;
 with lib.my; let
   cfg = config.modules.services.audiobookshelf;
 in {
-  options.modules.services.audiobookshelf.enable = mkBool false "Audio book library";
+  options.modules.services.audiobookshelf.enable = mkEnableOption "Audio book library";
   config = mkIf cfg.enable {
     services.audiobookshelf = {
       enable = true;
