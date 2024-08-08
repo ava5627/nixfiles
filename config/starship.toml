@@ -178,14 +178,14 @@ format = '\[[$symbol$name]($style)\]'
 
 [status]
 disabled = false
-format = '[\[$symbol$common_meaning$signal_name$maybe_int\]]($style) '
+style = "bold red"
+format = '([\[$common_meaning$signal_name$maybe_int\]]($style))'
 
 
 # unchanged from default
 
 [aws]
-symbol = ""
-format = '\[[$symbol($profile)(\($region\))(\[$duration\])]($style)\]'
+disabled = true
 
 [bun]
 symbol = ""
