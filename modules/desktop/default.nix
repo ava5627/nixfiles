@@ -19,6 +19,7 @@ in {
       displayManager.sddm = {
         enable = true;
         theme = "${pkgs.my.sugar-candy}";
+        autoNumlock = true;
       };
       xserver = {
         xkb = {
