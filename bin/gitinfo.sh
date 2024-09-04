@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i bash -p nix-prefetch-git jq
+#! nix-shell -i bash -p nix-prefetch-git jaq
 #! vim: ft=bash
 repo=$1
 if [[ "$repo" != https://* ]]; then

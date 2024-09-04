@@ -21,6 +21,7 @@ in {
       ];
     };
     hardware.nvidia.modesetting.enable = true;
+    hardware.nvidia.open = true;
     services.xserver.videoDrivers = ["nvidia"];
     environment.systemPackages = with pkgs; [
       (writeShellScriptBin "nvidia-settings" ''
