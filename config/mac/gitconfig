@@ -35,3 +35,6 @@
 [user]
 	email = "ava.harris@bayer.com"
 	name = "ava-harris"
+
+[pull]
+	rebase = true
