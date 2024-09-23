@@ -14,7 +14,6 @@ in {
       enable = true;
       settings = {
         General = {
-          checkForUpdates = false;
           contrastOpacity = 153;
           contrastUiColor = "#4c566a";
           disabledTrayIcon = true;
