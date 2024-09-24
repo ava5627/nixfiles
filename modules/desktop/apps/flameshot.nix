@@ -1,11 +1,9 @@
 {
   config,
-  # pkgs,
   lib,
   ...
 }:
 with lib; let
-  # iniFormat = pkgs.formats.ini {};
   cfg = config.modules.desktop.flameshot;
 in {
   options.modules.desktop.flameshot.enable = mkEnableOption "Flameshot";
@@ -15,7 +13,7 @@ in {
       settings = {
         General = {
           contrastOpacity = 153;
-          contrastUiColor = "#4c566a";
+          contrastUiColor = "#15161e";
           disabledTrayIcon = true;
           savePath = "/home/${config.user.name}/Pictures/Screenshots";
           savePathFixed = false;
@@ -23,7 +21,7 @@ in {
           showHelp = false;
           showSidePanelButton = true;
           showStartupLaunchMessage = false;
-          uiColor = "#3384d0";
+          uiColor = "#7aa2f7";
         };
       };
     };
