@@ -11,7 +11,6 @@ in {
   options.modules.desktop = {
     morgen.autoStart = mkBool true "Start morgen on login";
     insync.autoStart = mkBool true "Start insync on login";
-    kdeconnect.autoStart = mkBool true "Start kdeconnect on login";
   };
 
   config = mkIf config.services.xserver.enable {
@@ -40,7 +39,11 @@ in {
     };
 
     home = {
-      xsession.enable = true;
+      xsession = {
+        enable = true;
+        scriptPath = ".local/share/xsession";
+        profilePath = ".local/share/xprofile";
+      };
       programs.obs-studio.enable = true;
       programs.mpv = {
         enable = true;
@@ -48,16 +51,6 @@ in {
       };
       home.shellAliases = {
         cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --demuxer-lavf-o=video_size=1920x1080'';
-      };
-      services.kdeconnect = {
-        enable = true;
-        indicator = true;
-      };
-      xdg.configFile = {
-        "copyq/" = {
-          source = "${config.dotfiles.config}/copyq";
-          recursive = true;
-        };
       };
       home.pointerCursor = {
         name = "Bibata-Modern-Ice";
@@ -74,7 +67,6 @@ in {
       xorg.xev # event viewer
       qalculate-gtk # calculator
       arandr # screen layout editor
-      copyq # clipboard manager
       insync # google drive sync
       morgen # calendar
       pcmanfm # file manager
@@ -110,9 +102,7 @@ in {
       };
     };
     modules.autoStart =
-      ["copyq"]
-      ++ optionals cfg.kdeconnect.autoStart ["systemctl restart --user kdeconnect-indicator"]
-      ++ optionals cfg.morgen.autoStart ["morgen --hidden"]
+      optionals cfg.morgen.autoStart ["morgen --hidden"]
       ++ optionals cfg.insync.autoStart ["insync start"];
   };
 }

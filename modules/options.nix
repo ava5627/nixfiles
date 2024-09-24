@@ -20,9 +20,6 @@ with lib.my; {
 
       bin = mkOpt path "${config.dotfiles.dir}/bin";
       config = mkOpt path "${config.dotfiles.dir}/config";
-      modules = mkOpt path "${config.dotfiles.dir}/modules";
-      homeModules = mkOpt path "${config.dotfiles.dir}/home/modules";
-      themes = mkOpt path "${config.dotfiles.homeModules}/themes";
     };
     modules.autoStart = mkOpt (listOf str) [];
     launchAll = mkBool true "Launch all services on startup";

@@ -18,7 +18,5 @@
     };
   };
   services.hardware.openrgb.enable = true;
-  modules.autoStart = [
-    "openrgb -p Off"
-  ];
+  modules.autoStart = ["openrgb -p Off"];
 }
