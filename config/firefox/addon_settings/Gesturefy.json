@@ -1,7 +1,8 @@
 {
   "Exclusions": [
-    "http://71.56.222.98/game",
-    "https://excalidraw.com/",
+    "https://www.owlbear.rodeo/*",
+    "https://www.owlbear.rodeo/",
+    "http://73.153.70.114/game",
     "*://*roll20.net/*",
     "*://*:30000/*"
   ],
@@ -149,29 +150,6 @@
           "cycling": true,
           "excludeDiscarded": false
         }
-      }
-    },
-    {
-      "pattern": [
-        [
-          3,
-          -180
-        ],
-        [
-          35,
-          -94
-        ],
-        [
-          9,
-          -6
-        ],
-        [
-          112,
-          1
-        ]
-      ],
-      "command": {
-        "name": "MoveTabToNewWindow"
       }
     },
     {
@@ -372,6 +350,25 @@
       "command": {
         "name": "NewWindow"
       }
+    },
+    {
+      "pattern": [
+        [
+          17,
+          215
+        ],
+        [
+          -211,
+          -19
+        ],
+        [
+          327,
+          -7
+        ]
+      ],
+      "command": {
+        "name": "MoveTabToNewWindow"
+      }
     }
   ],
   "Settings": {
@@ -379,7 +376,7 @@
       "Trace": {
         "Style": {
           "lineWidth": 4,
-          "strokeStyle": "#00aaa0ff",
+          "strokeStyle": "#1abc9cff",
           "lineGrowth": false
         }
       },

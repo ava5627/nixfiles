@@ -12,10 +12,13 @@
     "mutual_checker",
     "seen_posts",
     "quick_reblog",
-    "show_originals",
     "timeformat",
-    "tweaks"
+    "tweaks",
+    "show_originals",
+    "accesskit",
+    "anti_capitalism"
   ],
+  "hide_avatars.preferences.hiddenAvatars": "",
   "mutual_checker.preferences.showOnlyMutualNotifications": false,
   "mutual_checker.preferences.showOnlyMutuals": false,
   "painter.preferences.colourSourceTags": true,
@@ -43,6 +46,7 @@
   "seen_posts.seenPosts": [
   ],
   "show_originals.preferences.showOwnReblogs": true,
+  "show_originals.preferences.showReblogsOfNotFollowing": false,
   "show_originals.preferences.showReblogsWithContributedContent": true,
   "show_originals.preferences.whitelistedUsernames": "",
   "show_originals.savedModes": {
@@ -67,6 +71,7 @@
   "tweaks.preferences.hide_activity_mutuals": false,
   "tweaks.preferences.hide_activity_notification_badge": false,
   "tweaks.preferences.hide_blaze_tip_labels": false,
+  "tweaks.preferences.hide_communities_notification_badge": false,
   "tweaks.preferences.hide_filtered_posts": false,
   "tweaks.preferences.hide_follower_counts": false,
   "tweaks.preferences.hide_following_notification_badge": true,
@@ -79,8 +84,9 @@
   "tweaks.preferences.no_live": true,
   "tweaks.preferences.no_where_were_we": true,
   "tweaks.preferences.restore_attribution_links": true,
-  "tweaks.preferences.show_all_tags": false,
-  "tweaks.preferences.slim_filtered_screens": false,
+  "tweaks.preferences.show_all_tags": true,
+  "tweaks.preferences.slim_filtered_screens": true,
+  "tweaks.preferences.subtle_activity_mutuals": false,
   "tweaks.preferences.unsticky_post_avatars": false,
   "tweaks.preferences.unsticky_tab_bar": false
 }
