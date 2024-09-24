@@ -1,0 +1,36 @@
+{
+  "option.hideLanguages": {
+    "enabled": true,
+    "show": [
+      {
+        "label": "English",
+        "value": "en"
+      }
+    ]
+  },
+  "option.hideTags": {
+    "enabled": true,
+    "filters": [
+      {
+        "name": "Alpha/Beta/Omega Dynamics",
+        "type": "F",
+        "invert": false,
+        "matcher": "contains"
+      }
+    ]
+  },
+  "option.showChapterDate": true,
+  "option.showChapterFinish": true,
+  "option.showChapterTime": true,
+  "option.showChapterWords": true,
+  "option.showStatsColumns": false,
+  "option.styleWidth": 40,
+  "option.theme": {
+    "chosen": "inherit",
+    "current": "light"
+  },
+  "option.user": {
+    "userId": "ByteRanger"
+  },
+  "option.wordsPerMinute": 450
+}
