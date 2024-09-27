@@ -13,6 +13,7 @@ in {
     environment.systemPackages = with pkgs; [
       rustup
       llvmPackages.bintools
+      cargo-nextest
     ];
 
     environment.variables = {
