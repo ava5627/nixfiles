@@ -21,7 +21,7 @@ in {
       ffmpeg # multimedia framework
       glow # terminal markdown viewer
       difftastic # diff viewer
-      jaq # json processor
+      jq # json processor
     ];
     home = {
       programs = {
