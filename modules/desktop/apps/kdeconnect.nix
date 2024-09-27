@@ -5,9 +5,9 @@
 }:
 with lib;
 with lib.my; let
-  cfg = config.modules.kdeconnect;
+  cfg = config.modules.desktop.kdeconnect;
 in {
-  options.modules.kdeconnect.enable = mkBool true "kdeconnect";
+  options.modules.desktop.kdeconnect.enable = mkBool true "kdeconnect";
   config = mkIf cfg.enable {
     home.services.kdeconnect = {
       enable = true;

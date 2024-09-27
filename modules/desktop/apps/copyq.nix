@@ -6,9 +6,9 @@
 }:
 with lib;
 with lib.my; let
-  cfg = config.modules.copyq;
+  cfg = config.modules.desktop.copyq;
 in {
-  options.modules.copyq.enable = mkBool true "CopyQ";
+  options.modules.desktop.copyq.enable = mkBool true "CopyQ";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       copyq
