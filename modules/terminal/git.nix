@@ -23,7 +23,6 @@ in {
           ignores = [".ropeproject" ".envrc" ".direnv" "__pycache__" ".vscode" ".ipynb_checkpoints" ".venv"];
           extraConfig = {
             init.defaultBranch = "main";
-            pull.rebase = true;
           };
           delta = {
             enable = true;
