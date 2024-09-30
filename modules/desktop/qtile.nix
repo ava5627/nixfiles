@@ -58,7 +58,7 @@ in {
       executable = true;
     };
     home.home.shellAliases = {
-      qlog = "clear && tail -f ~/.local/share/qtile/qtile.log";
+      qlog = "clear && tail -f ~/.local/share/qtile/qtile.log -n 50";
     };
   };
 }
