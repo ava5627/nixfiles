@@ -1,0 +1,12 @@
+# vim: ft=nix
+{...}: {
+  imports = [
+    ./hardware-configuration.nix
+  ];
+  modules = {
+    theme.active = "Tokyo Night";
+    desktop = {
+      qtile.enable = true;
+    };
+  };
+}

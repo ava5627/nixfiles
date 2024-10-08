@@ -129,6 +129,32 @@ def git_commit(message=None, host=None, message_only=False):
     print(commit_message)
 
 
+def enable_ssh_root_login(target_host):
+    ssh_open = subprocess.run(
+        f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True
+    )
+    if ssh_open.returncode != 0:
+        print(f"Could not connect to {target_host}")
+        exit(1)
+    copy = subprocess.run(
+        ["ssh", "-t", target_host, "sudo cp -f ~/.ssh/authorized_keys /root/.ssh/"]
+    )
+    if copy.returncode != 0:
+        print("[bold red]Failed[/bold red] to enable root login")
+        exit(1)
+
+
+def remove_ssh_root_login(target_host):
+    if not target_host:
+        return
+    remove = subprocess.run(
+        ["ssh", "-t", target_host, "sudo rm -f /root/.ssh/authorized_keys"]
+    )
+    if remove.returncode != 0:
+        print("[bold yellow]Warning[/bold yellow]: Failed to disable root login")
+        print("Make sure to remove the key manually")
+
+
 def rebuild(method, **kwargs):
     rebuild_command = ["sudo", "nixos-rebuild", method, "--flake"]
 
@@ -137,21 +163,9 @@ def rebuild(method, **kwargs):
             host: str = target_host.split("@")[-1]
         else:
             host: str = target_host
-        ssh_open = subprocess.run(
-            f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True
-        )
-        if ssh_open.returncode != 0:
-            print(f"Could not connect to {target_host}")
-            exit(1)
         print(f"Enabling root login on {host}, please enter password for {target_host}")
-        copy = subprocess.run(
-            ["ssh", "-t", target_host, "sudo cp -f ~/.ssh/authorized_keys /root/.ssh/"]
-        )
-        if copy.returncode != 0:
-            print("[bold red]Failed[/bold red] to enable root login")
-            exit(1)
-        rebuild_command.remove("sudo")
-        rebuild_command.append(f".#{host.removesuffix('.local')}")
+        enable_ssh_root_login(target_host)
+        rebuild_command.append(f".#{host.split('.')[0]}")
         rebuild_command.extend(["--target-host", "root@" + host])
     elif host := kwargs.get("host"):
         rebuild_command.append(f".#{host}")
@@ -184,16 +198,7 @@ def rebuild(method, **kwargs):
         )
         exit(1)
     finally:
-        if target_host:
-            print(f"Disabling root login on {host}")
-            remove = subprocess.run(
-                ["ssh", "-t", target_host, "sudo rm -f /root/.ssh/authorized_keys"]
-            )
-            if remove.returncode != 0:
-                print(
-                    "[bold yellow]Warning[/bold yellow]: Failed to disable root login"
-                )
-                print("Make sure to remove the key manually")
+        remove_ssh_root_login(target_host)
 
 
 def run_in_box(command, title, file):

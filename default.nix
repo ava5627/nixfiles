@@ -13,7 +13,7 @@ with lib.my; {
     [
       inputs.nix-gc-env.nixosModules.default
     ]
-    ++ (mapModulesRec' (toString ./modules) import);
+    ++ (mapModulesRec' ./modules import);
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
