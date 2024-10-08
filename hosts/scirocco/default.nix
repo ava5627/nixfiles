@@ -2,7 +2,12 @@
   imports = [
     ./hardware-configuration.nix
   ];
-  modules.theme.active = "Tokyo Night";
+  modules = {
+    theme.active = "Tokyo Night";
+    desktop = {
+      qtile.enable = true;
+    };
+  };
 
   boot.loader.grub = {
     enable = true;

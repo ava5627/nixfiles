@@ -3,6 +3,9 @@
   inherit (lib) nameValuePair removeSuffix mapAttrsToList filterAttrs id attrValues hasSuffix;
   inherit (import ./attrs.nix {inherit lib;}) mapFilterAttrs;
 in rec {
+  # dir -> fn
+  #
+  # Run fn on each nix file and nix directory in dir
   mapModules = dir: fn:
     mapFilterAttrs
     (n: v: v != null)
@@ -16,6 +19,9 @@ in rec {
       else nameValuePair "" null)
     (readDir dir);
 
+  # dir -> fn :: listOf paths
+  #
+  # Returns a list of all nix files and nix modules in dir and its subdirectories after applying fn
   mapModulesRec' = dir: fn: let
     dirs =
       mapAttrsToList

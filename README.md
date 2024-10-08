@@ -18,18 +18,18 @@ First try at a NixOS configuration
 ## Installation
 
 1. Clone this repository
-    ```sh
+    ```bash
     git clone https://github.com/ava5627/nixfiles ~/nixfiles
     ```
 2. Make host configuration and add to `hosts/<hostname>/`
-    ```sh
-    HOST=<hostname>
+    ```bash
+    HOST=$(hostname) # or whatever you want to name the host
     cp /etc/nixos/hardware-configuration.nix ~/nixfiles/hosts/$HOST/hardware-configuration.nix
-    touch ~/nixfiles/hosts/$HOST/default.nix
+    cp ./hosts/template ./hosts/$HOST/default.nix
     ```
 
 3. Run installation script
-    ```sh
+    ```bash
     cd ~/nixfiles
     ./bin/manage.py rebuild --host $HOST
     ```
