@@ -94,7 +94,7 @@ in {
         };
       };
       programs.kitty = {
-        theme = "Tokyo Night";
+        themeFile = "tokyo_night_night";
         settings = {
           color16 = "#1a1b26";
         };
