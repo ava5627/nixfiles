@@ -44,7 +44,7 @@ in {
             border = mkLiteral "1px 1px 1px 1px";
           };
           inputbar = {
-            padding = mkLiteral "0 0 1px 0";
+            border = mkLiteral "0 0 1px 0";
             children = [(mkLiteral "prompt") (mkLiteral "entry")];
           };
           prompt = {
