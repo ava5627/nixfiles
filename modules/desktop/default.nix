@@ -87,6 +87,7 @@ in {
       (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
     ];
     programs.file-roller.enable = true;
+    programs.appimage.enable = true;
     security.polkit.enable = true;
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
       description = "PolicyKit Authentication Agent";
