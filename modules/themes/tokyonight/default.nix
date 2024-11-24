@@ -50,6 +50,7 @@ in {
         background-light = cfg.colors.black;
         text-color = cfg.colors.foreground;
       };
+      # source: https://github.com/folke/tokyonight.nvim/blob/main/extras/dunst/tokyonight_night.dunstrc
       dunst = {
         urgency_low = {
           background = "\"#16161e\"";
@@ -99,6 +100,7 @@ in {
           color16 = "#1a1b26";
         };
       };
+      # source: https://github.com/folke/tokyonight.nvim/blob/main/extras/fzf/tokyonight_night.sh
       programs.fzf.defaultOptions = [
         "--color=fg:-1,fg+:#c0caf5,bg:-1,bg+:#292e42"
         "--color=hl:#3d59a1,hl+:#7aa2f7,info:#9ece6a,marker:#f7768e"
@@ -106,6 +108,7 @@ in {
         "--color=border:#262626,label:#aeaeae,query:#c0caf5"
         "--layout=reverse"
       ];
+      # source: https://github.com/folke/tokyonight.nvim/blob/main/extras/zathura/tokyonight_night.zathurarc
       programs.zathura.options = {
         "completion-bg" = "#16161e";
         "completion-fg" = "#c0caf5";

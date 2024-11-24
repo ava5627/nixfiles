@@ -13,6 +13,8 @@ in {
       enable = true;
       indicator = true;
     };
+    # the indicator doesn't start on login so we need to restart it
+    # this is because there is no systemd target for after qtile's systray is started
     modules.autoStart = ["systemctl restart --user kdeconnect-indicator"];
   };
 }
