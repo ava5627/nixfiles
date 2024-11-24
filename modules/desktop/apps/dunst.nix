@@ -8,12 +8,6 @@ with lib; let
   iniFormat = pkgs.formats.ini {};
   theme_cfg = config.modules.theme.dunst;
   cfg = config.modules.desktop.dunst;
-
-  has_gtk_icon_theme = builtins.hasAttr "gtk" config.home && builtins.hasAttr "iconTheme" config.home.gtk && builtins.hasAttr "name" config.home.gtk.iconTheme;
-  icon_path =
-    if has_gtk_icon_theme
-    then config.home.gtk.iconTheme.name
-    else "";
 in {
   options.modules.desktop.dunst.enable = mkEnableOption "Dunst";
   config = mkIf cfg.enable {
@@ -22,7 +16,7 @@ in {
     };
     home.xdg.configFile."dunst/dunstrc".source = iniFormat.generate "dunstrc" {
       global = {
-        icon_theme = icon_path;
+        icon_theme = config.home.gtk.iconTheme.name or "";
         enable_recursive_icon_lookup = true;
         monitor = 0;
         follow = "mouse";

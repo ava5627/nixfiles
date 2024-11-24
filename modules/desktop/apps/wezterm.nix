@@ -7,7 +7,7 @@ with lib;
 with lib.my; let
   cfg = config.modules.desktop.wezterm;
 in {
-  options.modules.desktop.wezterm.enable = mkBool true "Wezterm";
+  options.modules.desktop.wezterm.enable = mkBool false "Wezterm";
   config = mkIf cfg.enable {
     home.programs.wezterm = {
       enable = true;

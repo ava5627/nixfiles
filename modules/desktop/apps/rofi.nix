@@ -5,6 +5,7 @@
 }:
 with lib;
 with lib.my; let
+  inherit (config.home.lib.formats.rasi) mkLiteral;
   cfg = config.modules.desktop.rofi;
 in {
   options.modules.desktop.rofi.enable = mkEnableOption "rofi";
@@ -29,9 +30,7 @@ in {
           kb-accept-entry = "Return,KP_Enter";
           kb-remove-to-eol = "";
         };
-        theme = let
-          inherit (config.home.lib.formats.rasi) mkLiteral;
-        in {
+        theme = {
           "*" = {
             spacing = 5;
             width = mkLiteral "35%";
