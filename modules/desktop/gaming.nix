@@ -16,6 +16,8 @@ in {
   };
   config = mkMerge [
     (mkIf cfg.steam.enable {
+      # https://github.com/ValveSoftware/steam-for-linux/issues/1890#issuecomment-2367103614
+      # consider bubblewraping steam as suggested above to move it out of home
       programs.steam.enable = true;
       environment.systemPackages = [
         pkgs.ckan
