@@ -15,17 +15,18 @@ in {
       withUWSM = true;
     };
     home = {
-      wayland.windowManager.hyprland = {
-        enable = true;
-        settings = {
-        };
-      };
+      # wayland.windowManager.hyprland = {
+      #   enable = true;
+      #   settings = {
+      #   };
+      # };
       services = {
         hyprpaper = {
           enable = true;
         };
       };
     };
+    services.displayManager.sddm.wayland.enable = true;
     environment.systemPackages = with pkgs; [
       hyprpicker
       wl-clipboard
