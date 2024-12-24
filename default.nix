@@ -81,10 +81,12 @@ with lib.my; {
   ];
   fonts.packages = with pkgs; [
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
     noto-fonts-emoji
     liberation_ttf
-    (nerdfonts.override {fonts = ["SourceCodePro" "Ubuntu" "UbuntuMono"];})
+    nerd-fonts.ubuntu-mono
+    nerd-fonts.ubuntu
+    nerd-fonts.sauce-code-pro
     source-code-pro
     # corefonts
   ];
