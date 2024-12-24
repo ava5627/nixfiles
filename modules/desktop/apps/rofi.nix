@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
@@ -8,10 +9,17 @@ with lib.my; let
   inherit (config.home.lib.formats.rasi) mkLiteral;
   cfg = config.modules.desktop.rofi;
 in {
-  options.modules.desktop.rofi.enable = mkEnableOption "rofi";
+  options.modules.desktop.rofi = {
+    enable = mkEnableOption "rofi";
+    wayland = mkEnableOption "rofi for wayland";
+  };
   config = mkIf cfg.enable {
     home = {
       programs.rofi = {
+        package =
+          if cfg.wayland
+          then pkgs.rofi-wayland
+          else pkgs.rofi;
         enable = true;
         cycle = true;
         extraConfig = {

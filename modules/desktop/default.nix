@@ -9,23 +9,17 @@ with lib.my; let
   cfg = config.modules.desktop;
 in {
   options.modules.desktop = {
+    enable = mkBool true "desktop";
     morgen.autoStart = mkBool true "Start morgen on login";
     insync.autoStart = mkBool true "Start insync on login";
   };
 
-  config = mkIf config.services.xserver.enable {
+  config = mkIf cfg.enable {
     services = {
       displayManager.sddm = {
         enable = true;
         theme = "${pkgs.my.sugar-candy}";
         autoNumlock = true;
-      };
-      xserver = {
-        xkb = {
-          layout = "us";
-          variant = "";
-          options = "caps:ctrl_modifier"; # make caps lock an additional ctrl
-        };
       };
     };
     modules.desktop = {
@@ -34,16 +28,11 @@ in {
       flameshot.enable = true;
       kitty.enable = true;
       zathura.enable = true;
-      rofi.enable = true;
       discord.enable = true;
+      rofi.enable = true;
     };
 
     home = {
-      xsession = {
-        enable = true;
-        scriptPath = ".local/share/xsession";
-        profilePath = ".local/share/xprofile";
-      };
       programs.obs-studio.enable = true;
       programs.mpv = {
         enable = true;
@@ -60,11 +49,6 @@ in {
     };
 
     environment.systemPackages = with pkgs; [
-      xdotool # keyboard and mouse automation
-      xclip # clipboard manager
-      xorg.xkill # kill a window
-      xdotool # keyboard and mouse automation
-      xorg.xev # event viewer
       qalculate-gtk # calculator
       arandr # screen layout editor
       insync # google drive sync

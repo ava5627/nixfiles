@@ -14,20 +14,18 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services = {
-      xserver = {
+    services.xserver = {
+      enable = true;
+      windowManager.qtile = {
         enable = true;
-        windowManager.qtile = {
-          enable = true;
-          extraPackages = p:
-            with p; [
-              xlib
-              pillow
-            ];
-        };
+        extraPackages = p:
+          with p; [
+            xlib
+            pillow
+          ];
       };
-      picom.enable = true;
     };
+    services.picom.enable = true;
     home.programs.feh.enable = true;
     modules.autoStart = [
       "feh --no-fehbg --bg-scale $HOME/Pictures/Wallpapers/camp_fire.jpg"
