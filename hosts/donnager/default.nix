@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./hardware-configuration.nix
   ];
@@ -19,4 +19,7 @@
   };
   services.hardware.openrgb.enable = true;
   modules.autoStart = ["openrgb -p Off"];
+  environment.systemPackages = [
+    pkgs.my.vscode-factoriomod-debug
+  ];
 }
