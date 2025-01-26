@@ -214,7 +214,7 @@ def run_in_box(command, title, file):
             while process.poll() is None:
                 line = process.stdout.readline().decode()
                 log.write(line)
-                if len(lines) > 10:
+                if len(lines) > 20:
                     lines.pop(0)
                 line = Text.from_ansi(line.strip()).plain
                 lines.append(line.strip())
