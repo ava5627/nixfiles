@@ -13,15 +13,7 @@ in {
     programs.nm-applet.enable = config.services.xserver.enable;
     networking.firewall.enable = false;
     services = {
-      # avahi = {
-      #   enable = false; # mDNS support
-      #   # nssmdns4 = true;
-      #   # publish = {
-      #   #   enable = true;
-      #   #   domain = true;
-      #   #   addresses = true;
-      #   # };
-      # };
+      resolved.enable = true;
       printing.enable = true;
       openssh = {
         enable = true;
