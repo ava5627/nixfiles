@@ -3,7 +3,7 @@
     ./hardware-configuration.nix
   ];
   modules = {
-    theme.active = "Tokyo Night";
+    theme.active = "Catppuccin";
     desktop = {
       gaming = {
         steam.enable = true;

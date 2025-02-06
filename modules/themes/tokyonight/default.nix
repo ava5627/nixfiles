@@ -69,6 +69,10 @@ in {
         };
       };
     };
+    qt = {
+      style = "kvantum";
+      platformTheme = "qt5ct";
+    };
     home = {
       gtk = {
         theme = {

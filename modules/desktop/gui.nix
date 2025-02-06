@@ -30,8 +30,6 @@ in {
     (mkIf qt_cfg.enable {
       qt = {
         enable = true;
-        style = mkDefault "kvantum";
-        platformTheme = mkDefault "qt5ct";
       };
       home.qt = {
         enable = true;

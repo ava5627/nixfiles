@@ -2,6 +2,7 @@
   inputs,
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib; let
@@ -56,10 +57,13 @@ in {
       sddm.enable = true;
       sddm.background = "${config.dotfiles.config}/camp_fire.jpg";
     };
+    services.displayManager.sddm.package = pkgs.kdePackages.sddm;
     home = {
       imports = [
-        inputs.catppuccin.nixosModules.catppuccin
+        inputs.catppuccin.homeManagerModules.catppuccin
       ];
+      qt.style.name = "kvantum";
+      qt.platformTheme.name = "kvantum";
       catppuccin = {
         accent = "sky";
         flavor = "mocha";
@@ -70,12 +74,11 @@ in {
         fish.enable = true;
         fzf.enable = true;
         gtk.enable = true;
-        gkt.icon.enable = true;
+        gtk.icon.enable = true;
         kitty.enable = true;
         kvantum.enable = true;
         lsd.enable = true;
         mpv.enable = true;
-        starship.enable = true;
         zathura.enable = true;
       };
       xdg.configFile = {
