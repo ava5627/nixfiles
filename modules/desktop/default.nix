@@ -18,7 +18,8 @@ in {
     services = {
       displayManager.sddm = {
         enable = true;
-        theme = mkDefault "${pkgs.my.sugar-candy}";
+        theme = mkDefault "catppuccin-mocha";
+        package = pkgs.kdePackages.sddm;
         autoNumlock = true;
       };
     };
@@ -66,6 +67,12 @@ in {
 
       libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
       libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
+
+      (pkgs.catppuccin-sddm.override {
+        flavor = "mocha";
+        background = "${config.dotfiles.config}/camp_fire.jpg";
+        loginBackground = true;
+      })
       # shell scripts
       (writeShellScriptBin "powermenu" (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
       (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
