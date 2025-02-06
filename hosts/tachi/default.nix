@@ -5,7 +5,7 @@
   modules = {
     theme.active = "Tokyo Night";
     desktop = {
-      hyprland.enable = false;
+      hyprland.enable = true;
       qtile.enable = true;
       kdeconnect.enable = false;
       firefox.autoStart = false;

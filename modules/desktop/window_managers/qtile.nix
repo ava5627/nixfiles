@@ -22,6 +22,7 @@ in {
           with p; [
             xlib
             pillow
+            qtile-extras
           ];
       };
     };
