@@ -101,6 +101,16 @@ in {
           enable = config.modules.desktop.discord.enable;
           source = ./config/midnight.theme.css;
         };
+        "dunst/dunstrc.d/00-tokyo-night.conf" = let
+          iniFormat = pkgs.formats.ini {};
+        in {
+          enable = config.modules.desktop.dunst.enable;
+          source = iniFormat.generate "tokyonight-dunst" {
+            urgency_low = cfg.dunst.urgency_low;
+            urgency_normal = cfg.dunst.urgency_normal;
+            urgency_critical = cfg.dunst.urgency_critical;
+          };
+        };
       };
       programs.kitty = {
         themeFile = "tokyo_night_night";
