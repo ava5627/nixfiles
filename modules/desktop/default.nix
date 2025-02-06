@@ -18,7 +18,7 @@ in {
     services = {
       displayManager.sddm = {
         enable = true;
-        theme = "${pkgs.my.sugar-candy}";
+        theme = mkDefault "${pkgs.my.sugar-candy}";
         autoNumlock = true;
       };
     };

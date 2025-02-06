@@ -77,6 +77,9 @@ in {
   };
 
   config = mkIf (cfg.active != null) {
+    environment.variables = {
+      COLORSCHEME = cfg.active;
+    };
     home = {
       xdg.configFile = let
         qtile_enabled = config.modules.desktop.qtile.enable;

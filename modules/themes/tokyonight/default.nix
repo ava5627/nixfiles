@@ -93,6 +93,10 @@ in {
           enable = config.modules.desktop.qt.enable;
           text = "[General]\ntheme=KvArcTokyoNight\n";
         };
+        "BetterDiscord/themes/midnight.theme.css" = {
+          enable = config.modules.desktop.discord.enable;
+          source = ./config/midnight.theme.css;
+        };
       };
       programs.kitty = {
         themeFile = "tokyo_night_night";

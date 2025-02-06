@@ -9,6 +9,8 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     foundry-vtt.url = "github:reckenrode/nix-foundryvtt";
     foundry-vtt.inputs.nixpkgs.follows = "nixpkgs";
+    catppuccin.url = "github:catppuccin/nix";
+    catppuccin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs @ {nixpkgs, ...}: let

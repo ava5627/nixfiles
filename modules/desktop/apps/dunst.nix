@@ -71,22 +71,8 @@ in {
         mouse_left_click = "do_action, close_current";
         mouse_middle_click = "context, close_current";
         mouse_right_click = "close_all";
+        timeout = "10s";
       };
-      urgency_critical =
-        {
-          timeout = "10s";
-        }
-        // theme_cfg.urgency_critical;
-      urgency_normal =
-        {
-          timeout = "10s";
-        }
-        // theme_cfg.urgency_normal;
-      urgency_low =
-        {
-          timeout = "10s";
-        }
-        // theme_cfg.urgency_low;
-    };
+    } // theme_cfg;
   };
 }
