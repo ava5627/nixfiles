@@ -6,7 +6,6 @@
 }:
 with lib; let
   iniFormat = pkgs.formats.ini {};
-  theme_cfg = config.modules.theme.dunst;
   cfg = config.modules.desktop.dunst;
 in {
   options.modules.desktop.dunst.enable = mkEnableOption "Dunst";
@@ -73,6 +72,6 @@ in {
         mouse_right_click = "close_all";
         timeout = "10s";
       };
-    } // theme_cfg;
+    };
   };
 }

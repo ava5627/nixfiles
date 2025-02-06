@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   lib,
   ...
@@ -102,6 +103,16 @@ in {
               accent-alt: ${cfg.rofi.accent-alt};
             }
           '';
+        };
+        "dunst/dunstrc.d/00-tokyo-night.conf" = let
+          iniFormat = pkgs.formats.ini {};
+        in {
+          enable = config.modules.desktop.dunst.enable;
+          source = iniFormat.generate "tokyonight-dunst" {
+            urgency_low = cfg.dunst.urgency_low;
+            urgency_normal = cfg.dunst.urgency_normal;
+            urgency_critical = cfg.dunst.urgency_critical;
+          };
         };
       };
       programs.rofi.theme = let
