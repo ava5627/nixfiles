@@ -23,6 +23,9 @@ with lib.my; {
     };
     modules.autoStart = mkOpt (listOf str) [];
     launchAll = mkBool true "Launch all services on startup";
+    home = mkOption {
+      type = options.home-manager.users.type.nestedTypes.elemType;
+    };
   };
 
   config = {
