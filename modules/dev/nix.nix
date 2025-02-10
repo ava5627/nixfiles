@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -12,7 +13,9 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       alejandra # nix formatter
-      nil # nix language server
+      # nil # nix language server
+      nixd
     ];
+    nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   };
 }

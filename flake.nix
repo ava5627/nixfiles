@@ -14,19 +14,23 @@
   };
 
   outputs = inputs @ {nixpkgs, ...}: let
-    inherit (lib.my) mapHosts;
-    system = "x86_64-linux";
+    # look in lib/*.nix for how this works
     lib = nixpkgs.lib.extend (final: prev: {
       my = import ./lib {
         inherit inputs;
         lib = final;
       };
     });
+    inherit (lib.my) mapHosts mapModules;
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
     username = "ava";
   in {
     nixosConfigurations =
       mapHosts ./hosts {inherit system username;};
 
-    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+    formatter.${system} = pkgs.alejandra;
+
+    packages.${system} = mapModules ./packages (p: pkgs.callPackage p {});
   };
 }
