@@ -30,6 +30,7 @@
       NODE_REPL_HISTORY_FILE = "$XDG_DATA_HOME/node_repl_history";
       XCOMPOSECACHE = "$XDG_CACHE_HOME/X11/compose";
       NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
+      KIVY_HOME = "$XDG_CONFIG_HOME/kivy";
     };
   };
   xdg = {
