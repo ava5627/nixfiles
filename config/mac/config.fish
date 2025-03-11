@@ -14,6 +14,9 @@ export ZDOTDIR="$HOME"/.config/zsh
 export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
 export IPYTHONDIR="$XDG_CONFIG_HOME"/ipython
 
+export REQUESTS_CA_BUNDLE=/opt/homebrew/etc/openssl@3/cert.pem
+export SSL_CERT_FILE=/opt/homebrew/etc/openssl@3/cert.pem
+
 # when a neovim terminal is opened fish re-adds `fish_user_paths` to the PATH, making the VIRTUAL_ENV no longer the first element
 # since `/opt/homebrew/bin` is in the `fish_user_paths` and is added to the PATH after the VIRTUAL_ENV
 # it means that while the prompt says the VIRTUAL_ENV is active, in actuality homebrew python is being used
