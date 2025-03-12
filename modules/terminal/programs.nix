@@ -22,6 +22,7 @@ in {
       glow # terminal markdown viewer
       difftastic # diff viewer
       jq # json processor
+      lazydocker # docker manager
     ];
     home = {
       programs = {
@@ -34,9 +35,12 @@ in {
             proc_sorting = "memory";
             proc_aggregate = true;
           };
-          package = pkgs.btop.override { cudaSupport = true; };
+          package = pkgs.btop.override {cudaSupport = true;};
         }; # system monitor
-        lsd.enable = true; # ls replacement
+        eza = {
+          enable = true;
+          icons = "auto";
+        }; # ls replacement
         ripgrep.enable = true; # grep replacement
         zoxide = {
           enable = true;
@@ -51,10 +55,6 @@ in {
           enable = true;
           nix-direnv.enable = true;
         }; # environment manager
-        fish.functions.lb = {
-          body = builtins.readFile "${config.dotfiles.config}/fish/functions/lb.fish";
-          description = "lsd on directory, bat on file";
-        };
       };
       home.shellAliases = {
         man = "batman";
