@@ -1,10 +1,13 @@
 /**
  * @name midnight
- * @description A darkened discord theme.
+ * @description A dark, rounded discord theme.
  * @author refact0r
  * @version 1.6.2
- * @source https://github.com/refact0r/midnight-discord
+ * @invite nz87hXyvcy
+ * @website https://github.com/refact0r/midnight-discord
+ * @source https://github.com/refact0r/midnight-discord/blob/master/midnight.theme.css
  * @authorId 508863359777505290
+ * @authorLink https://www.refact0r.dev
 */
 
 /* IMPORTANT: make sure to enable dark mode in discord settings for the theme to apply properly!!! */
@@ -19,8 +22,11 @@
 	/* top left corner text */
 	--corner-text: 'Midnight';
 
-	/* color of online status dot, change to #23a55a for default green */
-	--online-indicator: var(--accent-2);
+	/* color of status indicators and window controls */
+	--online-indicator: var(--accent-2); /* change to #23a55a for default green */
+	--dnd-indicator: #f7768e; /* change to #f13f43 for default red */
+	--idle-indicator: #e0af68; /* change to #f0b232 for default yellow */
+	--streaming-indicator: #bb9af7; /* change to #593695 for default purple */
 
 	/* accent colors */
 	--accent-1: hsl(168, 76%, 42%); /* links */
@@ -32,11 +38,12 @@
 	--mention-hover: hsla(190, 80%, 52%, 0.05); /* mentions & mention messages when hovered */
 
 	/* text colors */
+	--text-0: white; /* text on colored elements */
 	--text-1: hsl(230, 69%, 90%); /* bright text on colored elements */
-	--text-2: hsl(229, 35%, 75%); /* headings and important text */
-	--text-3: hsl(229, 35%, 75%); /* normal text */
-	--text-4: hsl(229, 23%, 76%); /* icon buttons and channels */
-	--text-5: hsl(235, 11%, 38%); /* muted channels/chats and timestamps */
+	--text-2: hsl(229, 70%, 85%); /* headings and important text */
+	--text-3: hsl(229, 70%, 85%); /* normal text */
+	--text-4: hsl(229, 70%, 85%); /* icon buttons and channels */
+	--text-5: hsl(229, 11%, 38%); /* muted channels/chats and timestamps */
 
 	/* background and dark colors */
 	--bg-1: hsl(220, 15%, 20%); /* dark buttons when clicked */
@@ -51,7 +58,11 @@
 	--spacing: 12px;
 
 	/* animations */
-	--hover-push: 0.2s ease; /* channels/members when hovered */
+	/* ALL ANIMATIONS CAN BE DISABLED WITH REDUCED MOTION IN DISCORD SETTINGS */
+	--list-item-transition: 0.2s ease; /* channels/members/settings hover transition */
+	--unread-bar-transition: 0.2s ease; /* unread bar moving into view transition */
+	--moon-spin-transition: 0.4s ease; /* moon icon spin */
+	--icon-spin-transition: 1s ease; /* round icon button spin (settings, emoji, etc.) */
 
 	/* corner roundness (border-radius) */
 	--roundness-xl: 22px; /* roundness of big panel outer corners */
@@ -66,10 +77,15 @@
 	--discord-icon: none; /* discord icon */
 	--moon-icon: block; /* moon icon */
 	--moon-icon-url: url('https://upload.wikimedia.org/wikipedia/commons/c/c4/Font_Awesome_5_solid_moon.svg'); /* custom icon url */
+	--moon-icon-size: auto;
 
 	/* filter uncolorable elements to fit theme */
 	/* (just set to none, they're too much work to configure) */
 	--login-bg-filter: saturate(0.3) hue-rotate(-15deg) brightness(0.4); /* login background artwork */
 	--green-to-accent-3-filter: hue-rotate(56deg) saturate(1.43); /* add friend page explore icon */
 	--blurple-to-accent-3-filter: hue-rotate(304deg) saturate(0.84) brightness(1.2); /* add friend page school icon */
+
+	/* nav buttons */
+	--windows-nav: none;
+	--custom-nav: block;
 }
