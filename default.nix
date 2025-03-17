@@ -57,6 +57,7 @@ with lib.my; {
 
   environment.systemPackages = with pkgs; [
     nvd # nix package version diff
+    nix-tree # nix dependency tree
     (writeScriptBin "manage" (builtins.readFile "${config.dotfiles.bin}/manage.py"))
   ];
   fonts.packages = with pkgs; [
