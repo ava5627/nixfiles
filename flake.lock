@@ -60,21 +60,6 @@
         "type": "github"
       }
     },
-    "nix-gc-env": {
-      "locked": {
-        "lastModified": 1688934394,
-        "narHash": "sha256-Y72My5Ym2w9jhprmw8kQrom7ObvzqZ3DfNO2r3ZqfOo=",
-        "owner": "Julow",
-        "repo": "nix-gc-env",
-        "rev": "c1e41568772c21a8274ab8edf5d0faadd5df4c8c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Julow",
-        "repo": "nix-gc-env",
-        "type": "github"
-      }
-    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1737751639,
@@ -111,7 +96,6 @@
         "catppuccin": "catppuccin",
         "foundry-vtt": "foundry-vtt",
         "home-manager": "home-manager",
-        "nix-gc-env": "nix-gc-env",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs"
       }

@@ -3,27 +3,16 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   pkgs,
-  inputs,
   lib,
   config,
   ...
 }:
 with lib.my; {
-  imports =
-    [
-      inputs.nix-gc-env.nixosModules.default
-    ]
-    ++ (mapModulesRec' ./modules import);
+  imports = (mapModulesRec' ./modules import);
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
     use-xdg-base-directories = true;
-  };
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    delete_generations = "+5"; # keep only the last 5 generations
-    persistent = true;
   };
   nix.optimise = {
     automatic = true;
@@ -66,17 +55,8 @@ with lib.my; {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
   environment.systemPackages = with pkgs; [
-    unzip # zip file extractor
-    wget # web requests
-    curl # web requests
-    file # file type identification
     nvd # nix package version diff
-    psmisc # process management
-    procps # process management
-    gnumake # make
-    gcc # c compiler
     (writeScriptBin "manage" (builtins.readFile "${config.dotfiles.bin}/manage.py"))
   ];
   fonts.packages = with pkgs; [
@@ -92,6 +72,15 @@ with lib.my; {
   ];
 
   programs = {
+    nh = { # nix cli helper
+      enable = true;
+      flake = "/home/ava/nixfiles"; # path to default flake when no flake is specified
+      clean = {
+        enable = true;
+        dates = "weekly"; # clean up old generations weekly
+        extraArgs = "--keep 5"; # keep only the last 5 generations
+      };
+    };
     dconf.enable = true;
 
     nix-ld.enable = true;

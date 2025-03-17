@@ -8,7 +8,7 @@ with lib;
 with lib.my; let
   cfg = config.modules.terminal.programs;
 in {
-  options.modules.terminal.programs.enable = mkBool true "Usefull terminal programs";
+  options.modules.terminal.programs.enable = mkBool true "Useful terminal programs";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       fastfetch # system info
@@ -23,6 +23,14 @@ in {
       difftastic # diff viewer
       jq # json processor
       lazydocker # docker manager
+      psmisc # process management
+      procps # process management
+      unzip # zip file extractor
+      wget # web requests
+      curl # web requests
+      file # file type identification
+      gnumake # make
+      gcc # c compiler
     ];
     home = {
       programs = {

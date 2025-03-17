@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-gc-env.url = "github:Julow/nix-gc-env";
+    # nix-gc-env.url = "github:Julow/nix-gc-env";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     foundry-vtt.url = "github:reckenrode/nix-foundryvtt";
     foundry-vtt.inputs.nixpkgs.follows = "nixpkgs";

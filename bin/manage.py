@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#! nix-shell -i python3 -p python3 python3Packages.argcomplete nvd git ripgrep python3Packages.rich
+#! nix-shell -i python3 -p python3 python3Packages.argcomplete nvd git ripgrep python3Packages.rich nh
 # PYTHON_ARGCOMPLETE_OK
 import argparse
 import json
@@ -156,39 +156,37 @@ def remove_ssh_root_login(target_host):
 
 
 def rebuild(method, **kwargs):
-    rebuild_command = ["sudo", "nixos-rebuild", method, "--flake"]
+    # rebuild_command = ["sudo", "nh", "os", method, "-n"]
+    rebuild_command = ["nh", "os", method, "."]
 
     if target_host := kwargs.get("target_host"):
-        if "@" in target_host:
-            host: str = target_host.split("@")[-1]
-        else:
-            host: str = target_host
-        print(f"Enabling root login on {host}, please enter password for {target_host}")
-        enable_ssh_root_login(target_host)
-        rebuild_command.append(f".#{host.split('.')[0]}")
-        rebuild_command.extend(["--target-host", "root@" + host])
+        print("Currently unsupported")
+        # if "@" in target_host:
+        #     host: str = target_host.split("@")[-1]
+        # else:
+        #     host: str = target_host
+        # print(f"Enabling root login on {host}, please enter password for {target_host}")
+        # enable_ssh_root_login(target_host)
+        # rebuild_command.append(f".#{host.split('.')[0]}")
+        # rebuild_command.extend(["--target-host", "root@" + host])
     elif host := kwargs.get("host"):
-        rebuild_command.append(f".#{host}")
+        rebuild_command.extend(["--hostname", host])
     else:
         host = socket.gethostname()
-        rebuild_command.append(".")
 
-    if build_host := kwargs.get("build_host"):
-        rebuild_command.extend(["--build-host", build_host])
-        host += f" (built on {build_host})"
+    # if build_host := kwargs.get("build_host"):
+        # rebuild_command.extend(["--build-host", build_host])
+        # host += f" (built on {build_host})"
 
     if kwargs.get("fast"):
-        rebuild_command.append("--fast")
+        pass
+        # rebuild_command.append("--fast")
     if kwargs.get("debug"):
-        rebuild_command.append("--show-trace")
-    if kwargs.get("rollback"):
-        rebuild_command = rebuild_command[:2] + ["switch", "--rollback"]
+        rebuild_command.append("-v")
+    # if kwargs.get("rollback"):
+    #     rebuild_command = rebuild_command[:2] + ["switch", "--rollback"]
     try:
-        run_in_box(
-            rebuild_command,
-            f"Rebuilding NixOS configuration for {host}",
-            "/tmp/nixos-rebuild.log",
-        )
+        subprocess.run(rebuild_command, check=True)
     except subprocess.CalledProcessError:
         print("See /tmp/nixos-rebuild.log for details")
         subprocess.run(
@@ -286,12 +284,12 @@ def main():
         help="The host to rebuild",
         required=(socket.gethostname() not in hosts),
     )
-    rebuild_parser.add_argument(
-        "--fast",
-        "-f",
-        action="store_true",
-        help="Skip building nix for quicker rebuilds",
-    )
+    # rebuild_parser.add_argument(
+    #     "--fast",
+    #     "-f",
+    #     action="store_true",
+    #     help="Skip building nix for quicker rebuilds",
+    # )
     rebuild_parser.add_argument(
         "--debug", "-d", action="store_true", help="Enable debug output"
     )
@@ -329,13 +327,11 @@ def main():
         checks()
         # git_diff()
         rebuild("switch", **vars(args))
-        version_diff()
         if not args.no_commit:
             git_commit(message=args.message, host=args.host or args.target_host)
     if not args.command:
         checks()
         rebuild("switch")
-        version_diff()
         if not args.no_commit:
             git_commit()
     elif args.command == "upgrade":
@@ -343,7 +339,6 @@ def main():
         update()
         git_commit(message="Update flakes", message_only=True)
         rebuild("switch", **vars(args))
-        version_diff()
     elif args.command == "update":
         checks()
         update(args.flakes)
