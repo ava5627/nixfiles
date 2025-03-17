@@ -18,14 +18,13 @@ from rich.status import Status
 from rich.text import Text
 
 
-def checks(rollback=False):
+def checks():
     sudo = subprocess.run(["sudo", "-v"])
     if sudo.returncode != 0:
         exit(1)
     untracked_files()
-    if not rollback:
-        unpulled_commits()
-        update_non_nix()
+    unpulled_commits()
+    update_non_nix()
 
 
 def untracked_files():
@@ -129,74 +128,22 @@ def git_commit(message=None, host=None, message_only=False):
     print(commit_message)
 
 
-def enable_ssh_root_login(target_host):
-    ssh_open = subprocess.run(
-        f"ssh -q -o ConnectTimeout=1 {target_host} true", shell=True
-    )
-    if ssh_open.returncode != 0:
-        print(f"Could not connect to {target_host}")
-        exit(1)
-    copy = subprocess.run(
-        ["ssh", "-t", target_host, "sudo cp -f ~/.ssh/authorized_keys /root/.ssh/"]
-    )
-    if copy.returncode != 0:
-        print("[bold red]Failed[/bold red] to enable root login")
-        exit(1)
-
-
-def remove_ssh_root_login(target_host):
-    if not target_host:
-        return
-    remove = subprocess.run(
-        ["ssh", "-t", target_host, "sudo rm -f /root/.ssh/authorized_keys"]
-    )
-    if remove.returncode != 0:
-        print("[bold yellow]Warning[/bold yellow]: Failed to disable root login")
-        print("Make sure to remove the key manually")
-
-
 def rebuild(method, **kwargs):
-    # rebuild_command = ["sudo", "nh", "os", method, "-n"]
     rebuild_command = ["nh", "os", method, "."]
 
-    if target_host := kwargs.get("target_host"):
-        print("Currently unsupported")
-        # if "@" in target_host:
-        #     host: str = target_host.split("@")[-1]
-        # else:
-        #     host: str = target_host
-        # print(f"Enabling root login on {host}, please enter password for {target_host}")
-        # enable_ssh_root_login(target_host)
-        # rebuild_command.append(f".#{host.split('.')[0]}")
-        # rebuild_command.extend(["--target-host", "root@" + host])
-    elif host := kwargs.get("host"):
+    if host := kwargs.get("host"):
         rebuild_command.extend(["--hostname", host])
-    else:
-        host = socket.gethostname()
 
-    # if build_host := kwargs.get("build_host"):
-        # rebuild_command.extend(["--build-host", build_host])
-        # host += f" (built on {build_host})"
-
-    if kwargs.get("fast"):
-        pass
-        # rebuild_command.append("--fast")
     if kwargs.get("debug"):
         rebuild_command.append("-v")
-    # if kwargs.get("rollback"):
-    #     rebuild_command = rebuild_command[:2] + ["switch", "--rollback"]
+
+    if kwargs.get("dry_run"):
+        rebuild_command.append("--dry-run")
+
     try:
         subprocess.run(rebuild_command, check=True)
     except subprocess.CalledProcessError:
-        print("See /tmp/nixos-rebuild.log for details")
-        subprocess.run(
-            r"rg --color always error\|\\w\+\.nix\*: /tmp/nixos-rebuild.log",
-            shell=True,
-            check=True,
-        )
         exit(1)
-    finally:
-        remove_ssh_root_login(target_host)
 
 
 def run_in_box(command, title, file):
@@ -284,17 +231,12 @@ def main():
         help="The host to rebuild",
         required=(socket.gethostname() not in hosts),
     )
-    # rebuild_parser.add_argument(
-    #     "--fast",
-    #     "-f",
-    #     action="store_true",
-    #     help="Skip building nix for quicker rebuilds",
-    # )
     rebuild_parser.add_argument(
         "--debug", "-d", action="store_true", help="Enable debug output"
     )
-    rebuild_parser.add_argument("--build-host", help="The host to build on")
-    rebuild_parser.add_argument("--target-host", help="Where to deploy the build")
+    rebuild_parser.add_argument(
+        "--dry-run", action="store_true", help="Only print actions don't run them"
+    )
 
     rebuild_cmd_parser = subparsers.add_parser(
         "rebuild", help="Rebuild the system", parents=[rebuild_parser]
@@ -312,23 +254,14 @@ def main():
     update_parser = subparsers.add_parser("update", help="Update flakes")
     update_parser.add_argument("flakes", nargs="*", help="The flakes to update")
     subparsers.add_parser("test", help="Test the system")
-    rollback_parser = subparsers.add_parser("rollback", help="Rollback the system")
-    rollback_parser.add_argument("commit", help="The commit to rollback to", nargs="?")
-
-    subparsers.add_parser(
-        "diff",
-        help="List packages that have changed between"
-        " the current and previous system generations",
-    )
 
     argcomplete.autocomplete(parser)
     args = parser.parse_args()
     if args.command == "rebuild":
         checks()
-        # git_diff()
         rebuild("switch", **vars(args))
         if not args.no_commit:
-            git_commit(message=args.message, host=args.host or args.target_host)
+            git_commit(message=args.message, host=args.host)
     if not args.command:
         checks()
         rebuild("switch")
@@ -344,25 +277,7 @@ def main():
         update(args.flakes)
     elif args.command == "test":
         checks()
-        rebuild("test", fast=True)
-    elif args.command == "rollback":
-        if args.commit:
-            if args.commit.isdigit():
-                args.commit = f"HEAD~{args.commit}"
-            rb = subprocess.run(["git", "checkout", args.commit])
-            if rb.returncode != 0:
-                print("Failed to rollback")
-                exit(1)
-        checks(rollback=True)
-        rebuild("switch")
-        cur_version = (
-            subprocess.check_output('git log -1 --pretty="%h %s"', shell=True)
-            .decode()
-            .strip()
-        )
-        print(f"Rollback to '{cur_version}' successful")
-    elif args.command == "diff":
-        version_diff()
+        rebuild("test")
 
 
 if __name__ == "__main__":
