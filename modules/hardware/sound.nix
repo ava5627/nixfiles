@@ -12,7 +12,7 @@ in {
     enable = mkBool true "Sound";
   };
   config = mkIf cfg.enable {
-    hardware.pulseaudio.extraClientConf = "cookie-file = ${config.home.xdg.configHome}/pulse/cookie";
+    services.pulseaudio.extraClientConf = "cookie-file = ${config.home.xdg.configHome}/pulse/cookie";
     services.pipewire = {
       enable = true;
       wireplumber.enable = true;
