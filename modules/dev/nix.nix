@@ -15,6 +15,7 @@ in {
       alejandra # nix formatter
       # nil # nix language server
       nixd
+      nix-prefetch-git
     ];
     nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   };

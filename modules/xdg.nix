@@ -32,7 +32,7 @@
       NODE_REPL_HISTORY = "$XDG_DATA_HOME/node_repl_history";
       KIVY_HOME = "$XDG_CONFIG_HOME/kivy";
       _JAVA_OPTIONS = "-Djava.util.prefs.userRoot=\"$XDG_CONFIG_HOME\"/java";
-      PULSE_COOKIE = "$XDG_CONFIG_HOME/pulse/cookie";
+      PULSE_COOKIE = "$XDG_CONFIG_HOME/pulse/cookie"; # steam makes .pulse-cookie in home without this
     };
   };
   xdg = {
