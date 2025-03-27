@@ -18,7 +18,7 @@ body {
     --font: '';
 
     /* sizes */
-    --gap: 12px; /* spacing between panels */
+    --gap: 10px; /* spacing between panels */
     --divider-thickness: 4px; /* thickness of unread messages divider and highlighted message borders */
 
     /* animation/transition options */
@@ -106,7 +106,7 @@ body {
 
     /* border colors */
     --border-light: hsla(230, 20%, 40%, 0.1); /* light border color */
-    --border: hsla(230, 20%, 40%, 0.2); /* normal border color */
+    --border: var(--bg-3); /* normal border color */
     --button-border: hsla(0, 0%, 100%, 0.1); /* neutral border color of buttons */
 
     /* base colors */
