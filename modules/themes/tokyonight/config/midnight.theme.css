@@ -2,7 +2,7 @@
  * @name midnight
  * @description A dark, rounded discord theme.
  * @author refact0r
- * @version 2.0.0
+ * @version 2.0.1
  * @invite nz87hXyvcy
  * @website https://github.com/refact0r/midnight-discord
  * @source https://github.com/refact0r/midnight-discord/blob/master/themes/midnight.theme.css
@@ -58,6 +58,11 @@ body {
     --panel-blur: off; /* turn on to blur the background of panels */
     --blur-amount: 12px; /* amount of blur */
     --bg-floating: var(--bg-3); /* you can set this to a more opaque color if floating panels look too transparent */
+
+    /* chatbar options */
+    --flipped-chatbar: on; /* turn on to move the typing indicator above the chatbar */
+    --chatbar-height: 47px; /* height of the chatbar (52px by default, 47px to align it with the user panel) */
+    --chatbar-padding: 8px; /* padding of the chatbar */
 
     /* other options */
     --small-user-panel: on; /* turn on to make the user panel smaller like in old discord */
