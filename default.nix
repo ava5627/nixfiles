@@ -4,7 +4,6 @@
 {
   pkgs,
   lib,
-  config,
   ...
 }:
 with lib.my; {
@@ -58,7 +57,7 @@ with lib.my; {
   environment.systemPackages = with pkgs; [
     nvd # nix package version diff
     nix-tree # nix dependency tree
-    (writeScriptBin "manage" (builtins.readFile "${config.dotfiles.bin}/manage.py"))
+    my.manage
   ];
   fonts.packages = with pkgs; [
     noto-fonts
