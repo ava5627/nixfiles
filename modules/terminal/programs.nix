@@ -31,6 +31,7 @@ in {
       file # file type identification
       gnumake # make
       gcc # c compiler
+      yt-dlp # youtube downloader
     ];
     home = {
       programs = {
