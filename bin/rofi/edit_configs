@@ -6,30 +6,12 @@ CONFIGDIR=$DOTDIR/config
 declare -A config_list
 config_list[qtile]=$XDG_CONFIG_HOME/qtile
 config_list[nvim]=$XDG_CONFIG_HOME/nvim
-config_list[fish]=$CONFIGDIR/fish
-config_list[logid]=$CONFIGDIR/logid.cfg
-config_list[rofi]=$CONFIGDIR/rofi
-config_list[userChrome]=$CONFIGDIR/firefox/userChrome.css
-config_list[ideavim]=$CONFIGDIR/ideavimrc
 config_list[nixos]=$DOTDIR
 config_list[keyboard]=~/repos/glove/
-# config_list[ranger]=$CONFIGDIR/ranger
-# config_list[kitty]=$CONFIGDIR/kitty
-# config_list[zathura]=$CONFIGDIR/zathura
-# config_list[dunst]=$CONFIGDIR/dunst/dunstrc
 
 declare -A icons_list
 icons_list[qtile]=desktop
-icons_list[kitty]=kitty
-icons_list[fish]=fish
 icons_list[nvim]=nvim
-icons_list[logid]=input-mouse
-icons_list[rofi]=view-list-details
-# icons_list[ranger]=folder
-icons_list[userChrome]=firefox
-icons_list[zathura]=zathura
-icons_list[ideavim]=jetbrains-toolbox
-icons_list[dunst]=notification
 icons_list[nixos]=nixos
 icons_list[keyboard]=keyboard
 

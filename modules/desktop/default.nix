@@ -58,7 +58,7 @@ in {
       lxde.lxmenu-data # adds applications to the menu
       libsForQt5.okular # document viewer
       geeqie # image viewer
-      gimp # image editor
+      gimp3 # image editor
       vlc # media player
       polkit_gnome # polkit authentication agent
       libnotify # notifications
