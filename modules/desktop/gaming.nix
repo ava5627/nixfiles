@@ -41,7 +41,6 @@ in {
     (mkIf cfg.others.enable {
       environment.systemPackages = with pkgs; [
         my.vintagestory
-        gcs
       ];
       nixpkgs.config.permittedInsecurePackages = [
         "dotnet-runtime-wrapped-7.0.20" # for Vintagestory
