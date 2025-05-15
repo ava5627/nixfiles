@@ -8,7 +8,7 @@ with lib;
 with lib.my; let
   cfg = config.modules.terminal.programs;
 in {
-  options.modules.terminal.programs.enable = mkBool true "Usefull terminal programs";
+  options.modules.terminal.programs.enable = mkBool true "Useful terminal programs";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       fastfetch # system info
@@ -22,6 +22,16 @@ in {
       glow # terminal markdown viewer
       difftastic # diff viewer
       jq # json processor
+      lazydocker # docker manager
+      psmisc # process management
+      procps # process management
+      unzip # zip file extractor
+      wget # web requests
+      curl # web requests
+      file # file type identification
+      gnumake # make
+      gcc # c compiler
+      yt-dlp # youtube downloader
     ];
     home = {
       programs = {
@@ -34,9 +44,12 @@ in {
             proc_sorting = "memory";
             proc_aggregate = true;
           };
-          package = pkgs.btop.override { cudaSupport = true; };
+          package = pkgs.btop.override {cudaSupport = true;};
         }; # system monitor
-        lsd.enable = true; # ls replacement
+        eza = {
+          enable = true;
+          icons = "auto";
+        }; # ls replacement
         ripgrep.enable = true; # grep replacement
         zoxide = {
           enable = true;
@@ -51,10 +64,6 @@ in {
           enable = true;
           nix-direnv.enable = true;
         }; # environment manager
-        fish.functions.lb = {
-          body = builtins.readFile "${config.dotfiles.config}/fish/functions/lb.fish";
-          description = "lsd on directory, bat on file";
-        };
       };
       home.shellAliases = {
         man = "batman";

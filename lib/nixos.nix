@@ -5,7 +5,7 @@
 }:
 with lib;
 with lib.my; {
-  mkHost = path: attrs @ {
+  mkHost = path: {
     system,
     username,
     ...
@@ -17,7 +17,6 @@ with lib.my; {
         {
           networking.hostName = mkDefault (baseNameOf path);
         }
-        (filterAttrs (n: v: !elem n ["username" "system"]) attrs)
         ../.
         (import path)
       ];

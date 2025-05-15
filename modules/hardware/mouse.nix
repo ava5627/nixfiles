@@ -55,6 +55,9 @@
       enable = true;
       enableGraphical = true;
     };
+    home.home.shellAliases = {
+      logirestart = "sudo systemctl restart logiops";
+    };
 
     # Add a `udev` rule to restart `logiops` when the mouse is connected
     # https://github.com/PixlOne/logiops/issues/239#issuecomment-1044122412

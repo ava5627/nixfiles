@@ -1,5 +1,6 @@
 {
   "Exclusions": [
+    "https://fbe.teoxoy.com/*",
     "https://www.owlbear.rodeo/*",
     "https://www.owlbear.rodeo/",
     "http://73.153.70.114/game",
@@ -45,8 +46,16 @@
     {
       "pattern": [
         [
-          -24,
-          191
+          7,
+          171
+        ],
+        [
+          -21,
+          137
+        ],
+        [
+          41,
+          -317
         ]
       ],
       "command": {
@@ -368,6 +377,71 @@
       ],
       "command": {
         "name": "MoveTabToNewWindow"
+      }
+    },
+    {
+      "pattern": [
+        [
+          10,
+          -6
+        ],
+        [
+          202,
+          -1
+        ],
+        [
+          10,
+          3
+        ],
+        [
+          3,
+          13
+        ],
+        [
+          -22,
+          195
+        ],
+        [
+          -175,
+          -31
+        ]
+      ],
+      "command": {
+        "name": "RunMultiPurposeCommand",
+        "settings": {
+          "commands": [
+            {
+              "name": "CopyLinkURL"
+            },
+            {
+              "name": "CopyImageURL"
+            }
+          ]
+        }
+      },
+      "label": "Copy Link/Image URL"
+    },
+    {
+      "pattern": [
+        [
+          266,
+          12
+        ],
+        [
+          8,
+          -290
+        ],
+        [
+          -23,
+          13
+        ],
+        [
+          -211,
+          -12
+        ]
+      ],
+      "command": {
+        "name": "CopyImage"
       }
     }
   ],

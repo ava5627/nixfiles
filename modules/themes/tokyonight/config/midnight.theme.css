@@ -1,75 +1,155 @@
 /**
  * @name midnight
- * @description A darkened discord theme.
+ * @description a dark, customizable discord theme.
  * @author refact0r
- * @version 1.6.2
- * @source https://github.com/refact0r/midnight-discord
+ * @version 2.1.1
+ * @invite nz87hXyvcy
+ * @website https://github.com/refact0r/midnight-discord
+ * @source https://github.com/refact0r/midnight-discord/blob/master/themes/midnight.theme.css
  * @authorId 508863359777505290
+ * @authorLink https://www.refact0r.dev
 */
 
-/* IMPORTANT: make sure to enable dark mode in discord settings for the theme to apply properly!!! */
+/* import theme modules */
+@import url('https://refact0r.github.io/midnight-discord/build/midnight.css');
 
-@import url('https://refact0r.github.io/midnight-discord/midnight.css');
+body {
+    /* font options */
+    --font: ''; /* change to '' for default discord font */
+    --code-font: ''; /* change to '' for default discord font */
+    font-weight: 400; /* normal text font weight. DOES NOT AFFECT BOLD TEXT */
 
-/* customize things here */
+    /* sizes */
+    --gap: 10px; /* spacing between panels */
+    --divider-thickness: 4px; /* thickness of unread messages divider and highlighted message borders */
+    --border-thickness: 0px; /* thickness of borders around main panels. DOES NOT AFFECT OTHER BORDERS */
+
+    /* animation/transition options */
+    --animations: on; /* off: disable animations/transitions, on: enable animations/transitions */
+    --list-item-transition: 0.2s ease; /* transition for list items */
+    --dms-icon-svg-transition: 0.4s ease; /* transition for the dms icon */
+    --border-hover-transition: 0.2s ease; /* transition for borders when hovered */
+
+    /* top bar options */
+    --top-bar-height: var(--gap); /* height of the top bar (discord default is 36px, old discord style is 24px, var(--gap) recommended if button position is set to titlebar) */
+    --top-bar-button-position: titlebar; /* off: default position, hide: hide buttons completely, serverlist: move inbox button to server list, titlebar: move inbox button to channel titlebar (will hide title) */
+    --top-bar-title-position: hide; /* off: default centered position, hide: hide title completely, left: left align title (like old discord) */
+    --subtle-top-bar-title: on; /* off: default, on: hide the icon and use subtle text color (like old discord) */
+
+    /* window controls */
+    --custom-window-controls: on; /* off: default window controls, on: custom window controls */
+    --window-control-size: 0px; /* size of custom window controls */
+
+    /* dms button icon options */
+    --custom-dms-icon: custom; /* off: use default discord icon, hide: remove icon entirely, custom: use custom icon */
+    --dms-icon-svg-url: url('https://upload.wikimedia.org/wikipedia/commons/c/c4/Font_Awesome_5_solid_moon.svg'); /* icon svg url. MUST BE A SVG. */
+    --dms-icon-svg-size: 90%; /* size of the svg (css mask-size property) */
+    --dms-icon-color-before: var(--icon-secondary); /* normal icon color */
+    --dms-icon-color-after: var(--white); /* icon color when button is hovered/selected */
+
+    /* dms button background options */
+    --custom-dms-background: off; /* off to disable, image to use a background image (must set url variable below), color to use a custom color/gradient */
+    --dms-background-image-url: url(''); /* url of the background image */
+    --dms-background-image-size: cover; /* size of the background image (css background-size property) */
+    --dms-background-color: linear-gradient(70deg, var(--blue-2), var(--purple-2), var(--red-2)); /* fixed color/gradient (css background property) */
+
+    /* background image options */
+    --background-image: off; /* off: no background image, on: enable background image (must set url variable below) */
+    --background-image-url: url(''); /* url of the background image */
+
+    /* transparency/blur options */
+    /* NOTE: TO USE TRANSPARENCY/BLUR, YOU MUST HAVE TRANSPARENT BG COLORS. FOR EXAMPLE: --bg-4: hsla(220, 15%, 10%, 0.7); */
+    --transparency-tweaks: off; /* off: no changes, on: remove some elements for better transparency */
+    --remove-bg-layer: off; /* off: no changes, on: remove the base --bg-3 layer for use with window transparency (WILL OVERRIDE BACKGROUND IMAGE) */
+    --panel-blur: off; /* off: no changes, on: blur the background of panels */
+    --blur-amount: 12px; /* amount of blur */
+    --bg-floating: var(--bg-3); /* set this to a more opaque color if floating panels look too transparent. only applies if panel blur is on  */
+
+    /* chatbar options */
+    --custom-chatbar: aligned; /* off: default chatbar, aligned: chatbar aligned with the user panel, separated: chatbar separated from chat */
+    --chatbar-height: 47px; /* height of the chatbar (52px by default, 47px recommended for aligned, 56px recommended for separated) */
+    --chatbar-padding: 8px; /* padding of the chatbar. only applies in aligned mode. */
+
+    /* other options */
+    --small-user-panel: on; /* turn on to make the user panel smaller like in old discord */
+}
+
+/* color options */
 :root {
-	/* font, change to 'gg sans' for default discord font*/
-	--font: 'figtree';
+    --colors: on; /* turn off to use discord default colors */
 
-	/* top left corner text */
-	--corner-text: 'Midnight';
-
-	/* color of online status dot, change to #23a55a for default green */
-	--online-indicator: var(--accent-2);
-
-	/* accent colors */
-	--accent-1: hsl(168, 76%, 42%); /* links */
-	--accent-2: hsl(168, 76%, 42%); /* general unread/mention elements */
-	--accent-3: hsl(168, 76%, 42%); /* accent buttons */
-	--accent-4: hsl(168, 76%, 35%); /* accent buttons when hovered */
-	--accent-5: hsl(168, 76%, 28%); /* accent buttons when clicked */
-	--mention: hsla(190, 80%, 52%, 0.1); /* mentions & mention messages */
-	--mention-hover: hsla(190, 80%, 52%, 0.05); /* mentions & mention messages when hovered */
-
-	/* text colors */
+    /* text colors */
+	--text-0: white; /* text on colored elements */
 	--text-1: hsl(230, 69%, 90%); /* bright text on colored elements */
-	--text-2: hsl(229, 35%, 75%); /* headings and important text */
-	--text-3: hsl(229, 35%, 75%); /* normal text */
-	--text-4: hsl(229, 23%, 76%); /* icon buttons and channels */
-	--text-5: hsl(235, 11%, 38%); /* muted channels/chats and timestamps */
+	--text-2: hsl(229, 70%, 85%); /* headings and important text */
+	--text-3: hsl(229, 70%, 85%); /* normal text */
+	--text-4: hsl(229, 70%, 85%); /* icon buttons and channels */
+	--text-5: hsl(229, 11%, 38%); /* muted channels/chats and timestamps */
 
-	/* background and dark colors */
+    /* background and dark colors */
 	--bg-1: hsl(220, 15%, 20%); /* dark buttons when clicked */
 	--bg-2: hsl(220, 15%, 16%); /* dark buttons */
 	--bg-3: #15161e; /* spacing, secondary elements */
 	--bg-4: #1a1b26; /* main background color */
 	--hover: hsla(230, 20%, 40%, 0.1); /* channels and buttons when hovered */
 	--active: hsla(220, 20%, 40%, 0.2); /* channels and buttons when clicked or selected */
-	--message-hover: hsla(220, 0%, 0%, 0.1); /* messages when hovered */
+    --active-2: hsla(220, 19%, 40%, 0.3); /* extra state for transparent buttons */
+    --message-hover: hsla(230, 0%, 0%, 0.1); /* messages when hovered */
 
-	/* amount of spacing and padding */
-	--spacing: 12px;
+    /* accent colors */
+	--accent-1: hsl(168, 76%, 42%); /* links */
+	--accent-2: hsl(168, 76%, 42%); /* general unread/mention elements */
+	--accent-3: hsl(168, 76%, 42%); /* accent buttons */
+	--accent-4: hsl(168, 76%, 35%); /* accent buttons when hovered */
+	--accent-5: hsl(168, 76%, 28%); /* accent buttons when clicked */
+    --accent-new: var(--accent-2); /* stuff that's normally red like mute/deafen buttons */
+    --mention: linear-gradient(to right, color-mix(in hsl, var(--blue-2), transparent 90%) 40%, transparent); /* background of messages that mention you */
+    --mention-hover: linear-gradient(to right, color-mix(in hsl, var(--blue-2), transparent 95%) 40%, transparent); /* background of messages that mention you when hovered */
+    --reply: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 90%) 40%, transparent); /* background of messages that reply to you */
+    --reply-hover: linear-gradient(to right, color-mix(in hsl, var(--text-3), transparent 95%) 40%, transparent); /* background of messages that reply to you when hovered */
 
-	/* animations */
-	--hover-push: 0.2s ease; /* channels/members when hovered */
+    /* status indicator colors */
+	--online: var(--accent-2); /* change to #23a55a for default green */
+	--dnd: #f7768e; /* change to #f13f43 for default red */
+	--idle: #e0af68; /* change to #f0b232 for default yellow */
+	--streaming: #bb9af7; /* change to #593695 for default purple */
+    --offline: var(--text-4); /* change to #83838b for default offline color */
 
-	/* corner roundness (border-radius) */
-	--roundness-xl: 22px; /* roundness of big panel outer corners */
-	--roundness-l: 20px; /* popout panels */
-	--roundness-m: 16px; /* smaller panels, images, embeds */
-	--roundness-s: 12px; /* members, settings inputs */
-	--roundness-xs: 10px; /* channels, buttons */
-	--roundness-xxs: 8px; /* searchbar, small elements */
+    /* border colors */
+    --border-light: hsla(230, 20%, 40%, 0.1); /* light border color */
+    --border: var(--bg-3); /* normal border color */
+    --border-hover: var(--active); /* border color of panels when hovered */
+    --button-border: hsla(0, 0%, 100%, 0.1); /* neutral border color of buttons */
 
-	/* direct messages moon icon */
-	/* change to block to show, none to hide */
-	--discord-icon: none; /* discord icon */
-	--moon-icon: block; /* moon icon */
-	--moon-icon-url: url('https://upload.wikimedia.org/wikipedia/commons/c/c4/Font_Awesome_5_solid_moon.svg'); /* custom icon url */
+    /* base colors */
+    --red-1: #f13f43;
+    --red-2: #f13f43;
+    --red-3: oklch(64% 0.21 24);
+    --red-4: oklch(58% 0.21 24);
+    --red-5: oklch(52% 0.21 24);
 
-	/* filter uncolorable elements to fit theme */
-	/* (just set to none, they're too much work to configure) */
-	--login-bg-filter: saturate(0.3) hue-rotate(-15deg) brightness(0.4); /* login background artwork */
-	--green-to-accent-3-filter: hue-rotate(56deg) saturate(1.43); /* add friend page explore icon */
-	--blurple-to-accent-3-filter: hue-rotate(304deg) saturate(0.84) brightness(1.2); /* add friend page school icon */
+    --green-1: oklch(76% 0.11 170);
+    --green-2: oklch(70% 0.11 170);
+    --green-3: oklch(64% 0.11 170);
+    --green-4: oklch(58% 0.11 170);
+    --green-5: oklch(52% 0.11 160);
+
+    --blue-1: oklch(76% 0.1 215);
+    --blue-2: oklch(70% 0.1 215);
+    --blue-3: oklch(64% 0.1 215);
+    --blue-4: oklch(58% 0.1 215);
+    --blue-5: oklch(52% 0.1 215);
+
+    --yellow-1: oklch(80% 0.11 90);
+    --yellow-2: oklch(74% 0.11 90);
+    --yellow-3: oklch(68% 0.11 90);
+    --yellow-4: oklch(62% 0.11 90);
+    --yellow-5: oklch(56% 0.11 90);
+
+    --purple-1: oklch(76% 0.11 310);
+    --purple-2: oklch(70% 0.11 310);
+    --purple-3: oklch(64% 0.11 310);
+    --purple-4: oklch(58% 0.11 310);
+    --purple-5: oklch(52% 0.11 310);
 }
+

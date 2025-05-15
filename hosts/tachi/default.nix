@@ -10,7 +10,6 @@
       kdeconnect.enable = false;
       firefox.autoStart = false;
       discord.autoStart = false;
-      morgen.autoStart = false;
       gaming.steam.enable = true;
       gaming.steam.autoStart = false;
       gaming.minecraft.enable = true;

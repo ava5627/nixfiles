@@ -1,4 +1,4 @@
-function lb --description 'ls if arg is a directory, otherwise print file with bat'
+function lb --description='ls if arg is a directory, otherwise print file with bat' --wraps="eza"
     for arg in $argv
         if [ -e "$arg" ]
             set args $args $arg
@@ -7,7 +7,7 @@ function lb --description 'ls if arg is a directory, otherwise print file with b
         end
     end
     if [ -z "$args" ] || [ -d "$args" ]
-        lsd $argv
+        eza $argv
     else
       bat $args
     end

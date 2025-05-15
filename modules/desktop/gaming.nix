@@ -13,6 +13,7 @@ in {
     steam.autoStart = mkBool true "Start Steam on login";
     minecraft.enable = mkEnableOption "minecraft";
     lutris.enable = mkEnableOption "lutris";
+    others.enable = mkBool cfg.steam.enable "Enable other gaming-related packages";
   };
   config = mkMerge [
     (mkIf cfg.steam.enable {
@@ -35,6 +36,15 @@ in {
     (mkIf cfg.lutris.enable {
       environment.systemPackages = [
         pkgs.lutris
+      ];
+    })
+    (mkIf cfg.others.enable {
+      environment.systemPackages = with pkgs; [
+        my.vintagestory
+      ];
+      nixpkgs.config.permittedInsecurePackages = [
+        "dotnet-runtime-wrapped-7.0.20" # for Vintagestory
+        "dotnet-runtime-7.0.20" # for Vintagestory
       ];
     })
   ];

@@ -1,4 +1,8 @@
 {
+  "option.hideCrossovers": {
+    "enabled": false,
+    "maxFandoms": 7
+  },
   "option.hideLanguages": {
     "enabled": true,
     "show": [
@@ -9,21 +13,17 @@
     ]
   },
   "option.hideTags": {
-    "enabled": true,
-    "filters": [
-      {
-        "name": "Alpha/Beta/Omega Dynamics",
-        "type": "F",
-        "invert": false,
-        "matcher": "contains"
-      }
-    ]
+    "enabled": false,
+    "filters": []
   },
-  "option.showChapterDate": true,
+  "option.showChapterDate": false,
   "option.showChapterFinish": true,
   "option.showChapterTime": true,
   "option.showChapterWords": true,
+  "option.showKudosHitsRatio": true,
   "option.showStatsColumns": false,
+  "option.showTotalFinish": true,
+  "option.showTotalTime": true,
   "option.styleWidth": 40,
   "option.theme": {
     "chosen": "inherit",
