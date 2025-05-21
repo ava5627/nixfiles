@@ -53,8 +53,9 @@ in {
           gc = "git commit";
           gcm = "git commit -m";
           gcam = "git commit -am";
-          gca = "git commit --amend -a --no-edit";
+          gce = "git commit --amend -a --no-edit";
           gdh = "git diff HEAD^";
+          gom = "git checkout main";
           grc = "gh repo create --public --source=. ";
         };
       };
