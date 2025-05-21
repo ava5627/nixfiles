@@ -14,7 +14,7 @@ in {
       rustup
       llvmPackages.bintools
       cargo-nextest
-      vscode-extensions.vadimcn.vscode-lldb
+      vscode-extensions.vadimcn.vscode-lldb.adapter
     ];
 
     environment.variables = {
