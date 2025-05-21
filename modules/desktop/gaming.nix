@@ -39,8 +39,19 @@ in {
       ];
     })
     (mkIf cfg.others.enable {
+      nixpkgs.overlays = [
+        (final: prev: {
+          vintagestory = prev.vintagestory.overrideAttrs (_: rec {
+            version = "1.20.8";
+            src = pkgs.fetchurl {
+              url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${version}.tar.gz";
+              sha256 = "0zw4xl0fh5rjzb401k2bh6c8hrvjv2l0g10clqidxwsn99fmx0r0";
+            };
+          });
+        })
+      ];
       environment.systemPackages = with pkgs; [
-        my.vintagestory
+        vintagestory
       ];
       nixpkgs.config.permittedInsecurePackages = [
         "dotnet-runtime-wrapped-7.0.20" # for Vintagestory
