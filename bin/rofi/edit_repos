@@ -23,7 +23,7 @@ fi
 
 
 
-repo_list=$(eza $REPODIR -1 -s age)
+repo_list=$(eza $REPODIR -1 -s accessed)
 
 declare -A icons_list
 icons_list[json]="application-json"
