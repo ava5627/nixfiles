@@ -51,7 +51,7 @@ done
 # remove last newline
 cfg=${cfg::-2}
 
-choice=$(echo -e $cfg | rofi -dmenu -p 'Edit config:' -icon-theme "hicolor")
+choice=$(echo -e $cfg | rofi -dmenu -p 'Edit config:' -icon-theme "hicolor" -i)
 
 if [ "$choice" ]; then
     kitty $EDITOR $REPODIR/$choice
