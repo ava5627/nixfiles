@@ -12,7 +12,7 @@ config_list[keyboard]=~/repos/glove/
 declare -A icons_list
 icons_list[qtile]=desktop
 icons_list[nvim]=nvim
-icons_list[nixos]=nixos
+icons_list[nixos]=nix-snowflake
 icons_list[keyboard]=keyboard
 
 cfg=""

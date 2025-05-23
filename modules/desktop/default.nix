@@ -76,6 +76,8 @@ in {
       # shell scripts
       (writeShellScriptBin "powermenu" (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
       (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
+      (writeShellScriptBin "edit_repos" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_repos"))
+      tokei # code statistics, required for edit_repos to show icons
     ];
     programs.file-roller.enable = true;
     programs.appimage.enable = true;
