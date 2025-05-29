@@ -2,7 +2,6 @@
   inputs,
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -69,7 +68,6 @@ in {
         background-light = cfg.colors.background;
         text-color = cfg.colors.foreground;
       };
-      # source: https://github.com/folke/tokyonight.nvim/blob/main/extras/dunst/tokyonight_night.dunstrc
     };
     catppuccin = {
       accent = "mauve";
@@ -77,7 +75,6 @@ in {
       sddm.enable = true;
       sddm.background = "${config.dotfiles.config}/camp_fire.jpg";
     };
-    services.displayManager.sddm.package = pkgs.kdePackages.sddm;
     home = {
       imports = [
         inputs.catppuccin.homeManagerModules.catppuccin
@@ -104,7 +101,7 @@ in {
       xdg.configFile = {
         "BetterDiscord/themes/midnight.theme.css" = {
           enable = config.modules.desktop.discord.enable;
-          source = ./config/midnight.theme.css;
+          source = ./config/catppuccin-midnight.theme.css;
         };
       };
     };

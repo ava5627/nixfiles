@@ -99,7 +99,7 @@ in {
         };
         "BetterDiscord/themes/midnight.theme.css" = {
           enable = config.modules.desktop.discord.enable;
-          source = ./config/midnight.theme.css;
+          source = ./config/tokyo-midnight.theme.css;
         };
         "dunst/dunstrc.d/00-tokyo-night.conf" = let
           iniFormat = pkgs.formats.ini {};
