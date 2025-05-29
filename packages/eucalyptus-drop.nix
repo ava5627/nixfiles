@@ -1,12 +1,12 @@
 {
   stdenvNoCC,
   fetchFromGitLab,
-  # libsForQt5,
-  background_image ? ../config/camp_fire.jpg
+  qt6,
+  background_image ? ../config/camp_fire.jpg,
 }:
 stdenvNoCC.mkDerivation {
   name = "eucalyptus-drop";
-  version = "0.0.1";
+  version = "2.0.0";
   src = fetchFromGitLab {
     owner = "Matt.Jolly";
     repo = "sddm-eucalyptus-drop";
@@ -14,18 +14,20 @@ stdenvNoCC.mkDerivation {
     sha256 = "wq6V3UOHteT6CsHyc7+KqclRMgyDXjajcQrX/y+rkA0=";
   };
 
-  # propagatedUserEnvPkgs = with libsForQt5.qt5; [
-  #     qtquickcontrols2 # required for sddm theme
-  #     qtgraphicaleffects # required for sddm theme
-  # ];
-  # dontWrapQtApps = true;
+  buildInputs = [
+    qt6.qtsvg
+    qt6.qt5compat
+  ];
+  dontWrapQtApps = true;
 
   installPhase = ''
     runHook preInstall
     mkdir -p $out
     cp -r * $out
     cp -r ${background_image} $out/Background.jpg
-    cat theme.conf | sed "s|Background=.*|background=\"Background.jpg\"|g" > $out/theme.conf
+    rm -rf $out/Backgrounds
+    substituteInPlace $out/theme.conf --replace "Background=\"Backgrounds/david-clode-seM6i8gJ7d0-unsplash.jpg\"" "Background=\"Background.jpg\""
+
     runHook postInstall
   '';
   meta = {

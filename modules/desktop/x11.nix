@@ -19,6 +19,9 @@ with lib.my; {
         Option "SuspendTime" "0"
         Option "OffTime" "0"
       '';
+      excludePackages = with pkgs; [
+        xterm
+      ];
     };
     home = {
       xsession = {
@@ -28,7 +31,6 @@ with lib.my; {
       };
     };
     environment.systemPackages = with pkgs; [
-      xdotool # keyboard and mouse automation
       xclip # clipboard manager
       xorg.xkill # kill a window
       xdotool # keyboard and mouse automation

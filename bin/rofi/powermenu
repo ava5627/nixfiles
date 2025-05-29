@@ -23,7 +23,7 @@ case $chosen in
         systemctl reboot
         ;;
     $lock)
-        betterlockscreen -l
+        echo "does nothing"
         ;;
     $suspend)
         systemctl suspend

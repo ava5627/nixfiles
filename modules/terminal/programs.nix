@@ -14,7 +14,6 @@ in {
       fastfetch # system info
       fd # find replacement
       stow # symlink manager
-      jaq # json processor
       tlrc # explain commands
       xdg-ninja # search for .files in home directory that can be moved
       dua # disk usage analyzer
@@ -22,6 +21,7 @@ in {
       glow # terminal markdown viewer
       difftastic # diff viewer
       jq # json processor
+      jaq # json processor
       lazydocker # docker manager
       psmisc # process management
       procps # process management

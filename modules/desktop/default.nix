@@ -18,9 +18,13 @@ in {
     services = {
       displayManager.sddm = {
         enable = true;
-        theme = mkDefault "${pkgs.my.sugar-candy}";
-        # package = pkgs.kdePackages.sddm;
+        theme = mkDefault "${pkgs.my.eucalyptus-drop}";
+        package = pkgs.kdePackages.sddm;
         autoNumlock = true;
+        extraPackages = with pkgs; [
+          qt6.qtsvg
+          qt6.qt5compat
+        ];
       };
     };
     modules.desktop = {
@@ -65,19 +69,19 @@ in {
       libsForQt5.kdenlive # video editor
       libreoffice # office suite
 
-      libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
-      libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
-
       # (pkgs.catppuccin-sddm.override {
       #   flavor = "mocha";
       #   background = "${config.dotfiles.config}/camp_fire.jpg";
       #   loginBackground = true;
       # })
       # shell scripts
-      (writeShellScriptBin "powermenu" (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
-      (writeShellScriptBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
-      (writeShellScriptBin "edit_repos" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_repos"))
-      tokei # code statistics, required for edit_repos to show icons
+      (writers.writeBashBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
+      (writers.writeBashBin "edit_repos" {
+        makeWrapperArgs = ["--prefix" "PATH" ":" "${lib.makeBinPath [tokei]}"];
+      } (builtins.readFile "${config.dotfiles.bin}/rofi/edit_repos"))
+      (writers.writeBashBin "powermenu" {
+        makeWrapperArgs = ["--prefix" "PATH" ":" "${lib.makeBinPath [procps]}"];
+      } (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
     ];
     programs.file-roller.enable = true;
     programs.appimage.enable = true;
