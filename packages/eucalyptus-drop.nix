@@ -20,6 +20,10 @@ stdenvNoCC.mkDerivation {
   ];
   dontWrapQtApps = true;
 
+  patches = [
+    ./fix-colors.patch
+  ];
+
   installPhase = ''
     runHook preInstall
     mkdir -p $out

@@ -69,11 +69,9 @@ in {
       libsForQt5.kdenlive # video editor
       libreoffice # office suite
 
-      # (pkgs.catppuccin-sddm.override {
-      #   flavor = "mocha";
-      #   background = "${config.dotfiles.config}/camp_fire.jpg";
-      #   loginBackground = true;
-      # })
+      qt6.qtsvg
+      qt6.qt5compat
+
       # shell scripts
       (writers.writeBashBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
       (writers.writeBashBin "edit_repos" {
