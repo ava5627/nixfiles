@@ -7,7 +7,7 @@
   ...
 }:
 with lib.my; {
-  imports = (mapModulesRec' ./modules import);
+  imports = mapModulesRec' ./modules import;
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
@@ -72,7 +72,7 @@ with lib.my; {
   ];
 
   programs = {
-    nh = { # nix cli helper
+    nh = {
       enable = true;
       flake = "/home/ava/nixfiles"; # path to default flake when no flake is specified
       clean = {
@@ -80,7 +80,7 @@ with lib.my; {
         dates = "weekly"; # clean up old generations weekly
         extraArgs = "--keep 5"; # keep only the last 5 generations
       };
-    };
+    }; # nix cli helper
     dconf.enable = true;
 
     nix-ld.enable = true;
