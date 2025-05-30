@@ -69,9 +69,6 @@ in {
       libsForQt5.kdenlive # video editor
       libreoffice # office suite
 
-      qt6.qtsvg
-      qt6.qt5compat
-
       # shell scripts
       (writers.writeBashBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
       (writers.writeBashBin "edit_repos" {
