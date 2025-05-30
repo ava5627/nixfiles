@@ -11,19 +11,28 @@ if [ ! -f $CACHE_FILE ]; then
     echo "{}" > $CACHE_FILE
 fi
 
-declare -A icon_cache
+declare -A repo_cache
+declare -A icons
+declare -A opened
 if [ -f $CACHE_FILE ]; then
-    icon_cache=$(jq -r 'to_entries | map("\(.key)=\(.value)") | .[]' $CACHE_FILE)
-    for i in $icon_cache; do
+    repo_cache=$(jq -r 'to_entries | map("\(.key)=\(.value.icon),\(.value.opened)") | .[]' $CACHE_FILE)
+    for i in $repo_cache; do
         key=$(echo $i | cut -d'=' -f1)
         value=$(echo $i | cut -d'=' -f2)
-        icon_cache[$key]=$value
+        icon=$(echo $value | cut -d',' -f1)
+        opens=$(echo $value | cut -d',' -f2)
+        icons[$key]=$icon
+        opened[$key]=$opens
     done
 fi
 
 
-
-repo_list=$(eza $REPODIR -1 -s accessed)
+# sort repos by number of opens from $opened array then by accessed time
+# repo_list=$(echo "$repo_list" | sort -t' ' -k1,1 -n | while read -r repo; do
+repo_list=$(eza "$REPODIR" -1 | while read -r repo; do
+    accessed=$(stat -c %X "$REPODIR/$repo" 2>/dev/null || echo 0)
+    echo "$repo ${opened[$repo]:-0} $accessed"
+done | sort -k2,2nr -k3,3nr | cut -d' ' -f1)
 
 declare -A icons_list
 icons_list[json]="application-json"
@@ -34,12 +43,12 @@ icons_list[text]="text-x-generic"
 cfg=""
 for c in $repo_list
 do
-    if [[ -z "${icon_cache[$c]}" ]]; then
+    if [[ -z "${icons[$c]}" ]]; then
         icon=$(tokei -o json $REPODIR/$c 2>/dev/null | jq -r "del(.Total) | if (. | length > 0) then to_entries |  sort_by(-.value.code).[0].key | ascii_downcase else \"text\" end")
-        jq ".\"$c\" = \"$icon\"" $CACHE_FILE > $CACHE_FILE.tmp
+        jq ".\"$c\" = { icon: \"$icon\", opened: 0 }" $CACHE_FILE > $CACHE_FILE.tmp
         mv $CACHE_FILE.tmp $CACHE_FILE
     else
-        icon=${icon_cache[$c]}
+        icon=${icons[$c]}
     fi
     if [[ -z "${icons_list[$icon]}" ]]; then
         icon="text-x-$icon"
@@ -54,6 +63,8 @@ cfg=${cfg::-2}
 choice=$(echo -e $cfg | rofi -dmenu -p 'Edit config:' -icon-theme "hicolor" -i)
 
 if [ "$choice" ]; then
+    jq ".\"$choice\".opened += 1" $CACHE_FILE > $CACHE_FILE.tmp
+    mv $CACHE_FILE.tmp $CACHE_FILE
     kitty $EDITOR $REPODIR/$choice
 else
     echo "No Choice"
