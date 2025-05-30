@@ -57,6 +57,7 @@ in {
           gdh = "git diff HEAD^";
           gom = "git checkout main";
           grc = "gh repo create --public --source=. ";
+          grf = "gh repo fork --remote --clone";
         };
       };
       home.shellAliases = {
@@ -67,6 +68,7 @@ in {
         gp = "git push";
         gl = "git pull";
         gf = "git push --force-with-lease";
+        glo = "git log --oneline --decorate --graph";
       };
     };
   };
