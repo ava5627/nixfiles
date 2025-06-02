@@ -60,7 +60,7 @@ done
 # remove last newline
 cfg=${cfg::-2}
 
-choice=$(echo -e $cfg | rofi -dmenu -p 'Edit config:' -icon-theme "hicolor" -i)
+choice=$(echo -e $cfg | rofi -dmenu -p 'Edit repos:' -icon-theme "hicolor" -i)
 
 if [ "$choice" ]; then
     jq ".\"$choice\".opened += 1" $CACHE_FILE > $CACHE_FILE.tmp
