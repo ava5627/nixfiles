@@ -52,8 +52,4 @@
       sync.enable = true;
     };
   };
-  services.libinput = {
-    enable = true;
-    touchpad.naturalScrolling = true; # reverse scrolling direction
-  };
 }

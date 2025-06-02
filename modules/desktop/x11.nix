@@ -36,5 +36,8 @@ with lib.my; {
       xdotool # keyboard and mouse automation
       xorg.xev # event viewer
     ];
+    services.libinput = {
+      touchpad.naturalScrolling = true; # reverse scrolling direction
+    };
   };
 }

@@ -10,9 +10,11 @@ with lib.my; let
 in {
   options.modules.desktop.hyprland.enable = mkEnableOption "hyprland";
   config = mkIf cfg.enable {
+    modules.desktop.wayland.enable = true;
     programs.hyprland = {
       enable = true;
       withUWSM = true;
+      xwayland.enable = true;
     };
     home = {
       # wayland.windowManager.hyprland = {
@@ -29,7 +31,6 @@ in {
     services.displayManager.sddm.wayland.enable = true;
     environment.systemPackages = with pkgs; [
       hyprpicker
-      wl-clipboard
     ];
   };
 }
