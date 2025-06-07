@@ -11,7 +11,6 @@ in {
   options.modules.terminal.programs.enable = mkBool true "Useful terminal programs";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      fastfetch # system info
       fd # find replacement
       stow # symlink manager
       tlrc # explain commands
@@ -64,6 +63,7 @@ in {
           enable = true;
           nix-direnv.enable = true;
         }; # environment manager
+        fastfetch.enable = true; # system info
       };
       home.shellAliases = {
         man = "batman";
