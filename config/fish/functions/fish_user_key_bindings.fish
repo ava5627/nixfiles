@@ -1,8 +1,9 @@
 function fish_user_key_bindings
-    bind \cq kill-whole-line
-    bind \cr history-pager
-    bind \ew backward-kill-bigword
-    bind \ej down-or-search
-    bind \ek up-or-search
-    bind \er rm_rf
+    bind ctrl-q kill-whole-line
+    bind ctrl-r history-pager
+    bind alt-backspace backward-kill-bigword
+    bind alt-w backward-kill-bigword
+    bind alt-j down-or-search
+    bind alt-k up-or-search
+    bind alt-r rm_rf
 end
