@@ -3,7 +3,7 @@
 // @description Highlight or hide works you kudosed/marked as seen.
 // @namespace   https://greasyfork.org/scripts/5835-ao3-kudosed-and-seen-history
 // @author	Min/ava
-// @version	3.0.0
+// @version	3.1.0
 // @history	2.2.1 - fix for bookmarked blurbs
 // @history	2.2 - separate kudosed and seen settings, smaller icons
 // @history	2.1 - fix for reversi
@@ -14,17 +14,15 @@
 // @history	1.2.1 - double click on date marks work as seen
 // @history	1.2 - check for bookmarks you left, changes to the menu
 // @grant       none
-// @require     https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js
+// @require     https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js
 // @include     http://*archiveofourown.org/*
 // @include     https://*archiveofourown.org/*
-// @downloadURL https://update.greasyfork.org/scripts/5835/AO3%3A%20Kudosed%20and%20seen%20history.user.js
-// @updateURL https://update.greasyfork.org/scripts/5835/AO3%3A%20Kudosed%20and%20seen%20history.meta.js
 // ==/UserScript==
 
 
 (function($) {
 
-    var DEBUG = true;
+    var DEBUG = false;
 
     // newest more-or-less major version, for the update notice
     var current_version = '3.02';
@@ -44,8 +42,7 @@
     // localStorage.removeItem('kudoshistory_seen');
     // localStorage.removeItem('kudoshistory_bookmarked');
     // localStorage.removeItem('kudoshistory_skipped');
-
-    var KHList = {
+    var KHDict = {
         init: function init(name, max_length) {
             this.name = name;
             this.max_length = max_length || 200000;
@@ -90,6 +87,66 @@
             work_id = parseInt(work_id);
             if (!isNaN(work_id) && work_id in this.list) {
                 delete this.list[work_id];
+            }
+            return this;
+        },
+    };
+
+    var KHList = {
+        init: function init(name, max_length) {
+            this.name = name;
+            this.max_length = max_length || 200000;
+            var list_str = localStorage.getItem('kudoshistory_' + this.name) || '[]';
+            if (list_str[0] === '{') {
+                // if it's a dictionary, convert it to an array
+                list_str = list_str.replace(/^{/, '[').replace(/}$/, ']').replace(/:\d+/g, "").replace(/"/g, "");
+            }
+            this.list = JSON.parse(list_str);
+            return this;
+        },
+
+        reload: function reload() {
+            var list_str = localStorage.getItem('kudoshistory_' + this.name) || this.list;
+            if (list_str[0] === '{') {
+                // if it's a dictionary, convert it to an array
+                list_str = list_str.replace(/^{/, '[').replace(/}$/, ']').replace(/:\d+/g, "").replace(/"/g, "");
+            }
+            this.list = JSON.parse(list_str);
+            return this;
+        },
+        save: function save() {
+            try {
+                var list_str = JSON.stringify(this.list);
+                localStorage.setItem('kudoshistory_' + this.name, list_str);
+            }
+            catch (e) {
+                console.log('Error saving ' + this.name + ' list: ' + e);
+                alert('Error saving ' + this.name + ' list: ' + e);
+            }
+            return this;
+        },
+        hasId: function hasId(work_id) {
+            work_id = parseInt(work_id);
+            console.log(this.list);
+            return this.list.includes(work_id);
+        },
+        add: function add(work_id) {
+            work_id = parseInt(work_id);
+            if (!isNaN(work_id) && !this.hasId(work_id)) {
+                this.list.push(work_id);
+            }
+            if (this.list.length > this.max_length) {
+                this.list.shift(); // remove the oldest item if the list is too long
+            }
+            return this;
+        },
+        remove: function remove(work_id) {
+            work_id = parseInt(work_id);
+            if (!isNaN(work_id)) {
+                var index = this.list.indexOf(work_id);
+                if (index > -1) {
+                    this.list.splice(index, 1);
+                }
             }
             return this;
         },
@@ -229,7 +286,7 @@
         kudos_history = {
             kudosed: Object.create(KHList).init('kudosed'),
             checked: Object.create(KHList).init('checked'),
-            seen: Object.create(KHList).init('seen', 2000000),
+            seen: Object.create(KHDict).init('seen', 2000000),
             bookmarked: Object.create(KHList).init('bookmarked'),
             skipped: Object.create(KHList).init('skipped'),
 
@@ -338,10 +395,15 @@
 
             // check if work id is on the seen list
             var is_seen = kudos_history.seen.hasId(work_id);
+            var new_seen = false;
             DEBUG && console.log('last seen ' + is_seen);
             if (kudos_history.autoseen.check()) {
                 if (!is_seen || parseInt(is_seen) < chapter) {
                     kudos_history.seen.add(work_id, chapter);
+                    if (!is_seen) {
+                        new_seen = true;
+                    }
+                    is_seen = chapter.toString();
                 }
             }
 
@@ -350,7 +412,9 @@
                 work_meta.addClass('marked-seen');
                 var latest_chapter = work_meta.find('dd.chapters').attr("data-ao3e-original").split("/")[0] || "1";
                 latest_chapter = parseInt(latest_chapter);
-                if (parseInt(is_seen) < latest_chapter) {
+                if (new_seen) {
+                    is_seen = "new (" + latest_chapter + ")";
+                } else if (parseInt(is_seen) < latest_chapter) {
                     is_seen = is_seen + ' (' + latest_chapter + ')';
                 }
                 work_meta.prepend('<div class="seen-chapter">' + is_seen + '</div>');
