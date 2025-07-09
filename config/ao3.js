@@ -3,7 +3,7 @@
 // @description Highlight or hide works you kudosed/marked as seen.
 // @namespace   https://greasyfork.org/scripts/5835-ao3-kudosed-and-seen-history
 // @author	Min/ava
-// @version	3.1.0
+// @version	3.2.0
 // @history	2.2.1 - fix for bookmarked blurbs
 // @history	2.2 - separate kudosed and seen settings, smaller icons
 // @history	2.1 - fix for reversi
@@ -277,6 +277,13 @@
             options: ['yes', 'no'],
             default_value: 'no',
         },
+        {
+            name: 'background_check',
+            label: 'Check for kudos while browsing works lists',
+            description: 'The script checks kudos on the works in the background. <strong>Warning:</strong> This may cause too many requests to AO3 if you browse too quickly, and it\'s not very reliable since AO3 started paginating kudos (so the script may not find yours if it\'s further down the list).',
+            options: ['yes', 'no'],
+            default_value: 'no',
+        },
     ];
 
     if (typeof (Storage) !== 'undefined') {
@@ -385,11 +392,11 @@
             var work_id = $('#kudo_commentable_id').val();
             DEBUG && console.log('work_id ' + work_id);
 
-            var chapters = $('#chapters')[0].children;
+            var chapters = $('#chapters>.chapter');
             var chapter = 1;
             if (chapters.length) {
-                chapter = chapters[chapters.length - 1].id.split('-').pop();
-                chapter = parseInt(chapter);
+                chapter = chapters[0].id.split('-').pop();
+                chapter = parseInt(chapter) || 1;
             }
             DEBUG && console.log('chapter ' + chapter);
 
@@ -400,9 +407,7 @@
             if (kudos_history.autoseen.check()) {
                 if (!is_seen || parseInt(is_seen) < chapter) {
                     kudos_history.seen.add(work_id, chapter);
-                    if (!is_seen) {
-                        new_seen = true;
-                    }
+                    new_seen = is_seen || "new";
                     is_seen = chapter.toString();
                 }
             }
@@ -413,9 +418,9 @@
                 var latest_chapter = work_meta.find('dd.chapters').attr("data-ao3e-original").split("/")[0] || "1";
                 latest_chapter = parseInt(latest_chapter);
                 if (new_seen) {
-                    is_seen = "new (" + latest_chapter + ")";
+                    is_seen = new_seen + " (" + is_seen + "/"+ latest_chapter + ")";
                 } else if (parseInt(is_seen) < latest_chapter) {
-                    is_seen = is_seen + ' (' + latest_chapter + ')';
+                    is_seen += ' (' + latest_chapter + ')';
                 }
                 work_meta.prepend('<div class="seen-chapter">' + is_seen + '</div>');
             }
@@ -532,7 +537,13 @@
             }
             else {
                 blurb_classes += ' new-blurb';
-                loadKudos(blurb);
+                if (kudos_history.background_check.check()) {
+                    loadKudos(blurb);
+                }
+                else {
+                    DEBUG && console.log('- marking as checked');
+                    kudos_history.checked.add(work_id);
+                }
             }
         }
 
@@ -731,13 +742,24 @@
 
         var box_button_close = $('<input type="button" id="importexport-button-close" value="Close" />');
 
-        var export_lists = {
-            kudosed: kudos_history.kudosed.reload().list,
-            seen: kudos_history.seen.reload().list,
-            bookmarked: kudos_history.bookmarked.reload().list,
-            skipped: kudos_history.skipped.reload().list,
-            checked: kudos_history.checked.reload().list,
-        };
+        var list_types = ['kudosed', 'seen', 'bookmarked', 'skipped', 'checked'];
+
+        var list_types_checkboxes = [];
+        list_types.forEach(function(list_type) {
+            list_types_checkboxes.push('<label class="kh-export-checkbox-label"><input type="checkbox" id="kh-export-checkbox-' + list_type + '" checked />' + list_type + '</label>');
+        });
+
+
+        var box_button_generate = $('<input type="button" id="importexport-button-generate" value="Generate your export" />');
+        box_button_generate.click(function() {
+            var export_lists = {};
+            list_types.forEach(function(list_type) {
+                if ($('#kh-export-checkbox-' + list_type).prop('checked')) {
+                    export_lists[list_type] = kudos_history[list_type].reload().list;
+                }
+            });
+            $('#export-seen-list').val(JSON.stringify(export_lists));
+        });
 
         importexport_box.append(
             $('<p class="actions"></p>').append(box_button_close),
@@ -750,11 +772,13 @@
 
         importexport_box.append(
             $('<h3 style="margin-top: 1.5em;"></h3>').text('Export your saved lists'),
-            $('<p></p>').text('Copy your current lists (kudosed, seen, bookmarked, skipped) from the field below and save wherever you want as a backup.'),
-            $('<input type="text" id="export-seen-list" />').val(JSON.stringify(export_lists)),
+            $('<p></p>').text('Select which lists to export (leave them all selected if you\'re not sure) and generate your export. Then copy your current lists from the field below and save wherever you want as a backup.'),
+            $('<p></p>').append(list_types_checkboxes),
+            $('<p class="actions" id="importexport-generate"></p>').append(box_button_generate),
+            $('<input type="text" id="export-seen-list" class="kh-text-input" />'),
             $('<h3 style="margin-top: 1.5em;"></h3>').text('Import your lists'),
             $('<p></p>').html('Put your saved lists in the field below and select the "Import lists" button. <strong>Warning:</strong> it will <u>replace</u> your current lists.'),
-            $('<input type="text" id="import-seen-list" />'),
+            $('<input type="text" id="import-seen-list" class="kh-text-input" />'),
             $('<p class="actions" id="importexport-save"></p>').append(box_button_save),
         );
 
@@ -864,13 +888,13 @@
 
         if (last_version < current_version) {
 
-            var update_2_2 = "<h3>version 2.2</h3>\
-                <p><b>&bull; Separate settings for kudosed and seen works.</b> Now you can hide/collapse one but not the other if you want.</p>\
-                <p><b>&bull; Smaller icons on a collapsed blurb.</b> Saving us some screen space.</p>";
+            var update_3_2 = "<h3>version 3.2</h3>\
+                <p><b>&bull; Checking the works for kudos in the background while browsing works lists is now disabled by default.</b> It looks like it can do more harm than good these days - it may cause too many requests to AO3 if you browse too quickly, and it's not very reliable since AO3 started paginating kudos (so the script may not find yours if it's further down the list). If you need it, you can turn it back on in settings, or use \"Re-check for kudos\" on the current page.</p>\
+                <p><b>&bull; More options for the export.</b> You can pick which lists you want to export.</p>";
 
             var update_notice = $('<div id="kudoshistory-update" class="notice"></div>');
 
-            update_notice.append("<h3><b>Kudosed and seen history userscript updated!</b></h3>", update_2_2, "<p style='text-align: right;'><b><a id='kudoshistory-hide-update'>Don't show this again</a></b></p>");
+            update_notice.append("<h3><b>Kudosed and seen history userscript updated!</b></h3>", update_3_2, "<p style='text-align: right;'><b><a id='kudoshistory-hide-update'>Don't show this again</a></b></p>");
 
             main.prepend(update_notice);
 
@@ -883,7 +907,7 @@
 
     // add css rules to page head
     function addCss() {
-        var css = '#importexport-box .kh-setting-separator:last-child,.kh-hide-element,.kh-skipped-display-hide .skipped-work,.kh-skipped-display-placeholder .skipped-work>*,.kh-toggles,:not(.marked-seen)>.seen-chapter{display:none}.has-kudos,.has-kudos.marked-seen{background:url("https://i.imgur.com/jK7d4jh.png") left no-repeat,url("https://i.imgur.com/ESdBCSX.png") left repeat-y!important;padding-left:50px!important}.marked-seen{background:url("https://i.imgur.com/ESdBCSX.png") left repeat-y!important;padding-left:50px!important}.marked-seen>.seen-chapter{position:absolute;left:0;top:50%;text-align:center;transform:translateY(-50%);font-weight:700;width:40px;height:100%;align-content:center;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000}.kh-highlight-bookmarked-yes .is-bookmarked,dl.is-bookmarked{background:url("https://i.imgur.com/qol1mWZ.png") right repeat-y!important;padding-right:50px!important}.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos,.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos.marked-seen,dl.is-bookmarked.has-kudos,dl.is-bookmarked.has-kudos.marked-seen{background:url("https://i.imgur.com/jK7d4jh.png") left no-repeat,url("https://i.imgur.com/ESdBCSX.png") left repeat-y,url("https://i.imgur.com/qol1mWZ.png") right repeat-y!important}.kh-highlight-bookmarked-yes .is-bookmarked.marked-seen,dl.is-bookmarked.marked-seen{background:url("https://i.imgur.com/ESdBCSX.png") left repeat-y,url("https://i.imgur.com/qol1mWZ.png") right repeat-y!important}#kudoshistory-update a,.kh-menu-setting a,.kh-seen-button a,.kh-toggles a{cursor:pointer}.kh-menu-header a{padding:.5em .5em .25em!important;text-align:center;font-weight:700}#kudoshistory-update{padding:.5em 1em 1em}#kudoshistory-update img{max-width:300px;height:auto}#importexport-box{position:fixed;top:0;bottom:0;left:0;right:0;width:60%;height:80%;max-width:800px;margin:auto;overflow-y:auto;border:10px solid #eee;box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:0 20px;background-color:#fff;z-index:999}#importexport-box input[type=button]{height:auto;cursor:pointer}#importexport-box p.actions{float:none;text-align:right}#importexport-box .kh-setting-row{line-height:1.6em}#importexport-box .kh-setting-label{display:inline-block;min-width:13.5em}#importexport-box .kh-setting-label .kh-setting-info-button{font-size:.8em;cursor:pointer}#importexport-box .kh-setting-option{padding:0 3px;border-radius:4px;border:0;color:#111;background:#eee;cursor:pointer}#importexport-box .kh-setting-option.kh-setting-option-selected{color:#fff;background:#900}#importexport-box .kh-setting-info{position:relative;border:1px solid;padding:1px 5px}#importexport-box .kh-setting-info:before{content:" ";position:absolute;top:-12px;border:6px solid transparent;border-bottom-color:initial}#importexport-bg{position:fixed;width:100%;height:100%;background-color:#000;opacity:.7;z-index:998}.kh-toggles{position:absolute;top:-22px;font-size:10px;line-height:10px;right:-1px;background:#fff;border:1px solid #ddd;padding:5px}.kh-reversi #importexport-box{background-color:#333;border-color:#222}.kh-reversi #importexport-box .kh-setting-option-selected{background:#5998d6}.kh-reversi .kh-toggles{background:#333;border-color:#555}.kh-highlight-bookmarked-yes .bookmark.is-bookmarked p.status{padding-right:40px}@media screen and (max-width:42em){.has-kudos,.has-kudos.marked-seen,.marked-seen{background-size:20px!important;padding-left:30px!important}.kh-highlight-bookmarked-yes .is-bookmarked,dl.is-bookmarked{background-size:20px!important;padding-right:30px!important}.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos,.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos.marked-seen,.kh-highlight-bookmarked-yes .is-bookmarked.marked-seen,dl.is-bookmarked.has-kudos,dl.is-bookmarked.has-kudos.marked-seen,dl.is-bookmarked.marked-seen{background-size:20px!important}#importexport-box .kh-setting-label{display:block;min-width:auto}.kh-highlight-bookmarked-yes .bookmark.is-bookmarked p.status{padding-right:20px}}.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .header .fandoms.heading,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos blockquote.userstuff.summary,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos dl.stats,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos h6.landmark.heading,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos>ul,.kh-kudosed-display-hide:not(.bookmarks-show) li.has-kudos,.kh-seen-display-collapse .collapsed-blurb.marked-seen .header .fandoms.heading,.kh-seen-display-collapse .collapsed-blurb.marked-seen blockquote.userstuff.summary,.kh-seen-display-collapse .collapsed-blurb.marked-seen dl.stats,.kh-seen-display-collapse .collapsed-blurb.marked-seen h6.landmark.heading,.kh-seen-display-collapse .collapsed-blurb.marked-seen>ul,.kh-seen-display-hide:not(.bookmarks-show) li.marked-seen,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .header .fandoms.heading,.kh-skipped-display-collapse .collapsed-blurb.skipped-work blockquote.userstuff.summary,.kh-skipped-display-collapse .collapsed-blurb.skipped-work dl.stats,.kh-skipped-display-collapse .collapsed-blurb.skipped-work h6.landmark.heading,.kh-skipped-display-collapse .collapsed-blurb.skipped-work>ul{display:none!important}.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .mystery .icon,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .required-tags,.kh-seen-display-collapse .collapsed-blurb.marked-seen .mystery .icon,.kh-seen-display-collapse .collapsed-blurb.marked-seen .required-tags,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .mystery .icon,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .required-tags{opacity:.6;transform:scale(.4);transform-origin:top left}.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .header,.kh-seen-display-collapse .collapsed-blurb.marked-seen .header,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .header{min-height:22px;cursor:zoom-in}.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .header .heading,.kh-seen-display-collapse .collapsed-blurb.marked-seen .header .heading,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .header .heading{margin-left:32px}.kh-kudosed-display-collapse .has-kudos:not(.collapsed-blurb) .header,.kh-seen-display-collapse .marked-seen:not(.collapsed-blurb) .header,.kh-skipped-display-collapse .skipped-work:not(.collapsed-blurb) .header{cursor:zoom-out}.kh-skipped-display-placeholder .skipped-work:before{content:"Skipped"}.kh-highlight-new-yes li.new-blurb{border-left:5px solid #900}.kh-highlight-new-yes.kh-reversi#main li.new-blurb{border-left-color:#5998d6}.kh-toggles-display-on-hover li.blurb-with-toggles:hover>.kh-toggles,.kh-toggles-display-show li.blurb-with-toggles .kh-toggles{display:block}.kh-toggles-display-show li.blurb-with-toggles{margin-top:31px}';
+        var css = '#importexport-box .kh-setting-separator:last-child,.kh-hide-element,.kh-skipped-display-hide .skipped-work,.kh-skipped-display-placeholder .skipped-work>*,.kh-toggles,:not(.marked-seen)>.seen-chapter{display:none}.has-kudos,.has-kudos.marked-seen{background:url("https://i.imgur.com/jK7d4jh.png") left no-repeat,url("https://i.imgur.com/ESdBCSX.png") left repeat-y!important;padding-left:50px!important}.marked-seen{background:url("https://i.imgur.com/ESdBCSX.png") left repeat-y!important;padding-left:50px!important}.marked-seen>.seen-chapter{position:absolute;left:0;top:50%;text-align:center;transform:translateY(-50%);font-weight:700;width:40px;height:100%;align-content:center;color:white;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000}.kh-highlight-bookmarked-yes .is-bookmarked,dl.is-bookmarked{background:url("https://i.imgur.com/qol1mWZ.png") right repeat-y!important;padding-right:50px!important}.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos,.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos.marked-seen,dl.is-bookmarked.has-kudos,dl.is-bookmarked.has-kudos.marked-seen{background:url("https://i.imgur.com/jK7d4jh.png") left no-repeat,url("https://i.imgur.com/ESdBCSX.png") left repeat-y,url("https://i.imgur.com/qol1mWZ.png") right repeat-y!important}.kh-highlight-bookmarked-yes .is-bookmarked.marked-seen,dl.is-bookmarked.marked-seen{background:url("https://i.imgur.com/ESdBCSX.png") left repeat-y,url("https://i.imgur.com/qol1mWZ.png") right repeat-y!important}#kudoshistory-update a,.kh-menu-setting a,.kh-seen-button a,.kh-toggles a{cursor:pointer}.kh-menu-setting a{white-space:normal;height:auto}.kh-menu-header a{padding:.5em .5em .25em!important;text-align:center;font-weight:700}#kudoshistory-update{padding:.5em 1em 1em}#kudoshistory-update img{max-width:300px;height:auto}#importexport-box{position:fixed;top:0;bottom:0;left:0;right:0;width:60%;height:80%;max-width:800px;margin:auto;overflow-y:auto;border:10px solid #eee;box-shadow:0 0 8px 0 rgba(0,0,0,.2);padding:0 20px;background-color:#fff;z-index:999}#importexport-box input[type=button]{height:auto;cursor:pointer}#importexport-box p.actions{float:none;text-align:right}#importexport-box .kh-setting-row{line-height:1.6em}#importexport-box .kh-setting-label{display:inline-block;min-width:13.5em}#importexport-box .kh-setting-label .kh-setting-info-button{font-size:.8em;cursor:pointer}#importexport-box .kh-setting-option{padding:0 3px;border-radius:4px;border:0;color:#111;background:#eee;cursor:pointer}#importexport-box .kh-setting-option.kh-setting-option-selected{color:#fff;background:#900}#importexport-box .kh-setting-info{position:relative;border:1px solid;padding:1px 5px}#importexport-box .kh-setting-info:before{content:" ";position:absolute;top:-12px;border:6px solid transparent;border-bottom-color:initial}#importexport-box .kh-text-input{width:95%}#importexport-box .kh-export-checkbox-label{display:inline-block;cursor:pointer}#importexport-box #importexport-generate,#importexport-box #importexport-save{text-align:left}#importexport-bg{position:fixed;width:100%;height:100%;background-color:#000;opacity:.7;z-index:998}.kh-toggles{position:absolute;top:-22px;font-size:10px;line-height:10px;right:-1px;background:#fff;border:1px solid #ddd;padding:5px}.kh-reversi #importexport-box{background-color:#333;border-color:#222}.kh-reversi #importexport-box .kh-setting-option-selected{background:#5998d6}.kh-reversi .kh-toggles{background:#333;border-color:#555}.kh-highlight-bookmarked-yes .bookmark.is-bookmarked p.status{padding-right:40px}@media screen and (max-width:42em){.has-kudos,.has-kudos.marked-seen,.marked-seen{background-size:20px!important;padding-left:30px!important}.kh-highlight-bookmarked-yes .is-bookmarked,dl.is-bookmarked{background-size:20px!important;padding-right:30px!important}.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos,.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos.marked-seen,.kh-highlight-bookmarked-yes .is-bookmarked.marked-seen,dl.is-bookmarked.has-kudos,dl.is-bookmarked.has-kudos.marked-seen,dl.is-bookmarked.marked-seen{background-size:20px!important}#importexport-box .kh-setting-label{display:block;min-width:auto}.kh-highlight-bookmarked-yes .bookmark.is-bookmarked p.status{padding-right:20px}}.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .header .fandoms.heading,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos blockquote.userstuff.summary,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos dl.stats,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos h6.landmark.heading,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos>ul,.kh-kudosed-display-hide:not(.bookmarks-show) li.has-kudos,.kh-seen-display-collapse .collapsed-blurb.marked-seen .header .fandoms.heading,.kh-seen-display-collapse .collapsed-blurb.marked-seen blockquote.userstuff.summary,.kh-seen-display-collapse .collapsed-blurb.marked-seen dl.stats,.kh-seen-display-collapse .collapsed-blurb.marked-seen h6.landmark.heading,.kh-seen-display-collapse .collapsed-blurb.marked-seen>ul,.kh-seen-display-hide:not(.bookmarks-show) li.marked-seen,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .header .fandoms.heading,.kh-skipped-display-collapse .collapsed-blurb.skipped-work blockquote.userstuff.summary,.kh-skipped-display-collapse .collapsed-blurb.skipped-work dl.stats,.kh-skipped-display-collapse .collapsed-blurb.skipped-work h6.landmark.heading,.kh-skipped-display-collapse .collapsed-blurb.skipped-work>ul{display:none!important}.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .mystery .icon,.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .required-tags,.kh-seen-display-collapse .collapsed-blurb.marked-seen .mystery .icon,.kh-seen-display-collapse .collapsed-blurb.marked-seen .required-tags,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .mystery .icon,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .required-tags{opacity:.6;transform:scale(.4);transform-origin:top left}.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .header,.kh-seen-display-collapse .collapsed-blurb.marked-seen .header,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .header{min-height:22px;cursor:zoom-in}.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .header .heading,.kh-seen-display-collapse .collapsed-blurb.marked-seen .header .heading,.kh-skipped-display-collapse .collapsed-blurb.skipped-work .header .heading{margin-left:32px}.kh-kudosed-display-collapse .has-kudos:not(.collapsed-blurb) .header,.kh-seen-display-collapse .marked-seen:not(.collapsed-blurb) .header,.kh-skipped-display-collapse .skipped-work:not(.collapsed-blurb) .header{cursor:zoom-out}.kh-skipped-display-placeholder .skipped-work:before{content:"Skipped"}.kh-highlight-new-yes li.new-blurb{border-left:5px solid #900}.kh-highlight-new-yes.kh-reversi#main li.new-blurb{border-left-color:#5998d6}.kh-toggles-display-on-hover li.blurb-with-toggles:hover>.kh-toggles,.kh-toggles-display-show li.blurb-with-toggles .kh-toggles{display:block}.kh-toggles-display-show li.blurb-with-toggles{margin-top:31px}';
 
         var style = $('<style type="text/css"></style>').appendTo($('head'));
         style.html(css);
