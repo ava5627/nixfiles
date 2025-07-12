@@ -16,6 +16,12 @@ their contents - like the close button icon and the tab title */
     padding: 0px !important;
     padding-top: 2px !important;
 }
+
+/* hide the close tab button as I always just use ctrl+w */
+.tabbrowser-tab .tab-close-button {
+    display: none !important;
+}
+
 /* Tabs have a separate "background" element and this is where the
 pill-like shadow is set. THis just removes those. The margin stuff
 is just for adjusting the backgrounds so they overlap to avoid
