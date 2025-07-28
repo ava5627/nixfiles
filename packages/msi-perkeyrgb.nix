@@ -33,6 +33,6 @@ with python3.pkgs;
       hidapi
       usbutils
     ];
-    pypoject = true;
+    format = "pyproject";
     build-system = [setuptools];
   }

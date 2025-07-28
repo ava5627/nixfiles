@@ -53,10 +53,6 @@ in {
       environment.systemPackages = with pkgs; [
         vintagestory
       ];
-      nixpkgs.config.permittedInsecurePackages = [
-        "dotnet-runtime-wrapped-7.0.20" # for Vintagestory
-        "dotnet-runtime-7.0.20" # for Vintagestory
-      ];
     })
   ];
 }
