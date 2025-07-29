@@ -6,9 +6,9 @@
 }:
 with lib;
 with lib.my; let
-  cfg = config.modules.editors.nvim;
+  cfg = config.modules.terminal.nvim;
 in {
-  options.modules.editors.nvim = with types; {
+  options.modules.terminal.nvim = with types; {
     enable = mkBool true "neovim";
     configUrl = mkOpt str "https://github.com/ava5627/nvim";
   };

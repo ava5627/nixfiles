@@ -4,46 +4,17 @@
   ...
 }: {
   config = {
-    # Stolen from https://github.com/ckiee/nixfiles/
+    # Stolen from https://github.com/kylechui/dotfiles/blob/nix-os/nixos/logiops.nix
     systemd.services.logiops = {
       description = "Logitech Configuration Daemon";
       documentation = ["https://github.com/PixlOne/logiops"];
-
-      wantedBy = ["multi-user.target"];
-
+      wantedBy = ["graphical.target"];
       startLimitIntervalSec = 0;
-      after = ["multi-user.target"];
-      wants = ["multi-user.target"];
+      after = ["graphical.target"];
       serviceConfig = {
+        Type = "simple";
         ExecStart = "${pkgs.logiops}/bin/logid";
-        Restart = "always";
         User = "root";
-
-        CapabilityBoundingSet = ["CAP_SYS_NICE"];
-        DeviceAllow = ["/dev/uinput rw" "char-hidraw rw"];
-        ProtectClock = true;
-        PrivateNetwork = true;
-        ProtectHome = true;
-        ProtectHostname = true;
-        PrivateUsers = true;
-        PrivateMounts = true;
-        PrivateTmp = true;
-        RestrictNamespaces = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        ProtectKernelTunables = true;
-        ProtectControlGroups = true;
-        MemoryDenyWriteExecute = true;
-        RestrictRealtime = true;
-        LockPersonality = true;
-        ProtectProc = "invisible";
-        SystemCallFilter = ["nice" "@system-service" "~@privileged"];
-        RestrictAddressFamilies = ["AF_NETLINK" "AF_UNIX"];
-        RestrictSUIDSGID = true;
-        NoNewPrivileges = true;
-        ProtectSystem = "strict";
-        ProcSubset = "pid";
-        UMask = "0077";
       };
     };
     environment.etc."logid.cfg".text = builtins.readFile "${config.dotfiles.config}/logid.cfg";
@@ -62,7 +33,7 @@
     # Add a `udev` rule to restart `logiops` when the mouse is connected
     # https://github.com/PixlOne/logiops/issues/239#issuecomment-1044122412
     services.udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="input", ATTRS{id/vendor}=="046d", RUN{program}="${config.systemd.package}/bin/systemctl --no-block try-restart logiops.service"
+      ACTION=="change", SUBSYSTEM=="power_supply", ATTRS{manufacturer}=="Logitech", RUN{program}="${config.systemd.package}/bin/systemctl --no-block try-restart logiops.service"
     '';
   };
 }
