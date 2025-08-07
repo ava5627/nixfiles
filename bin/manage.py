@@ -195,6 +195,21 @@ def update(flakes=None):
     run_in_box(command, "Updating flakes", "/tmp/nix-flake-update.log")
 
 
+def fetch_foundty(url):
+    """Fetch FoundryVTT add it to the nix store."""
+    if not url:
+        print("No URL provided for FoundryVTT")
+        return
+    zip_file = re.search(r"releases\/[\d\.]*/(FoundryVTT.*\.zip)", url)
+    if not zip_file or not zip_file.group(1):
+        print("Invalid URL for FoundryVTT")
+        return
+    zip_file = zip_file.group(1)
+    subprocess.run(
+        ["nix-prefetch-url", "--type", "sha256", url, "--name", zip_file], check=True
+    )
+
+
 def version_diff():
     out = subprocess.run(
         "ls -v1 /nix/var/nix/profiles | "
@@ -254,6 +269,12 @@ def main():
     update_parser = subparsers.add_parser("update", help="Update flakes")
     update_parser.add_argument("flakes", nargs="*", help="The flakes to update")
     subparsers.add_parser("test", help="Test the system")
+    foundry_parser = subparsers.add_parser(
+        "foundry", help="Fetch FoundryVTT and add it to the nix store"
+    )
+    foundry_parser.add_argument(
+        "url", help="The URL to the FoundryVTT release zip file"
+    )
 
     argcomplete.autocomplete(parser)
     args = parser.parse_args()
@@ -279,6 +300,8 @@ def main():
     elif args.command == "test":
         checks()
         rebuild("test")
+    elif args.command == "foundry":
+        fetch_foundty(args.url)
 
 
 if __name__ == "__main__":
