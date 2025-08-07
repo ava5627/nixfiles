@@ -138,7 +138,7 @@ def rebuild(method, **kwargs):
         rebuild_command.append("-v")
 
     if kwargs.get("dry_run"):
-        rebuild_command.append("--dry-run")
+        rebuild_command.append("--dry")
 
     try:
         subprocess.run(rebuild_command, check=True)
@@ -275,6 +275,7 @@ def main():
     elif args.command == "update":
         checks()
         update(args.flakes)
+        git_commit(message="Update flakes", message_only=True)
     elif args.command == "test":
         checks()
         rebuild("test")
