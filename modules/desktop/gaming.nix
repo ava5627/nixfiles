@@ -13,7 +13,7 @@ in {
     steam.autoStart = mkBool true "Start Steam on login";
     minecraft.enable = mkEnableOption "minecraft";
     lutris.enable = mkEnableOption "lutris";
-    others.enable = mkBool cfg.steam.enable "Enable other gaming-related packages";
+    others.enable = mkEnableOption "Enable other gaming-related packages";
   };
   config = mkMerge [
     (mkIf cfg.steam.enable {
@@ -23,6 +23,7 @@ in {
       environment.systemPackages = [
         pkgs.ckan
         pkgs.dotnet-sdk_8 # required for tModLoader to work
+        pkgs.rimsort
       ];
       modules.autoStart = mkIf cfg.steam.autoStart [
         "steam -silent"
@@ -49,6 +50,10 @@ in {
             };
           });
         })
+      ];
+      nixpkgs.config.permittedInsecurePackages = [
+        "dotnet-runtime-wrapped-7.0.20" # for Vintagestory
+        "dotnet-runtime-7.0.20" # for Vintagestory
       ];
       environment.systemPackages = with pkgs; [
         vintagestory

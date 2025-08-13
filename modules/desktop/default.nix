@@ -80,8 +80,6 @@ in {
     ];
     nixpkgs.config.permittedInsecurePackages = [
       "libsoup-2.74.3" # for geeqie and gvfs
-        "dotnet-runtime-wrapped-7.0.20" # for Vintagestory
-        "dotnet-runtime-7.0.20" # for Vintagestory
     ];
     programs.file-roller.enable = true;
     programs.appimage.enable = true;
