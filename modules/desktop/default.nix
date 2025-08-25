@@ -78,9 +78,6 @@ in {
         makeWrapperArgs = ["--prefix" "PATH" ":" "${lib.makeBinPath [procps]}"];
       } (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
     ];
-    nixpkgs.config.permittedInsecurePackages = [
-      "libsoup-2.74.3" # for geeqie and gvfs
-    ];
     programs.file-roller.enable = true;
     programs.appimage.enable = true;
     security.polkit.enable = true;
