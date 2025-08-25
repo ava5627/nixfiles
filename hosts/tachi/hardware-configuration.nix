@@ -47,6 +47,7 @@
   hardware.nvidia = {
     open = false; # 1070 is not supported by open drivers
     prime = { # enable NVIDIA Optimus required for any graphics output
+      # https://nixos.wiki/wiki/Nvidia#Laptop_Configuration:_Hybrid_Graphics_.28Nvidia_Optimus_PRIME.29
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
       sync.enable = true;

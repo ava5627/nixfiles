@@ -127,7 +127,6 @@
         },
         hasId: function hasId(work_id) {
             work_id = parseInt(work_id);
-            console.log(this.list);
             return this.list.includes(work_id);
         },
         add: function add(work_id) {
@@ -415,7 +414,7 @@
 
             if (is_seen) {
                 work_meta.addClass('marked-seen');
-                var latest_chapter = work_meta.find('dd.chapters').attr("data-ao3e-original").split("/")[0] || "1";
+                var latest_chapter = work_meta.find('dd.chapters').html().split("/")[0] || "1";
                 latest_chapter = parseInt(latest_chapter);
                 if (new_seen) {
                     is_seen = new_seen + " (" + is_seen + "/"+ latest_chapter + ")";
@@ -520,7 +519,8 @@
         if (seen_chapter) {
             DEBUG && console.log('- is seen');
             blurb_classes += ' marked-seen collapsed-blurb';
-            var chapter_num = blurb.find('dd.chapters > a').attr("data-ao3e-original") || "1";
+            var chapter_num = blurb.find('dd.chapters > a').html() || "1";
+            chapter_num = parseInt(chapter_num);
             if (seen_chapter < chapter_num) {
                 seen_chapter = seen_chapter + ' (' + chapter_num + ')';
             }
@@ -587,7 +587,7 @@
                 // highlight blurb and add work id to kudosed list
                 blurb.addClass('has-kudos collapsed-blurb');
                 if (!kudos_history.seen.hasId(work_id)) {
-                    var chapter = blurb.find('dd.chapters > a').attr("data-ao3e-original") || "1";
+                    var chapter = blurb.find('dd.chapters > a').html() || "1";
                     chapter = parseInt(chapter);
                     kudos_history.seen.add(work_id, chapter);
                 }
@@ -645,7 +645,7 @@
             }
 
             if (add_to_list) {
-                var chapter_num = parseInt(blurb.find('dd.chapters > a').attr("data-ao3e-original") || "1");
+                var chapter_num = parseInt(blurb.find('dd.chapters > a').html() || "1");
                 kudos_history[list].add(work_id, chapter_num);
                 DEBUG && console.log('marking as ' + list + ' ' + work_id);
                 blurb.addClass(blurb_class[list] + ' collapsed-blurb');

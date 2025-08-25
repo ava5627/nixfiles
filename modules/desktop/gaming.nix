@@ -21,9 +21,10 @@ in {
       # consider bubblewraping steam as suggested above to move it out of home
       programs.steam.enable = true;
       environment.systemPackages = [
-        pkgs.ckan
+        pkgs.ckan # Kerbal Space Program mod manager
         pkgs.dotnet-sdk_8 # required for tModLoader to work
-        pkgs.rimsort
+        pkgs.rimsort # RimWorld mod manager
+        pkgs.steamcmd
       ];
       modules.autoStart = mkIf cfg.steam.autoStart [
         "steam -silent"
