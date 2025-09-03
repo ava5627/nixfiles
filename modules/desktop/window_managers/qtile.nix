@@ -26,6 +26,7 @@ in {
           ];
       };
     };
+    services.displayManager.defaultSession = mkDefault "qtile";
     services.picom.enable = true;
     home.programs.feh.enable = true;
     modules.autoStart = [
