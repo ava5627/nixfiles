@@ -11,10 +11,6 @@ stdenv.mkDerivation {
     rev = "v1.6";
     sha256 = "p2d7I0UBP63baW/q9MexYJQcqSmZ0L5rkwK3n66gmqM=";
   };
-  # buildInputs = with pkgs; [
-  #   libsForQt5.qt5.qtquickcontrols2 # required for sddm theme
-  #   libsForQt5.qt5.qtgraphicaleffects # required for sddm theme
-  # ];
   dontWrapQtApps = true;
   installPhase = ''
     runHook preInstall

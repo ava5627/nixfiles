@@ -10,7 +10,6 @@ with lib.my; let
 in {
   options.modules.desktop = {
     enable = mkBool true "desktop";
-    # morgen.autoStart = mkBool true "Start morgen on login";
     insync.autoStart = mkBool true "Start insync on login";
   };
 
@@ -57,16 +56,15 @@ in {
       qalculate-gtk # calculator
       arandr # screen layout editor
       insync # google drive sync
-      # morgen # calendar
       pcmanfm # file manager
       lxde.lxmenu-data # adds applications to the menu
-      libsForQt5.okular # document viewer
+      kdePackages.okular # document viewer
       geeqie # image viewer
       gimp3 # image editor
       vlc # media player
       polkit_gnome # polkit authentication agent
       libnotify # notifications
-      libsForQt5.kdenlive # video editor
+      kdePackages.kdenlive # video editor
       libreoffice # office suite
 
       # shell scripts
@@ -95,7 +93,6 @@ in {
       };
     };
     modules.autoStart =
-      # optionals cfg.morgen.autoStart ["morgen --hidden"] ++
       optionals cfg.insync.autoStart ["insync start"];
   };
 }
