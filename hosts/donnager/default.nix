@@ -10,7 +10,7 @@
         steam.enable = true;
         minecraft.enable = true;
         lutris.enable = true;
-        others.enable = false;
+        others.enable = true;
       };
       qtile.enable = true;
     };
