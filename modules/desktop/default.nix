@@ -57,7 +57,7 @@ in {
       arandr # screen layout editor
       insync # google drive sync
       pcmanfm # file manager
-      lxde.lxmenu-data # adds applications to the menu
+      lxmenu-data # adds applications to the open-with menu
       kdePackages.okular # document viewer
       geeqie # image viewer
       gimp3 # image editor
