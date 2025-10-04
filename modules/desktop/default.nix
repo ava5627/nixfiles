@@ -48,6 +48,7 @@ in {
       home.pointerCursor = {
         name = "Bibata-Modern-Ice";
         package = pkgs.bibata-cursors;
+        dotIcons.enable = false; # creates ~/.icons for backward compatibility reasons, if you have issues set this to true
         size = 0;
       };
     };
