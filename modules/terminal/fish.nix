@@ -32,6 +32,7 @@ in {
             fastfetch
           '';
       };
+      programs.man.generateCaches = false;
     };
     environment.shells = with pkgs; [fish];
     users.defaultUserShell = pkgs.fish;
