@@ -49,9 +49,11 @@ def update_non_nix():
     cfg_dir = os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config"))
     nvim_dir = os.path.join(cfg_dir, "nvim")
     if os.path.exists(nvim_dir + "/.git") and not has_changes(nvim_dir):
+        print("Updating nvim...")
         subprocess.run(["git", "pull"], check=True, cwd=nvim_dir, capture_output=True)
     qtile_dir = os.path.join(cfg_dir, "qtile")
     if os.path.exists(qtile_dir + "/.git") and not has_changes(qtile_dir):
+        print("Updating qtile...")
         subprocess.run(["git", "pull"], check=True, cwd=qtile_dir, capture_output=True)
 
 
