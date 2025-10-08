@@ -383,7 +383,7 @@
         addNotice();
 
         // if it's a work page
-        if ($('#workskin').length) {
+        if ($('#workskin').length && $('h3.byline a:first').text() != kudos_history.username) {
 
             var work_meta = $('dl.work.meta.group');
 
