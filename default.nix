@@ -68,7 +68,7 @@ with lib.my; {
     nerd-fonts.ubuntu
     nerd-fonts.sauce-code-pro
     source-code-pro
-    corefonts
+    # corefonts
   ];
 
   programs = {
