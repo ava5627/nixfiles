@@ -18,32 +18,33 @@ in {
       programs = {
         git = {
           enable = true;
-          userName = cfg.userName;
-          userEmail = cfg.userEmail;
           ignores = [".ropeproject" ".envrc" ".direnv" "__pycache__" ".vscode" ".ipynb_checkpoints" ".venv" ".pytest_cache"];
-          extraConfig = {
+          settings = {
+            user.name = cfg.userName;
+            user.email = cfg.userEmail;
             init.defaultBranch = "main";
-          };
-          delta = {
-            enable = true;
-            options = {
-              syntax-theme = "Dracula";
-              line-numbers = true;
-              side-by-side = true;
-              decorations = true;
-              hyperlinks = true;
-              syntax-highlighting = true;
-              commit-decoration = true;
-              conflictstyle = "diff3";
-              navigate = true;
-              file-decoration-style = "omit";
-              hunk-header-decoration-style = "omit";
-              hunk-header-style = "file line-number syntax";
+            alias = {
+              olog = "log --oneline --decorate --graph";
+              dlog = "log -p --ext-diff";
             };
           };
-          aliases = {
-            olog = "log --oneline --decorate --graph";
-            dlog = "log -p --ext-diff";
+        };
+        delta = {
+          enable = true;
+          enableGitIntegration = true;
+          options = {
+            syntax-theme = "Dracula";
+            line-numbers = true;
+            side-by-side = true;
+            decorations = true;
+            hyperlinks = true;
+            syntax-highlighting = true;
+            commit-decoration = true;
+            conflictstyle = "diff3";
+            navigate = true;
+            file-decoration-style = "omit";
+            hunk-header-decoration-style = "omit";
+            hunk-header-style = "file line-number syntax";
           };
         };
         gh.enable = true;

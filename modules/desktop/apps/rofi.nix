@@ -16,10 +16,7 @@ in {
   config = mkIf cfg.enable {
     home = {
       programs.rofi = {
-        package =
-          if cfg.wayland
-          then pkgs.rofi-wayland
-          else pkgs.rofi;
+        package = pkgs.rofi;
         enable = true;
         cycle = true;
         extraConfig = {

@@ -67,6 +67,7 @@ in {
       libnotify # notifications
       kdePackages.kdenlive # video editor
       libreoffice # office suite
+      file-roller # archive manager
 
       # shell scripts
       (writers.writeBashBin "edit_configs" (builtins.readFile "${config.dotfiles.bin}/rofi/edit_configs"))
@@ -77,7 +78,6 @@ in {
         makeWrapperArgs = ["--prefix" "PATH" ":" "${lib.makeBinPath [procps]}"];
       } (builtins.readFile "${config.dotfiles.bin}/rofi/powermenu"))
     ];
-    programs.file-roller.enable = true;
     programs.appimage.enable = true;
     security.polkit.enable = true;
     systemd.user.services.polkit-gnome-authentication-agent-1 = {
