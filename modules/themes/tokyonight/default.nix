@@ -97,9 +97,9 @@ in {
           enable = config.modules.desktop.qt.enable;
           text = "[General]\ntheme=KvArcTokyoNight\n";
         };
-        "BetterDiscord/themes/midnight.theme.css" = {
+        "BetterDiscord/themes/midnight-tokyo.theme.css" = {
           enable = config.modules.desktop.discord.enable;
-          source = ./config/tokyo-midnight.theme.css;
+          source = ./config/midnight-tokyo.theme.css;
         };
         "dunst/dunstrc.d/00-tokyo-night.conf" = let
           iniFormat = pkgs.formats.ini {};
