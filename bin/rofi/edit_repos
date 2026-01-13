@@ -38,6 +38,7 @@ declare -A icons_list
 icons_list[json]="application-json"
 icons_list[yaml]="application-x-yaml"
 icons_list[text]="text-x-generic"
+icons_list[html]="text-html"
 
 
 cfg=""
