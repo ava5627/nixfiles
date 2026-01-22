@@ -11,8 +11,8 @@ in {
     home.programs.zathura = {
       enable = true;
       mappings = {
-        j = "feedkeys 5<Down>";
-        k = "feedkeys 5<Up>";
+        j = "feedkeys <C-Down>";
+        k = "feedkeys <C-Up>";
         J = "feedkeys <C-d>";
         K = "feedkeys <C-u>";
       };
