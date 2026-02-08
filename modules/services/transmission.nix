@@ -10,9 +10,9 @@ with lib.my; let
 in {
   options.modules.services.transmission.enable = mkBool true "Transmission";
   config = mkIf cfg.enable {
-    services.transmission = {
-      enable = true;
-      package = pkgs.transmission_4-gtk;
-    };
+    environment.systemPackages = with pkgs; [
+      transmission_4-gtk
+    ];
+    modules.autoStart = ["transmission-gtk --minimized"];
   };
 }
