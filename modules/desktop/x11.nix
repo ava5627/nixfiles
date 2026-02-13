@@ -32,9 +32,9 @@ with lib.my; {
     };
     environment.systemPackages = with pkgs; [
       xclip # clipboard manager
-      xorg.xkill # kill a window
+      xkill # kill a window
       xdotool # keyboard and mouse automation
-      xorg.xev # event viewer
+      xev # event viewer
     ];
     services.libinput = {
       touchpad.naturalScrolling = true; # reverse scrolling direction
