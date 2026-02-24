@@ -25,7 +25,7 @@ in {
         pkgs.dotnet-sdk_8 # required for tModLoader to work
         pkgs.rimsort # RimWorld mod manager
         pkgs.steamcmd
-        pkgs.owmods-gui # outer wilds mod manager
+        pkgs.owmods-cli # outer wilds mod manager
       ];
       modules.autoStart = mkIf cfg.steam.autoStart [
         "steam -silent"
