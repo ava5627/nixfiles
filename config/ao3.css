@@ -1,0 +1,345 @@
+.kh-main {
+	--bg-img-kudosed: url("data:image/png;base64,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");
+	--bg-img-seen: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAKCAIAAABJ+IsHAAAABnRSTlMAAAAAAABupgeRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAHUlEQVR4nGO8e/cuw0AApgGxddTiUYtHLR4WFgMAbToCqzgxIWEAAAAASUVORK5CYII=");
+	--bg-img-bookmarked: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAKCAIAAABJ+IsHAAAABnRSTlMAAAAAAABupgeRAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAcklEQVR4nMXNwQ3EIAxEUTJ7sTBF0IsRDY/boROQ9holKHuBja9P33O01sLteu8kU0pmBmCHXuE/q2a27e8vxd1U9aFcpTibu6tqKWVarlWcLcb4UK5VvLIaQsAYw91FZFru00/OWURqrdOS5CbFK6skvyCa8BKdjaG8AAAAAElFTkSuQmCC")
+}
+
+#importexport-box .kh-setting-separator:last-child,
+.kh-hide-element,
+.kh-skipped-display-hide .skipped-work,
+.kh-skipped-display-placeholder .skipped-work>*,
+.kh-toggles,
+:not(.marked-seen)>.seen-chapter {
+	display: none
+}
+
+.required-tags .category-multi {
+	background-position-x: 150px !important;
+	display: grid !important;
+	grid-template-columns: 1fr 1fr;
+}
+
+.category-multi>.F-F {
+	background-color: #ff000f;
+}
+
+.category-multi>.F-M {
+	background-color: #84006f;
+}
+
+.category-multi>.M-M {
+	background-color: #003698;
+}
+
+.category-multi>.Gen {
+	background-color: #9bc000;
+}
+
+.category-multi>.Other {
+	background-color: #000;
+}
+
+.category-multi>.Multi {
+	background-color: #ccc;
+}
+
+.category-multi>.text {
+	display: none !important;
+}
+
+.has-kudos,
+.has-kudos.marked-seen {
+	background: var(--bg-img-kudosed) left no-repeat, var(--bg-img-seen) left repeat-y !important;
+	padding-left: 50px !important
+}
+
+.marked-seen {
+	background: var(--bg-img-seen) left repeat-y !important;
+	padding-left: 50px !important
+}
+
+.marked-seen>.seen-chapter {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	text-align: center;
+	transform: translateY(-50%);
+	font-weight: 700;
+	width: 40px;
+	height: 100%;
+	align-content: center;
+	color: white;
+	text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000
+}
+
+.kh-highlight-bookmarked-yes .is-bookmarked,
+dl.is-bookmarked {
+	background: var(--bg-img-bookmarked) right repeat-y !important;
+	padding-right: 50px !important
+}
+
+.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos,
+.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos.marked-seen,
+dl.is-bookmarked.has-kudos,
+dl.is-bookmarked.has-kudos.marked-seen {
+	background: var(--bg-img-kudosed) left no-repeat, var(--bg-img-seen) left repeat-y, var(--bg-img-bookmarked) right repeat-y !important
+}
+
+.kh-highlight-bookmarked-yes .is-bookmarked.marked-seen,
+dl.is-bookmarked.marked-seen {
+	background: var(--bg-img-seen) left repeat-y, var(--bg-img-bookmarked) right repeat-y !important
+}
+
+#kudoshistory-update a,
+.kh-menu-setting a,
+.kh-seen-button a,
+.kh-toggles a {
+	cursor: pointer
+}
+
+.kh-menu-setting a {
+	white-space: normal;
+	height: auto
+}
+
+.kh-menu-header a {
+	padding: .5em .5em .25em !important;
+	text-align: center;
+	font-weight: 700
+}
+
+#kudoshistory-update {
+	padding: .5em 1em 1em
+}
+
+#kudoshistory-update img {
+	max-width: 300px;
+	height: auto
+}
+
+#importexport-box {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 60%;
+	height: 80%;
+	max-width: 800px;
+	margin: auto;
+	overflow-y: auto;
+	border: 10px solid #eee;
+	box-shadow: 0 0 8px 0 rgba(0, 0, 0, .2);
+	padding: 0 20px;
+	background-color: #fff;
+	z-index: 999
+}
+
+#importexport-box input[type=button] {
+	height: auto;
+	cursor: pointer
+}
+
+#importexport-box p.actions {
+	float: none;
+	text-align: right
+}
+
+#importexport-box .kh-setting-row {
+	line-height: 1.6em
+}
+
+#importexport-box .kh-setting-label {
+	display: inline-block;
+	min-width: 13.5em
+}
+
+#importexport-box .kh-setting-label .kh-setting-info-button {
+	font-size: .8em;
+	cursor: pointer
+}
+
+#importexport-box .kh-setting-option {
+	padding: 0 3px;
+	border-radius: 4px;
+	border: 0;
+	color: #111;
+	background: #eee;
+	cursor: pointer
+}
+
+#importexport-box .kh-setting-option.kh-setting-option-selected {
+	color: #fff;
+	background: #900
+}
+
+#importexport-box .kh-setting-info {
+	position: relative;
+	border: 1px solid;
+	padding: 1px 5px
+}
+
+#importexport-box .kh-setting-info:before {
+	content: " ";
+	position: absolute;
+	top: -12px;
+	border: 6px solid transparent;
+	border-bottom-color: initial
+}
+
+#importexport-box .kh-text-input {
+	width: 95%
+}
+
+#importexport-box .kh-export-checkbox-label {
+	display: inline-block;
+	cursor: pointer
+}
+
+#importexport-box #importexport-generate,
+#importexport-box #importexport-save {
+	text-align: left
+}
+
+#importexport-bg {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity: .7;
+	z-index: 998
+}
+
+.kh-toggles {
+	position: absolute;
+	top: -22px;
+	font-size: 10px;
+	line-height: 10px;
+	right: -1px;
+	background: #fff;
+	border: 1px solid #ddd;
+	padding: 5px
+}
+
+.kh-reversi #importexport-box {
+	background-color: #333;
+	border-color: #222
+}
+
+.kh-reversi #importexport-box .kh-setting-option-selected {
+	background: #5998d6
+}
+
+.kh-reversi .kh-toggles {
+	background: #333;
+	border-color: #555
+}
+
+.kh-highlight-bookmarked-yes .bookmark.is-bookmarked p.status {
+	padding-right: 40px
+}
+
+@media screen and (max-width:42em) {
+
+	.has-kudos,
+	.has-kudos.marked-seen,
+	.marked-seen {
+		background-size: 20px !important;
+		padding-left: 30px !important
+	}
+
+	.kh-highlight-bookmarked-yes .is-bookmarked,
+	dl.is-bookmarked {
+		background-size: 20px !important;
+		padding-right: 30px !important
+	}
+
+	.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos,
+	.kh-highlight-bookmarked-yes .is-bookmarked.has-kudos.marked-seen,
+	.kh-highlight-bookmarked-yes .is-bookmarked.marked-seen,
+	dl.is-bookmarked.has-kudos,
+	dl.is-bookmarked.has-kudos.marked-seen,
+	dl.is-bookmarked.marked-seen {
+		background-size: 20px !important
+	}
+
+	#importexport-box .kh-setting-label {
+		display: block;
+		min-width: auto
+	}
+
+	.kh-highlight-bookmarked-yes .bookmark.is-bookmarked p.status {
+		padding-right: 20px
+	}
+}
+
+.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .header .fandoms.heading,
+.kh-kudosed-display-collapse .collapsed-blurb.has-kudos blockquote.userstuff.summary,
+.kh-kudosed-display-collapse .collapsed-blurb.has-kudos dl.stats,
+.kh-kudosed-display-collapse .collapsed-blurb.has-kudos h6.landmark.heading,
+.kh-kudosed-display-collapse .collapsed-blurb.has-kudos>ul,
+.kh-kudosed-display-hide:not(.bookmarks-show) li.has-kudos,
+.kh-seen-display-collapse .collapsed-blurb.marked-seen .header .fandoms.heading,
+.kh-seen-display-collapse .collapsed-blurb.marked-seen blockquote.userstuff.summary,
+.kh-seen-display-collapse .collapsed-blurb.marked-seen dl.stats,
+.kh-seen-display-collapse .collapsed-blurb.marked-seen h6.landmark.heading,
+.kh-seen-display-collapse .collapsed-blurb.marked-seen>ul,
+.kh-seen-display-hide:not(.bookmarks-show) li.marked-seen,
+.kh-skipped-display-collapse .collapsed-blurb.skipped-work .header .fandoms.heading,
+.kh-skipped-display-collapse .collapsed-blurb.skipped-work blockquote.userstuff.summary,
+.kh-skipped-display-collapse .collapsed-blurb.skipped-work dl.stats,
+.kh-skipped-display-collapse .collapsed-blurb.skipped-work h6.landmark.heading,
+.kh-skipped-display-collapse .collapsed-blurb.skipped-work>ul {
+	display: none !important
+}
+
+.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .mystery .icon,
+.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .required-tags,
+.kh-seen-display-collapse .collapsed-blurb.marked-seen .mystery .icon,
+.kh-seen-display-collapse .collapsed-blurb.marked-seen .required-tags,
+.kh-skipped-display-collapse .collapsed-blurb.skipped-work .mystery .icon,
+.kh-skipped-display-collapse .collapsed-blurb.skipped-work .required-tags {
+	opacity: .6;
+	transform: scale(.4);
+	transform-origin: top left
+}
+
+.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .header,
+.kh-seen-display-collapse .collapsed-blurb.marked-seen .header,
+.kh-skipped-display-collapse .collapsed-blurb.skipped-work .header {
+	min-height: 22px;
+	cursor: zoom-in
+}
+
+.kh-kudosed-display-collapse .collapsed-blurb.has-kudos .header .heading,
+.kh-seen-display-collapse .collapsed-blurb.marked-seen .header .heading,
+.kh-skipped-display-collapse .collapsed-blurb.skipped-work .header .heading {
+	margin-left: 32px
+}
+
+.kh-kudosed-display-collapse .has-kudos:not(.collapsed-blurb) .header,
+.kh-seen-display-collapse .marked-seen:not(.collapsed-blurb) .header,
+.kh-skipped-display-collapse .skipped-work:not(.collapsed-blurb) .header {
+	cursor: zoom-out
+}
+
+.kh-skipped-display-placeholder .skipped-work:before {
+	content: "Skipped"
+}
+
+.kh-highlight-new-yes li.new-blurb {
+	border-left: 5px solid #900
+}
+
+.kh-highlight-new-yes.kh-reversi#main li.new-blurb {
+	border-left-color: #5998d6
+}
+
+.kh-toggles-display-on-hover li.blurb-with-toggles:hover>.kh-toggles,
+.kh-toggles-display-show li.blurb-with-toggles .kh-toggles {
+	display: block
+}
+
+.kh-toggles-display-show li.blurb-with-toggles {
+	margin-top: 31px
+}
