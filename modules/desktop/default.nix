@@ -40,6 +40,9 @@ in {
       programs.obs-studio.enable = true;
       programs.mpv = {
         enable = true;
+        config = {
+          save-position-on-quit = true;
+        };
         scripts = [pkgs.mpvScripts.mpris];
       };
       home.shellAliases = {
