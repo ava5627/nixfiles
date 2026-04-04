@@ -7,8 +7,9 @@ with lib;
 with lib.my; let
   cfg = config.modules.desktop.firefox;
   cfg_profile = config.home.programs.firefox.profiles.${config.user.name};
+  cfg_path = config.home.programs.firefox.configPath;
   extension_name = "yaru_orange@ava.xpi";
-  extension_path = ".mozilla/firefox/${cfg_profile.name}/extensions/${extension_name}";
+  extension_path = "${cfg_path}/${cfg_profile.name}/extensions/${extension_name}";
 in {
   options.modules.desktop.firefox = {
     enable = mkEnableOption "Firefox";
@@ -18,8 +19,10 @@ in {
     modules.autoStart = mkIf cfg.autoStart [
       "firefox"
     ];
+
     home.programs.firefox = {
       enable = true;
+      configPath = "${config.home.xdg.configHome}/mozilla/firefox";
       profiles.${config.user.name} = {
         name = "${config.user.name}";
         id = 0;
@@ -46,5 +49,6 @@ in {
       };
     };
     home.home.file.${extension_path}.source = "${config.dotfiles.config}/firefox/${extension_name}";
+    home.home.file.".mozilla/native-messaging-hosts".enable = false;
   };
 }
