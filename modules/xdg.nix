@@ -63,6 +63,7 @@
     userDirs = {
       enable = true;
       createDirectories = true;
+      setSessionVariables = false;
     };
     configFile = {
       "ideavim/ideavimrc".source = "${config.dotfiles.config}/ideavimrc";

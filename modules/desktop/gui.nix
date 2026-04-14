@@ -16,6 +16,7 @@ in {
   config = mkMerge [
     (mkIf gtk_cfg.enable {
       home.gtk = {
+        gtk4.theme = null;
         enable = true;
         gtk2 = {
           configLocation = "${config.home.xdg.configHome}/gtk-2.0/gtkrc";

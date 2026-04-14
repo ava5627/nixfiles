@@ -19,6 +19,7 @@ in {
         git = {
           enable = true;
           ignores = [".ropeproject" ".envrc" ".direnv" "__pycache__" ".vscode" ".ipynb_checkpoints" ".venv" ".pytest_cache"];
+          signing.format = null;
           settings = {
             user.name = cfg.userName;
             user.email = cfg.userEmail;
