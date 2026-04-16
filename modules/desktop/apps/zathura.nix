@@ -11,13 +11,15 @@ in {
     home.programs.zathura = {
       enable = true;
       mappings = {
-        j = "3j";
-        k = "3k";
+        j = "scroll smooth-down";
+        k = "scroll smooth-up";
         J = "feedkeys <C-d>";
         K = "feedkeys <C-u>";
       };
       options = {
+        "scroll-step" = 120;
         "selection-clipboard" = "clipboard";
+        "selection-notification" = false;
         "show-hidden" = true;
         "statusbar-home-tilde" = true;
         "window-title-basename" = true;
