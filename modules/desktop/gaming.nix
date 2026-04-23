@@ -25,7 +25,7 @@ in {
         dotnet-sdk_8 # required for tModLoader to work
         rimsort # RimWorld mod manager
         steamcmd
-        gale # Thunderstore mod manager
+        r2modman # Thunderstore mod manager
       ];
       modules.autoStart = mkIf cfg.steam.autoStart [
         "steam -silent"
