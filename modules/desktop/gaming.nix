@@ -20,11 +20,12 @@ in {
       # https://github.com/ValveSoftware/steam-for-linux/issues/1890#issuecomment-2367103614
       # consider bubblewraping steam as suggested above to move it out of home
       programs.steam.enable = true;
-      environment.systemPackages = [
-        pkgs.ckan # Kerbal Space Program mod manager
-        pkgs.dotnet-sdk_8 # required for tModLoader to work
-        pkgs.rimsort # RimWorld mod manager
-        pkgs.steamcmd
+      environment.systemPackages = with pkgs; [
+        ckan # Kerbal Space Program mod manager
+        dotnet-sdk_8 # required for tModLoader to work
+        rimsort # RimWorld mod manager
+        steamcmd
+        gale # Thunderstore mod manager
       ];
       modules.autoStart = mkIf cfg.steam.autoStart [
         "steam -silent"

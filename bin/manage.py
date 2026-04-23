@@ -19,12 +19,16 @@ from rich.text import Text
 
 
 def checks():
-    sudo = subprocess.run(["sudo", "-v"])
-    if sudo.returncode != 0:
+    try:
+        sudo = subprocess.run(["sudo", "-v"])
+        if sudo.returncode != 0:
+            exit(1)
+        untracked_files()
+        unpulled_commits()
+        update_non_nix()
+    except KeyboardInterrupt:
+        print("[bold red]Aborted[/bold red]")
         exit(1)
-    untracked_files()
-    unpulled_commits()
-    update_non_nix()
 
 
 def untracked_files():
