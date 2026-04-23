@@ -19,7 +19,6 @@ in {
       options = {
         "scroll-step" = 120;
         "selection-clipboard" = "clipboard";
-        "selection-notification" = false;
         "show-hidden" = true;
         "statusbar-home-tilde" = true;
         "window-title-basename" = true;
