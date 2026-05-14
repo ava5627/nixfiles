@@ -15,10 +15,12 @@ in {
           contrastOpacity = 153;
           contrastUiColor = "#15161e";
           disabledTrayIcon = true;
+          insecurePixelate = true;
           savePath = "/home/${config.user.name}/Pictures/Screenshots";
           savePathFixed = false;
           showDesktopNotification = false;
           showHelp = false;
+          showMagnifier = true;
           showSidePanelButton = true;
           showStartupLaunchMessage = false;
           uiColor = "#7aa2f7";
