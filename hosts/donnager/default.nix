@@ -9,7 +9,7 @@
       gaming = {
         steam.enable = true;
         minecraft.enable = true;
-        lutris.enable = true;
+        lutris.enable = false;
         others.enable = true;
       };
       qtile.enable = true;

@@ -25,7 +25,6 @@ def checks():
             exit(1)
         untracked_files()
         unpulled_commits()
-        update_non_nix()
     except KeyboardInterrupt:
         print("[bold red]Aborted[/bold red]")
         exit(1)
@@ -289,16 +288,19 @@ def main():
         rebuild("switch", **vars(args))
         if not args.no_commit:
             git_commit(message=args.message, host=args.host)
+        update_non_nix()
     if not args.command:
         checks()
         rebuild("switch")
         if not args.no_commit:
             git_commit()
+        update_non_nix()
     elif args.command == "upgrade":
         checks()
         update()
         git_commit(message="Update flakes", message_only=True)
         rebuild("switch", **vars(args))
+        update_non_nix()
     elif args.command == "update":
         checks()
         update(args.flakes)
