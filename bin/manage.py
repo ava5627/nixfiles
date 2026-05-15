@@ -274,6 +274,7 @@ def main():
     update_parser = subparsers.add_parser("update", help="Update flakes")
     update_parser.add_argument("flakes", nargs="*", help="The flakes to update")
     subparsers.add_parser("test", help="Test the system")
+    subparsers.add_parser("boot", help="Rebuild the system but don't switch to it")
     foundry_parser = subparsers.add_parser(
         "foundry", help="Fetch FoundryVTT and add it to the nix store"
     )
@@ -308,6 +309,12 @@ def main():
     elif args.command == "test":
         checks()
         rebuild("test")
+    elif args.command == "boot":
+        checks()
+        rebuild("boot")
+        if not args.no_commit:
+            git_commit()
+        update_non_nix()
     elif args.command == "foundry":
         fetch_foundty(args.url)
 
