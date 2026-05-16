@@ -14,11 +14,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs;
-      [
-        discord
-        betterdiscordctl
-      ];
+    environment.systemPackages = with pkgs; [
+      discord
+      betterdiscordctl
+    ];
+    nixpkgs.config.packageOverrides = pkgs: {
+      discord = pkgs.discord.override {
+        withVencord = true;
+      };
+    };
 
     modules.autoStart = mkIf cfg.autoStart [
       "discord"

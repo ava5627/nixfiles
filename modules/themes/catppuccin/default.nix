@@ -99,7 +99,7 @@ in {
         zathura.enable = true;
       };
       xdg.configFile = {
-        "BetterDiscord/themes/midnight.theme.css" = {
+        "Vencord/themes/catppuccin-midnight.theme.css" = {
           enable = config.modules.desktop.discord.enable;
           source = ./config/catppuccin-midnight.theme.css;
         };
