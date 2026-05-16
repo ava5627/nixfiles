@@ -29,9 +29,12 @@ in {
     services.displayManager.defaultSession = mkDefault "qtile";
     services.picom.enable = true;
     home.programs.feh.enable = true;
-    modules.autoStart = [
-      "feh --no-fehbg --bg-scale $HOME/Pictures/Wallpapers/camp_fire.jpg"
-    ];
+    # modules.autoStart = [
+    #   "feh --no-fehbg --bg-scale $HOME/Pictures/Wallpapers/camp_fire.jpg"
+    # ];
+    environment.variables = {
+      WALLPAPER = "${config.dotfiles.config}/camp_fire.jpg";
+    };
 
     environment.systemPackages = with pkgs; [
       xcolor # color picker
