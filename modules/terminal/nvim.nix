@@ -23,6 +23,7 @@ in {
         withNodeJs = true;
         withPython3 = true;
         withRuby = false;
+        sideloadInitLua = true;
       };
 
       home.shellAliases = {
