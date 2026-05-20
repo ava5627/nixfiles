@@ -7,17 +7,17 @@
 }:
 buildNpmPackage rec {
   pname = "vscode-factoriomod-debug";
-  version = "2.0.5";
+  version = "2.0.14";
   src = fetchFromGitHub {
     owner = "justarandomgeek";
     repo = pname;
     rev = version;
-    sha256 = "0cwd5l17sicxfj2dwarzqp9plnfa0qk0h886fqa65r4qqnjk4qy1";
+    sha256 = "1vdphinmgjd5nmcy8r9bxjrsc3lay9p080247abgcxh8yjx85s8a";
   };
 
   nativeBuildInputs = [pkg-config];
   buildInputs = [libsecret];
-  npmDepsHash = "sha256-a/XHeRUUROJRyLTCYWLy2MYp1vvui7Vz7b1VDZN0eWo=";
+  npmDepsHash = "sha256-Msv5/IMS18jgsiz4dXrfxns2K90/1uRhgGMrOO4qe6Y=";
   dontNpmBuild = true;
 
   meta = {
