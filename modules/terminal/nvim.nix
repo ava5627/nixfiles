@@ -33,6 +33,7 @@ in {
     environment.variables = {EDITOR = "nvim";};
     environment.systemPackages = with pkgs; [
       nodejs
+      tree-sitter
     ];
     system.userActivationScripts = {
       neovim.text =
