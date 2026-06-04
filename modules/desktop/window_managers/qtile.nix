@@ -51,7 +51,7 @@ in {
         '';
     };
     home.xdg.configFile = {
-      "qtile/wallpaper.png".source = "${config.dotfiles.config}/camp_fire.jpg";
+      "qtile/wallpaper.jpg".source = "${config.dotfiles.config}/camp_fire.jpg";
       "qtile/autostart.sh" = {
         text = ''
           #!/usr/bin/env bash
