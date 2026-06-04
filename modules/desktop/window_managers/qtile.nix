@@ -32,9 +32,6 @@ in {
     # modules.autoStart = [
     #   "feh --no-fehbg --bg-scale $HOME/Pictures/Wallpapers/camp_fire.jpg"
     # ];
-    environment.variables = {
-      WALLPAPER = "${config.dotfiles.config}/camp_fire.jpg";
-    };
 
     environment.systemPackages = with pkgs; [
       xcolor # color picker
@@ -53,12 +50,15 @@ in {
           fi
         '';
     };
-    home.xdg.configFile."qtile/autostart.sh" = {
-      text = ''
-        #!/usr/bin/env bash
-        ${concatStringsSep " &\n" config.modules.autoStart} &
-      '';
-      executable = true;
+    home.xdg.configFile = {
+      "qtile/wallpaper.png".source = "${config.dotfiles.config}/camp_fire.jpg";
+      "qtile/autostart.sh" = {
+        text = ''
+          #!/usr/bin/env bash
+          ${concatStringsSep " &\n" config.modules.autoStart} &
+        '';
+        executable = true;
+      };
     };
     home.home.shellAliases = {
       qlog = "clear && tail -f ~/.local/share/qtile/qtile.log -n 50";
