@@ -37,6 +37,7 @@ with lib.my; {
       xev # event viewer
     ];
     services.libinput = {
+      enable = true;
       touchpad.naturalScrolling = true; # reverse scrolling direction
     };
   };
