@@ -26,7 +26,7 @@ in {
 
     modules.autoStart = mkIf cfg.autoStart [
       # "discord"
-      "equibop"
+      # "equibop"
     ];
   };
 }
