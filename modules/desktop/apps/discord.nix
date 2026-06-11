@@ -16,7 +16,6 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       discord
-      equibop
     ];
     nixpkgs.config.packageOverrides = pkgs: {
       discord = pkgs.discord.override {
@@ -25,8 +24,7 @@ in {
     };
 
     modules.autoStart = mkIf cfg.autoStart [
-      # "discord"
-      # "equibop"
+      "discord"
     ];
   };
 }
