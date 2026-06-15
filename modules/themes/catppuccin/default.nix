@@ -82,8 +82,8 @@ in {
       qt.style.name = "kvantum";
       qt.platformTheme.name = "kvantum";
       catppuccin = {
-        catppuccin.enable = true;
-        catppuccin.autoEnable = false;
+        enable = true;
+        autoEnable = false;
         accent = "mauve";
         flavor = "mocha";
         bat.enable = true;
