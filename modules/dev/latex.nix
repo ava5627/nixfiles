@@ -11,7 +11,7 @@ in {
   options.modules.dev.latex.enable = mkEnableOption "LaTeX";
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      texliveMedium
+      texliveFull
     ];
     programs.java.enable = true; # Required for tex to work
   };
