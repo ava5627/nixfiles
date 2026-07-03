@@ -14,7 +14,7 @@
       gaming.steam.autoStart = false;
       gaming.minecraft.enable = true;
     };
-    services.foundry.enable = true;
+    services.foundry.enable = false;
   };
   environment.systemPackages = [
     pkgs.my.msi-perkeyrgb
