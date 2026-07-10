@@ -46,7 +46,7 @@
 
   nixpkgs.config.nvidia.acceptLicense = true;
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver { # Nvidia GTX 1070 no longer supported by modern drivers
       version = "580.173.02";
       sha256_64bit = "sha256-jY65AB4FqaimY9PV0wT+tk7yhE7hhczf2VJ4aCD0bhs=";
       # sha256_aarch54 = "";

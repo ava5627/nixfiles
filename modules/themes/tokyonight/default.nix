@@ -97,7 +97,7 @@ in {
           enable = config.modules.desktop.qt.enable;
           text = "[General]\ntheme=KvArcTokyoNight\n";
         };
-        "Vencord/themes/midnight-tokyo.theme.css" = {
+        "Equicord/themes/midnight-tokyo.theme.css" = {
           enable = config.modules.desktop.discord.enable;
           source = ./config/midnight-tokyo.theme.css;
         };
