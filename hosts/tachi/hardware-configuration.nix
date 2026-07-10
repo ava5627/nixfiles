@@ -44,7 +44,18 @@
     nvidia.enable = true;
   };
 
+  nixpkgs.config.nvidia.acceptLicense = true;
   hardware.nvidia = {
+    package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "580.173.02";
+      sha256_64bit = "sha256-jY65AB4FqaimY9PV0wT+tk7yhE7hhczf2VJ4aCD0bhs=";
+      # sha256_aarch54 = "";
+      # openSha256 = "";
+      settingsSha256 = "sha256-dfdu/3tnwHUfP7WoeQFNOMalMlpmUWjeMDIOnu+yi8E=";
+      persistencedSha256 = lib.fakeSha256;
+
+    };
+    gsp.enable = false;
     open = false; # 1070 is not supported by open drivers
     prime = { # enable NVIDIA Optimus required for any graphics output
       # https://nixos.wiki/wiki/Nvidia#Laptop_Configuration:_Hybrid_Graphics_.28Nvidia_Optimus_PRIME.29
