@@ -23,7 +23,8 @@ in {
             (defsrc
                 q w e r t
                 a s d f g
-                z x c v b lsft spc
+                z x c v b
+                tab esc
                 mfwd mbck
             )
 
@@ -35,19 +36,22 @@ in {
             (deflayer default
                 q w e r t
                 a s d f g
-                z x c v b lsft spc
+                z x c v b
+                tab esc
                 @mnum @mblf
             )
             (deflayer num
                 7 8 9 / _
-                4 5 6 - _ bspc ret
-                _ 1 2 3 S-8
+                4 5 6 - _
+                . 1 2 3 S-8
+                0 +
                 _ _
             )
             (deflayer left
                 o i u y _
-                l k j h _ _ _
+                l k j h _
                 _ _ m n p
+                _ _
                 _ _
             )
           '';
