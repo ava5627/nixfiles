@@ -21,32 +21,33 @@ in {
         glove80 = { # maps mouse forward to number layer and mouse back to left layer
           config = ''
             (defsrc
-                q w e r
-                a s d f
-                x c v b
+                q w e r t
+                a s d f g
+                z x c v b
                 mfwd mbck
             )
 
             (defalias
                 mnum (tap-hold 200 200 mfwd (layer-toggle num))
                 mblf (tap-hold 200 200 mbck (layer-toggle left))
+                wnav ()
             )
             (deflayer default
-                q w e r
-                a s d f
-                x c v b
+                q w e r t
+                a s d f g
+                z x c v b
                 @mnum @mblf
             )
             (deflayer num
-                7 8 9 /
-                4 5 6 -
-                1 2 3 S-8
+                _ 7 8 9 /
+                _ 4 5 6 -
+                _ 1 2 3 S-8
                 _ _
             )
             (deflayer left
-                o i u y
-                l k j h
-                _ m n p
+                o i u y _
+                l k j h _
+                _ _ m n p
                 _ _
             )
           '';
