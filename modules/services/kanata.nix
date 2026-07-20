@@ -7,7 +7,7 @@ with lib;
 with lib.my; let
   cfg = config.modules.kanata;
 in {
-  options.modules.kanata.enable = mkBool true "Kanata keyboard remapping service";
+  options.modules.kanata.enable = mkBool false "Kanata keyboard remapping service"; # doesnt work well with my keyboard, will try to think of a fix
   config = mkIf cfg.enable {
     users.groups.uinput = {};
     boot.kernelModules = ["uinput"];
