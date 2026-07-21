@@ -11,7 +11,7 @@ in {
   config = mkIf cfg.enable {
     services.audiobookshelf = {
       enable = true;
-      host = "100.110.28.100";
+      host = "100.110.193.95";
     };
   };
 }
