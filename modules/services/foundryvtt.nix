@@ -3,6 +3,7 @@
   lib,
   inputs,
   system,
+  pkgs,
   ...
 }:
 with lib;
@@ -14,9 +15,13 @@ in {
   ];
   options.modules.services.foundry.enable = mkEnableOption "Enable Foundry VTT";
   config = mkIf cfg.enable {
+    nixpkgs.config.allowUnfree = true;
     services.foundryvtt = {
       enable = true;
-      package = inputs.foundry-vtt.packages.${system}.foundryvtt_13;
+      package = (pkgs.callPackage "${inputs.foundry-vtt}/pkgs/foundryvtt" { }).overrideAttrs (old: old // {
+        majorVersion = "14";
+        releaseType = "stable";
+      });
     };
     user.extraGroups = ["foundryvtt"];
   };
