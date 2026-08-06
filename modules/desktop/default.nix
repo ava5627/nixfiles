@@ -43,7 +43,10 @@ in {
         config = {
           save-position-on-quit = true;
         };
-        scripts = [pkgs.mpvScripts.mpris];
+        scripts = with pkgs; [
+          mpvScripts.mpris # use media keys to control mpv
+          mpvScripts.modernz # mpv ui enhancement
+        ];
       };
       home.shellAliases = {
         cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --demuxer-lavf-o=video_size=1920x1080'';
