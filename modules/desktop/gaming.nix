@@ -28,6 +28,7 @@ in {
         r2modman # Thunderstore mod manager
         owmods-cli
         owmods-gui
+        archipelago
       ];
       modules.autoStart = mkIf cfg.steam.autoStart [
         "steam -silent"
