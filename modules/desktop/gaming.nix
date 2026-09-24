@@ -23,8 +23,8 @@ in {
       environment.systemPackages = with pkgs; [
         ckan # Kerbal Space Program mod manager
         dotnet-sdk_8 # required for tModLoader to work
-        rimsort # RimWorld mod manager
-        steamcmd
+        # rimsort # RimWorld mod manager
+        # steamcmd
         r2modman # Thunderstore mod manager
         owmods-cli
         owmods-gui

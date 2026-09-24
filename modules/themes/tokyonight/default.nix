@@ -75,14 +75,14 @@ in {
     };
     home = {
       gtk = {
-        theme = {
-          package = pkgs.tokyonight-gtk-theme;
-          name = "Tokyonight-Dark";
-        };
-        iconTheme = {
-          package = pkgs.my.tokyo-night-theme;
-          name = "Tokyonight";
-        };
+        # theme = {
+        #   package = pkgs.tokyonight-gtk-theme;
+        #   name = "Tokyonight-Dark";
+        # };
+        # iconTheme = {
+        #   package = pkgs.my.tokyo-night-theme;
+        #   name = "Tokyonight";
+        # };
       };
       xdg.configFile = {
         "fish/conf.d/colors.fish" = {

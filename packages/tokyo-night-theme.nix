@@ -1,7 +1,7 @@
 {
   stdenv,
   fetchFromGitHub,
-  gtk-engine-murrine,
+  # gtk-engine-murrine,
   gnome-themes-extra,
 }:
 stdenv.mkDerivation {
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
   };
 
   propagatedUserEnvPkgs = [
-    gtk-engine-murrine
+    # gtk-engine-murrine
     gnome-themes-extra
   ];
 
