@@ -34,15 +34,12 @@ double edges */
 }
 /* A separate style for when a tab is selected either by itself
 (selected=true) or as part of a multiselection (ctrl+clicking tabs) */
-/* TODO: add this to make compatible with mac, see if works on linux
-* &:is([selected], [multiselected]) {
-*   css
-* }
-*/
-.tabbrowser-tab[selected="true"] .tab-background, .tabbrowser-tab[multiselected="true"] .tab-background {
+.tabbrowser-tab .tab-background {
+  &:is([selected], [multiselected]) {
     outline: none !important;
     border: 1px solid var(--lwt-tab-line-color, var(--lwt-tabs-border-color, currentColor)) !important;
     border-bottom: 0px !important;
+  }
 }
 
 .tab-secondary-label {
