@@ -24,6 +24,7 @@ in {
           showSidePanelButton = true;
           showStartupLaunchMessage = false;
           uiColor = "#7aa2f7";
+          useX11LegacyScreenshot = true;
         };
       };
     };
