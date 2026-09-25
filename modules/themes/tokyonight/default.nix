@@ -80,10 +80,10 @@ in {
         #   package = pkgs.tokyonight-gtk-theme;
         #   name = "Tokyonight-Dark";
         # };
-        # iconTheme = {
-        #   package = pkgs.my.tokyo-night-theme;
-        #   name = "Tokyonight";
-        # };
+        iconTheme = {
+          package = pkgs.morewaita-icon-theme;
+          name = "MoreWaita";
+        };
       };
       xdg.configFile = {
         "fish/conf.d/colors.fish" = {
