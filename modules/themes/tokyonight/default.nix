@@ -75,6 +75,7 @@ in {
     };
     home = {
       gtk = {
+        colorScheme = "dark";
         # theme = {
         #   package = pkgs.tokyonight-gtk-theme;
         #   name = "Tokyonight-Dark";

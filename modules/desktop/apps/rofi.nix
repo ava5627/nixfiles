@@ -18,8 +18,8 @@ in {
       programs.rofi = {
         package = pkgs.rofi;
         enable = true;
-        cycle = true;
-        extraConfig = {
+        settings = {
+          cycle = true;
           show-icons = true;
           matching = "fuzzy";
           modi = ["window" "run" "drun" "ssh"];

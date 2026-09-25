@@ -52,6 +52,7 @@ in {
         cam = ''mpv av://v4l2:/dev/video0 --profile=low-latency --untimed --demuxer-lavf-o=video_size=1920x1080'';
       };
       home.pointerCursor = {
+        enable = true;
         name = "Bibata-Modern-Ice";
         package = pkgs.bibata-cursors;
         dotIcons.enable = false; # creates ~/.icons for backward compatibility reasons, if you have issues set this to true
