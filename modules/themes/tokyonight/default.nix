@@ -81,8 +81,8 @@ in {
         #   name = "Tokyonight-Dark";
         # };
         iconTheme = {
-          package = pkgs.morewaita-icon-theme;
-          name = "MoreWaita";
+          package = pkgs.my.tokyo-night-theme;
+          name = "Tokyonight";
         };
       };
       xdg.configFile = {
