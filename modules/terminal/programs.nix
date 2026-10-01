@@ -31,6 +31,7 @@ in {
       gnumake # make
       gcc # c compiler
       yt-dlp # youtube downloader
+      imagemagick # image manipulation
     ];
     home = {
       programs = {

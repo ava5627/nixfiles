@@ -20,8 +20,6 @@ in {
         enable = true;
         extraPackages = p:
           with p; [
-            xlib
-            pillow
             qtile-extras
           ];
       };
