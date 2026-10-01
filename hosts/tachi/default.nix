@@ -15,6 +15,7 @@
       gaming.minecraft.enable = true;
     };
     services.foundry.enable = true;
+    services.cloudflare_tunnel.enable = true;
   };
   environment.systemPackages = [
     pkgs.my.msi-perkeyrgb
