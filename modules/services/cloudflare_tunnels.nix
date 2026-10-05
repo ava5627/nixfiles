@@ -12,8 +12,8 @@ in {
     services.cloudflared = {
       enable = true;
       tunnels = {
-        "f610fc51-1c8d-4d5f-aa98-e1a56a45da56" = {
-          credentialsFile = "/home/ava/.cloudflared/cert.pem";
+        "4a3abcc9-9d9f-4a95-82b8-a19095633889" = {
+          credentialsFile = "${config.sops.secrets."cloudflare/tunnels/tachi".path}";
           default = "http_status:404";
           ingress = {
             "foundry.byteranger.dev" = "http://localhost:30000";
