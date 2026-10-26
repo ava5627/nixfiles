@@ -35,6 +35,7 @@ with lib.my; {
       xkill # kill a window
       xdotool # keyboard and mouse automation
       xev # event viewer
+      xcolor
     ];
     services.libinput = {
       enable = true;
