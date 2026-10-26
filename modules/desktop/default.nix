@@ -56,7 +56,7 @@ in {
         name = "Bibata-Modern-Ice";
         package = pkgs.bibata-cursors;
         dotIcons.enable = false; # creates ~/.icons for backward compatibility reasons, if you have issues set this to true
-        size = 0;
+        size = 22;
         gtk.enable = true;
         x11.enable = true;
       };
