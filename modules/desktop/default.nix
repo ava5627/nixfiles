@@ -10,7 +10,7 @@ with lib.my; let
 in {
   options.modules.desktop = {
     enable = mkBool true "desktop";
-    insync.autoStart = mkBool true "Start insync on login";
+    insync.autoStart = mkBool false "Start insync on login";
   };
 
   config = mkIf cfg.enable {
@@ -65,7 +65,7 @@ in {
     environment.systemPackages = with pkgs; [
       qalculate-gtk # calculator
       arandr # screen layout editor
-      insync # google drive sync
+      # insync # google drive sync
       pcmanfm # file manager
       lxmenu-data # adds applications to the open-with menu
       kdePackages.okular # document viewer
